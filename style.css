@@ -94,16 +94,11 @@ main {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.nus-lion {
+.nus-lion-img {
     width: 60px;
     height: 60px;
-    background: var(--accent-orange);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: bold;
+    border-radius: 50%; /* Keep it circular */
+    object-fit: contain; /* Ensure the whole lion is visible */
     margin-left: 10px;
 }
 
@@ -258,7 +253,6 @@ main {
     transition: transform 0.3s ease;
 }
 
-/* Make Nav links glow slightly */
 .nav-links a:hover {
     color: white;
     text-shadow: 0 0 5px rgba(255,255,255,0.5);
