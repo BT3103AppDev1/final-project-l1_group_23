@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { auth } from '@/firebase'
+
 import LandingView from '@/views/LandingView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import LoginView from '@/views/LoginView.vue'
@@ -8,18 +9,21 @@ import { onAuthStateChanged } from 'firebase/auth'
 const router = createRouter({
   history: createWebHistory('/final-project-l1_group_23/'),
   routes: [
-    { path: '/', component: LandingView },
-    { path: '/register', component: RegisterView },
-    { path: '/login', component: LoginView },
+    {
+      path: '/',
+      component: LandingView,
+    },
+    {
+      path: '/register',
+      component: RegisterView,
+    },
+    {
+      path: '/login',
+      component: LoginView,
+    },
     {
       path: '/community',
       component: () => import('../views/CommunityView.vue'),
-      meta: { requiresAuth: true },
-    },
-    {
-      path: '/canteen/:id',
-      component: () => import('../views/CanteenView.vue'),
-      props: true,
       meta: { requiresAuth: true },
     },
     { path: '/:pathMatch(.*)*', component: () => import('../views/NotFoundView.vue') },
@@ -34,7 +38,9 @@ router.beforeEach((to, from, next) => {
   }
 
   const user = auth.currentUser
-  if (user) {
+  if (requiresAuth && !user) {
+    next('/')
+  } else {
     next()
     return
   }
