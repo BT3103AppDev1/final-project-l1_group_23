@@ -1,40 +1,106 @@
-/* Color Palette */
 :root {
-    --nus-navy: #001529;
+    --nus-blue: #001529;
     --nus-orange: #F37021;
-    --bg-soft: #FAF7F2;
-    --success: #52c41a;
-    --warning: #faad14;
-    --danger: #ff4d4f;
-    --text-dark: #262626;
+    --bg-cream: #FAF7F2;
+    --green: #52c41a;
     --text-grey: #8c8c8c;
 }
 
-* { box-sizing: border-box; }
-
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    background-color: var(--bg-soft);
-    color: var(--text-dark);
+    font-family: 'Inter', -apple-system, sans-serif;
+    background-color: var(--bg-cream);
+    color: #333;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
 /* Header Styling */
-.main-header {
-    background-color: var(--nus-navy);
+.app-header {
+    background: var(--nus-blue);
     color: white;
-    padding: 12px 0;
+    padding: 10px 0;
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 100;
 }
 
-.header-container {
-    max-width: 1200px;
-    margin: 0 auto;
+.nav-flex {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.brand { display: flex; align-items: center; gap: 8px; }
+.nus-badge { background: #1890ff; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+.brand-name { font-weight: bold; font-size: 18px; }
+
+.main-nav { display: flex; gap: 20px; }
+.main-nav a { color: #8c8c8c; text-decoration: none; font-size: 14px; }
+.main-nav a.active { color: white; border-bottom: 2px solid white; padding-bottom: 4px; }
+
+.header-right { display: flex; gap: 20px; font-size: 14px; align-items: center; cursor: pointer; }
+
+/* Hero & Search */
+.hero { text-align: center; padding: 40px 0; position: relative; }
+.hero h1 { font-size: 40px; margin: 0; font-weight: 800; }
+.orange-text { color: var(--nus-orange); }
+
+.lion-box { display: flex; justify-content: center; align-items: center; margin-top: 15px; gap: 10px; }
+.speech { background: #1890ff; color: white; padding: 5px 12px; border-radius: 15px; font-size: 12px; font-weight: 600; }
+.lion-img { width: 45px; height: 45px; border-radius: 50%; }
+
+.search-section { display: flex; justify-content: center; margin-bottom: 30px; }
+.search-bar { 
+    background: white; width: 550px; display: flex; padding: 6px; 
+    border-radius: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+}
+.search-bar i { margin-left: 15px; color: #ccc; align-self: center; }
+.search-bar input { border: none; flex: 1; padding: 10px; outline: none; }
+.search-btn { background: var(--nus-orange); color: white; border: none; padding: 8px 25px; border-radius: 20px; font-weight: bold; cursor: pointer; }
+
+.filter-row { display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; }
+.filter-chip { background: white; border: 1px solid #eee; padding: 8px 18px; border-radius: 20px; cursor: pointer; font-size: 13px; }
+.filter-chip.active { background: #e6f7ff; color: #1890ff; border-color: #91d5ff; }
+
+/* Canteen Cards */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    padding-bottom: 50px;
+}
+
+.canteen-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.04); }
+
+.card-img-box { position: relative; height: 180px; width: 100%; }
+.card-img-box img { 
+    width: 100%; height: 100%; 
+    object-fit: cover; /* FIXES THE ELONGATION */
+}
+
+.img-actions { position: absolute; top: 12px; right: 12px; display: flex; gap: 8px; }
+.action-icon { background: rgba(255,255,255,0.9); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; }
+.action-icon.heart { color: #ff4d4f; }
+
+.card-body { padding: 20px; }
+.card-body h3 { margin: 0 0 15px 0; font-size: 17px; font-weight: 700; }
+
+.status-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.status-text { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; }
+.dot.green { background: var(--green); }
+.status-fraction { font-size: 12px; color: var(--text-grey); font-weight: bold; }
+
+.progress-container { background: #f0f0f0; height: 10px; border-radius: 10px; overflow: hidden; }
+.progress-bar { height: 100%; border-radius: 10px; }
+.green-fill { background: var(--green); }
+
+.update-time { font-size: 11px; color: #bfbfbf; text-align: right; margin-top: 12px; font-weight: 500; }    align-items: center;
     padding: 0 20px;
 }
 
