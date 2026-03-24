@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NUS CanteenPulse</title>
+    <title>NUS CanteenPulse | Community</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
-        <div class="logo-section">
-            <img src="https://via.placeholder.com/150x50/F37021/FFFFFF?text=NUS" alt="NUS Logo">
+        <div class="header-left">
+            <div class="nus-logo-placeholder">NUS Logo</div>
             <span class="logo-text">CanteenPulse</span>
         </div>
         <nav class="nav-links">
-            <a href="#" class="active"><i class="fas fa-users"></i> Community</a>
+            <a href="community.html" class="active"><i class="fas fa-users"></i> Community</a>
             <a href="#"><i class="fas fa-map-marker-alt"></i> Map</a>
             <a href="#"><i class="fas fa-star"></i> Recommended</a>
             <a href="#"><i class="fas fa-heart"></i> Favourites</a>
@@ -29,138 +29,122 @@
 
     <main>
         <div class="hero">
-            <h1>Hey there, <span class="nus">NUS!</span></h1>
-            <p>Let's find you the best spot to eat <i class="fas fa-star" style="color:#FFD700;"></i></p>
-            <div class="bubble-and-lion">
+            <h1>Hey there, <span class="nus-orange">NUS!</span></h1>
+            <p>Let's find you the best spot to eat <span class="star-icon">⭐</span></p>
+            <div class="bubble-container">
                 <div class="speech-bubble">Hungry? Let's go!</div>
-                <img src="https://i.ibb.co/6PjCq4x/nus-lion-logo.png" alt="NUS Lion" class="nus-lion-img">
+                <img src="https://i.ibb.co/6PjCq4x/nus-lion-logo.png" alt="NUS Lion" class="hero-lion">
             </div>
         </div>
 
-        <div class="search-container">
-            <i class="fas fa-search"></i>
-            <input type="text" placeholder="Search canteens, food, or location...">
-            <button class="search-button">Search</button>
+        <div class="search-section">
+            <div class="search-bar">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" placeholder="Search canteens, food, or location...">
+                <button class="search-btn">Search</button>
+            </div>
         </div>
 
-        <div class="filters">
-            <button class="filter-btn active"><i class="fas fa-utensils"></i> All Canteens</button>
-            <button class="filter-btn"><i class="fas fa-sort-amount-down"></i> Lowest Crowd <i class="fas fa-chevron-down"></i></button>
-            <button class="filter-btn"><i class="fas fa-layer-group"></i> All Levels <i class="fas fa-chevron-down"></i></button>
+        <div class="filter-bar">
+            <button class="filter-item active"><i class="fas fa-utensils"></i> All Canteens</button>
+            <button class="filter-item">Lowest Crowd <i class="fas fa-chevron-down"></i></button>
+            <button class="filter-item">All Levels <i class="fas fa-chevron-down"></i></button>
         </div>
 
         <div class="canteen-grid">
             <div class="canteen-card">
-                <div class="canteen-image-container">
+                <div class="img-container">
                     <img src="Img/pgp.jpg" alt="PGP">
-                    <div class="card-actions">
-                        <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
-                        <button class="card-action-btn"><i class="fas fa-cog"></i></button>
-                    </div>
+                    <div class="heart-overlay"><i class="fas fa-heart"></i></div>
+                    <div class="cog-overlay"><i class="fas fa-cog"></i></div>
                 </div>
-                <div class="canteen-info">
-                    <div class="canteen-title">PGP Aircon Canteen</div>
-                    <div class="status-line">
-                        <span class="status-level low"><span class="status-dot low"></span> Low Crowd (16%)</span>
-                        <span class="status-count">50 / 308</span>
+                <div class="card-content">
+                    <h3>PGP Aircon Canteen</h3>
+                    <div class="capacity-info">50 / 308</div>
+                    <div class="progress-container">
+                        <div class="progress-fill low" style="width: 16%;"></div>
                     </div>
-                    <div class="progress-bar-container"><div class="progress-bar-fill low" style="width: 16%;"></div></div>
-                    <div class="updated-time">Updated 18 minutes ago</div>
+                    <div class="timestamp">Updated 18 minutes ago</div>
                 </div>
             </div>
 
             <div class="canteen-card">
-                <div class="canteen-image-container">
+                <div class="img-container">
                     <img src="Img/Frontier.jpg" alt="Frontier">
-                    <div class="card-actions">
-                        <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
-                        <button class="card-action-btn"><i class="fas fa-cog"></i></button>
-                    </div>
+                    <div class="heart-overlay"><i class="fas fa-heart"></i></div>
+                    <div class="cog-overlay"><i class="fas fa-cog"></i></div>
                 </div>
-                <div class="canteen-info">
-                    <div class="canteen-title">Frontier</div>
-                    <div class="status-line">
-                        <span class="status-level low"><span class="status-dot low"></span> Low Crowd (21%)</span>
-                        <span class="status-count">150 / 700</span>
+                <div class="card-content">
+                    <h3>Frontier</h3>
+                    <div class="capacity-info">150 / 700</div>
+                    <div class="progress-container">
+                        <div class="progress-fill low" style="width: 21%;"></div>
                     </div>
-                    <div class="progress-bar-container"><div class="progress-bar-fill low" style="width: 21%;"></div></div>
-                    <div class="updated-time">Updated about 4 hours ago</div>
+                    <div class="timestamp">Updated about 4 hours ago</div>
                 </div>
             </div>
 
             <div class="canteen-card">
-                <div class="canteen-image-container">
-                    <img src="Img/YIH.jpg" alt="Central Square">
-                    <div class="card-actions">
-                        <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
-                        <button class="card-action-btn"><i class="fas fa-cog"></i></button>
-                    </div>
+                <div class="img-container">
+                    <img src="Img/YIH.jpg" alt="YIH">
+                    <div class="heart-overlay"><i class="fas fa-heart"></i></div>
+                    <div class="cog-overlay"><i class="fas fa-cog"></i></div>
                 </div>
-                <div class="canteen-info">
-                    <div class="canteen-title">Central Square @ YIH</div>
-                    <div class="status-line">
-                        <span class="status-level low"><span class="status-dot low"></span> Low Crowd (32%)</span>
-                        <span class="status-count">100 / 314</span>
+                <div class="card-content">
+                    <h3>Central Square @ YIH</h3>
+                    <div class="capacity-info">100 / 314</div>
+                    <div class="progress-container">
+                        <div class="progress-fill low" style="width: 32%;"></div>
                     </div>
-                    <div class="progress-bar-container"><div class="progress-bar-fill low" style="width: 32%;"></div></div>
-                    <div class="updated-time">Updated about 4 hours ago</div>
+                    <div class="timestamp">Updated about 4 hours ago</div>
                 </div>
             </div>
 
             <div class="canteen-card">
-                <div class="canteen-image-container">
+                <div class="img-container">
                     <img src="Img/FineFood.jpg" alt="Fine Food">
-                    <div class="card-actions">
-                        <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
-                        <button class="card-action-btn"><i class="fas fa-cog"></i></button>
-                    </div>
+                    <div class="heart-overlay"><i class="fas fa-heart"></i></div>
+                    <div class="cog-overlay"><i class="fas fa-cog"></i></div>
                 </div>
-                <div class="canteen-info">
-                    <div class="canteen-title">Fine Food @ UTown</div>
-                    <div class="status-line">
-                        <span class="status-level medium"><span class="status-dot medium"></span> Medium Crowd (42%)</span>
-                        <span class="status-count">250 / 600</span>
+                <div class="card-content">
+                    <h3>Fine Food @ UTown</h3>
+                    <div class="capacity-info">250 / 600</div>
+                    <div class="progress-container">
+                        <div class="progress-fill medium" style="width: 42%;"></div>
                     </div>
-                    <div class="progress-bar-container"><div class="progress-bar-fill medium" style="width: 42%;"></div></div>
-                    <div class="updated-time">Updated about 4 hours ago</div>
+                    <div class="timestamp">Updated about 4 hours ago</div>
                 </div>
             </div>
 
             <div class="canteen-card">
-                <div class="canteen-image-container">
+                <div class="img-container">
                     <img src="Img/deck.jpg" alt="The Deck">
-                    <div class="card-actions">
-                        <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
-                        <button class="card-action-btn"><i class="fas fa-cog"></i></button>
-                    </div>
+                    <div class="heart-overlay"><i class="fas fa-heart"></i></div>
+                    <div class="cog-overlay"><i class="fas fa-cog"></i></div>
                 </div>
-                <div class="canteen-info">
-                    <div class="canteen-title">The Deck</div>
-                    <div class="status-line">
-                        <span class="status-level high"><span class="status-dot high"></span> High Crowd (79%)</span>
-                        <span class="status-count">800 / 1018</span>
+                <div class="card-content">
+                    <h3>The Deck</h3>
+                    <div class="capacity-info">800 / 1018</div>
+                    <div class="progress-container">
+                        <div class="progress-fill high" style="width: 79%;"></div>
                     </div>
-                    <div class="progress-bar-container"><div class="progress-bar-fill high" style="width: 79%;"></div></div>
-                    <div class="updated-time">Updated about 4 hours ago</div>
+                    <div class="timestamp">Updated about 4 hours ago</div>
                 </div>
             </div>
 
             <div class="canteen-card">
-                <div class="canteen-image-container">
+                <div class="img-container">
                     <img src="Img/Flavours.jpg" alt="Flavours">
-                    <div class="card-actions">
-                        <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
-                        <button class="card-action-btn"><i class="fas fa-cog"></i></button>
-                    </div>
+                    <div class="heart-overlay"><i class="fas fa-heart"></i></div>
+                    <div class="cog-overlay"><i class="fas fa-cog"></i></div>
                 </div>
-                <div class="canteen-info">
-                    <div class="canteen-title">Flavours @ UTown</div>
-                    <div class="status-line">
-                        <span class="status-level high"><span class="status-dot high"></span> High Crowd (80%)</span>
-                        <span class="status-count">400 / 500</span>
+                <div class="card-content">
+                    <h3>Flavours @ UTown</h3>
+                    <div class="capacity-info">400 / 500</div>
+                    <div class="progress-container">
+                        <div class="progress-fill high" style="width: 80%;"></div>
                     </div>
-                    <div class="progress-bar-container"><div class="progress-bar-fill high" style="width: 80%;"></div></div>
-                    <div class="updated-time">Updated about 4 hours ago</div>
+                    <div class="timestamp">Updated about 4 hours ago</div>
                 </div>
             </div>
         </div>
