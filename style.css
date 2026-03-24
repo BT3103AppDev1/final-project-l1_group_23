@@ -1,20 +1,35 @@
+/* 1. Global Styles & Colors */
 :root {
     --nus-blue: #001529;
     --nus-orange: #F37021;
-    --bg: #FAF7F2;
+    --bg-cream: #FAF7F2;
+    --status-low: #52c41a;
+    --status-med: #faad14;
+    --status-high: #f5222d;
+    --text-main: #333;
+    --text-muted: #8c8c8c;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 body {
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--bg);
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-cream);
+    color: var(--text-main);
+    line-height: 1.5;
 }
 
-/* Header Styling */
+/* 2. Header & Navigation */
 .main-header {
     background: var(--nus-blue);
     color: white;
-    padding: 10px 0;
+    padding: 12px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .nav-container {
@@ -26,15 +41,191 @@ body {
     padding: 0 20px;
 }
 
-.brand { display: flex; align-items: center; gap: 10px; }
-.nus-box { background: #1890ff; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-weight: bold; }
-.brand-name { font-weight: bold; font-size: 18px; }
+.brand { display: flex; align-items: center; gap: 12px; }
+.nus-box { 
+    background: #1890ff; 
+    padding: 2px 8px; 
+    border-radius: 4px; 
+    font-size: 12px; 
+    font-weight: bold; 
+}
+.brand-name { font-weight: 700; font-size: 1.2rem; letter-spacing: 0.5px; }
 
 .top-nav { display: flex; gap: 25px; }
-.top-nav a { color: #8c8c8c; text-decoration: none; font-size: 14px; }
+.top-nav a { 
+    color: var(--text-muted); 
+    text-decoration: none; 
+    font-size: 14px; 
+    font-weight: 500;
+    transition: 0.3s;
+}
 .top-nav a.active { color: white; border-bottom: 2px solid white; padding-bottom: 5px; }
+.top-nav a:hover { color: white; }
 
-/* Hero Section */
+.user-actions { display: flex; align-items: center; gap: 20px; cursor: pointer; font-size: 14px; }
+
+/* 3. Hero Section */
+.hero-section { 
+    text-align: center; 
+    padding: 60px 0 20px 0; 
+    position: relative; 
+}
+.hero-section h1 { font-size: 48px; margin: 0; font-weight: 800; }
+.orange-text { color: var(--nus-orange); }
+.hero-section p { font-size: 18px; color: #666; margin-top: 10px; }
+
+.lion-status { 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    margin-top: 20px;
+    gap: 15px;
+}
+.speech { 
+    background: #1890ff; 
+    color: white; 
+    padding: 6px 16px; 
+    border-radius: 20px; 
+    font-size: 13px; 
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(24, 144, 255, 0.3);
+}
+.lion-img { width: 55px; height: 55px; border-radius: 50%; border: 2px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+
+/* 4. Search & Filters */
+.search-area { display: flex; justify-content: center; margin: 40px 0; }
+.search-box { 
+    background: white; 
+    width: 600px; 
+    display: flex; 
+    align-items: center; 
+    padding: 8px 10px; 
+    border-radius: 50px; 
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    border: 1px solid #eee;
+}
+.search-box i { margin-left: 15px; color: #999; }
+.search-box input { border: none; flex: 1; padding: 12px; outline: none; font-size: 15px; }
+.btn-search { 
+    background: var(--nus-orange); 
+    color: white; 
+    border: none; 
+    padding: 12px 30px; 
+    border-radius: 40px; 
+    font-weight: 700; 
+    cursor: pointer; 
+    transition: 0.3s;
+}
+.btn-search:hover { background: #d45d1a; }
+
+.filter-chips { display: flex; justify-content: center; gap: 12px; margin-bottom: 50px; }
+.chip { 
+    background: white; 
+    border: 1px solid #e8e8e8; 
+    padding: 10px 20px; 
+    border-radius: 25px; 
+    cursor: pointer; 
+    font-size: 14px; 
+    font-weight: 500;
+    transition: 0.2s;
+}
+.chip.active { background: #e6f7ff; color: #1890ff; border-color: #91d5ff; }
+
+/* 5. Canteen Grid & Cards */
+.canteen-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px 80px 20px;
+}
+
+.card { 
+    background: white; 
+    border-radius: 24px; 
+    overflow: hidden; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04); 
+    transition: transform 0.3s ease;
+}
+.card:hover { transform: translateY(-5px); }
+
+/* THIS FIXES THE ELONGATED IMAGES */
+.card-img { 
+    position: relative; 
+    height: 200px; 
+    width: 100%;
+}
+.card-img img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; /* Crops the image to fit the box perfectly */
+    display: block;
+}
+
+.overlay-icons { 
+    position: absolute; 
+    top: 15px; 
+    right: 15px; 
+    display: flex; 
+    gap: 10px; 
+}
+.icon-circle { 
+    background: rgba(255,255,255,0.95); 
+    width: 36px; 
+    height: 36px; 
+    border-radius: 50%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    color: #444; 
+    cursor: pointer; 
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.icon-circle.heart { color: #ff4d4f; }
+
+.card-body { padding: 24px; }
+.card-body h3 { margin: 0 0 18px 0; font-size: 1.1rem; font-weight: 700; }
+
+.stats-row { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 12px; 
+}
+.crowd-label { 
+    font-size: 13px; 
+    font-weight: 600; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+}
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.dot.green { background: var(--status-low); }
+.dot.orange { background: var(--status-med); }
+.dot.red { background: var(--status-high); }
+
+.fraction { font-size: 12px; color: #888; font-weight: 700; }
+
+/* Progress Bar Pill Shape */
+.progress-bg { 
+    background: #f0f0f0; 
+    height: 12px; 
+    border-radius: 20px; 
+    overflow: hidden; 
+}
+.progress-bar { height: 100%; border-radius: 20px; }
+.green-bar { background: var(--status-low); }
+.orange-bar { background: var(--status-med); }
+.red-bar { background: var(--status-high); }
+
+.time-stamp { 
+    font-size: 11px; 
+    color: #bfbfbf; 
+    text-align: right; 
+    margin-top: 15px; 
+    font-weight: 500;
+}/* Hero Section */
 .hero-section { text-align: center; padding: 40px 0; position: relative; }
 .hero-section h1 { font-size: 42px; margin: 0; }
 .orange-text { color: var(--nus-orange); }
