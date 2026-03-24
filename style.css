@@ -1,40 +1,114 @@
+/* Color Core */
 :root {
-    --navy: #001529;
-    --orange: #F37021;
-    --cream: #FAF7F2;
-    --green: #52c41a;
-    --grey: #8c8c8c;
+    --nus-blue: #001529;
+    --nus-orange: #F37021;
+    --light-bg: #FAF7F2;
+    --success: #52c41a;
+    --muted: #8c8c8c;
 }
 
 body {
     margin: 0;
     font-family: 'Inter', -apple-system, sans-serif;
-    background-color: var(--cream);
+    background-color: var(--light-bg);
     color: #333;
 }
 
-.wrapper {
+.main-container {
     max-width: 1100px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* Navbar Styling */
-.navbar {
-    background: var(--navy);
+/* Header & Nav */
+.app-header {
+    background: var(--nus-blue);
     color: white;
     padding: 12px 0;
     position: sticky;
     top: 0;
-    z-index: 1000;
+    z-index: 99;
 }
 
-.nav-container {
+.nav-wrapper {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 20px;
+}
+
+.brand-identity { display: flex; align-items: center; gap: 10px; }
+.nus-label { background: #1890ff; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+.app-title { font-weight: bold; font-size: 18px; }
+
+.nav-links { display: flex; gap: 20px; }
+.nav-links a { color: #8c8c8c; text-decoration: none; font-size: 14px; }
+.nav-links a.active { color: white; border-bottom: 2px solid white; padding-bottom: 5px; }
+
+.user-meta { display: flex; align-items: center; gap: 20px; font-size: 14px; cursor: pointer; }
+
+/* Hero */
+.hero-header { text-align: center; padding: 50px 0; position: relative; }
+.hero-header h1 { font-size: 42px; margin: 0; font-weight: 800; }
+.nus-orange-text { color: var(--nus-orange); }
+
+.lion-status-area { display: flex; justify-content: center; align-items: center; margin-top: 20px; gap: 10px; }
+.chat-bubble { background: #1890ff; color: white; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+.lion-avatar { width: 50px; height: 50px; border-radius: 50%; border: 2px solid white; }
+
+/* Search Bar */
+.search-region { display: flex; justify-content: center; margin-bottom: 30px; }
+.search-pill { 
+    background: white; width: 580px; display: flex; padding: 6px; 
+    border-radius: 40px; box-shadow: 0 8px 20px rgba(0,0,0,0.05); 
+}
+.search-pill i { margin-left: 15px; color: #ccc; align-self: center; }
+.search-pill input { border: none; flex: 1; padding: 12px; outline: none; }
+.search-action { background: var(--nus-orange); color: white; border: none; padding: 10px 30px; border-radius: 30px; font-weight: bold; cursor: pointer; }
+
+/* Filters */
+.filter-flex { display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; }
+.filter-tab { background: white; border: 1px solid #eee; padding: 8px 18px; border-radius: 20px; cursor: pointer; font-size: 13px; }
+.filter-tab.active { background: #e6f7ff; color: #1890ff; border-color: #91d5ff; }
+
+/* The Grid */
+.canteen-layout-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    padding-bottom: 60px;
+}
+
+.info-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.03); }
+
+/* THIS BLOCK RECTIFIES ELONGATED IMAGES */
+.photo-frame { position: relative; height: 190px; width: 100%; }
+.photo-frame img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; /* CROPS INSTEAD OF STRETCHING */
+}
+
+.interaction-layer { position: absolute; top: 12px; right: 12px; display: flex; gap: 10px; }
+.btn-round { background: rgba(255,255,255,0.9); width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; }
+.heart-red { color: #ff4d4f; }
+
+.card-details { padding: 22px; }
+.card-details h3 { margin: 0 0 15px 0; font-size: 1.1rem; font-weight: 700; }
+
+/* THIS BLOCK RECTIFIES TEXT ALIGNMENT (PUTS FRACTION ON THE RIGHT) */
+.crowd-stats-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.status-indicator { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.dot-green { width: 9px; height: 9px; border-radius: 50%; background: var(--success); }
+.count-fraction { font-size: 12px; color: var(--muted); font-weight: 700; }
+
+.bar-container { background: #f0f0f0; height: 10px; border-radius: 10px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 10px; }
+.green-fill { background: var(--success); }
+
+.time-label { font-size: 11px; color: #bfbfbf; text-align: right; margin-top: 15px; font-weight: 500; }    align-items: center;
     padding: 0 20px;
 }
 
