@@ -3,38 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NUS CanteenPulse | Community</title>
+    <title>NUS CanteenPulse</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header class="main-header">
-        <div class="header-container">
+    <header class="app-header">
+        <div class="container nav-flex">
             <div class="brand">
-                <div class="nus-tag">NUS</div>
-                <span class="app-name">CanteenPulse</span>
+                <span class="nus-badge">NUS</span>
+                <span class="brand-name">CanteenPulse</span>
             </div>
-            <nav class="nav-menu">
-                <a href="#" class="nav-item active"><i class="fas fa-users"></i> Community</a>
-                <a href="#" class="nav-item"><i class="fas fa-map-marker-alt"></i> Map</a>
-                <a href="#" class="nav-item"><i class="fas fa-star"></i> Recommended</a>
-                <a href="#" class="nav-item"><i class="fas fa-heart"></i> Favourites</a>
-                <a href="#" class="nav-item"><i class="fas fa-gift"></i> Rewards</a>
+            <nav class="main-nav">
+                <a href="#" class="active"><i class="fas fa-users"></i> Community</a>
+                <a href="#"><i class="fas fa-map-marker-alt"></i> Map</a>
+                <a href="#"><i class="fas fa-star"></i> Recommended</a>
+                <a href="#"><i class="fas fa-heart"></i> Favourites</a>
+                <a href="#"><i class="fas fa-gift"></i> Rewards</a>
             </nav>
             <div class="header-right">
                 <i class="fas fa-cog"></i>
-                <span class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</span>
+                <span><i class="fas fa-sign-out-alt"></i> Logout</span>
             </div>
         </div>
     </header>
 
-    <main class="main-content">
-        <section class="hero-section">
-            <h1>Hey there, <span class="highlight">NUS!</span></h1>
+    <main class="container">
+        <section class="hero">
+            <h1>Hey there, <span class="orange-text">NUS!</span></h1>
             <p>Let's find you the best spot to eat ⭐</p>
-            <div class="status-lion">
-                <div class="bubble">Hungry? Let's go!</div>
+            <div class="lion-box">
+                <div class="speech">Hungry? Let's go!</div>
+                <img src="https://i.ibb.co/6PjCq4x/nus-lion-logo.png" alt="Lion" class="lion-img">
+            </div>
+        </section>
+
+        <div class="search-section">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search canteens, food, or location...">
+                <button class="search-btn">Search</button>
+            </div>
+        </div>
+
+        <div class="filter-row">
+            <button class="filter-chip active"><i class="fas fa-utensils"></i> All Canteens</button>
+            <button class="filter-chip">Lowest Crowd <i class="fas fa-chevron-down"></i></button>
+            <button class="filter-chip">All Levels <i class="fas fa-chevron-down"></i></button>
+        </div>
+
+        <div class="card-grid">
+            <div class="canteen-card">
+                <div class="card-img-box">
+                    <img src="Img/pgp.jpg" alt="PGP">
+                    <div class="img-actions">
+                        <div class="action-icon heart"><i class="fas fa-heart"></i></div>
+                        <div class="action-icon"><i class="fas fa-cog"></i></div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3>PGP Aircon Canteen</h3>
+                    <div class="status-row">
+                        <span class="status-text"><span class="dot green"></span> Low Crowd (16%)</span>
+                        <span class="status-fraction">50 / 308</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar green-fill" style="width: 16%;"></div>
+                    </div>
+                    <div class="update-time">Updated 18 minutes ago</div>
+                </div>
+            </div>
+
+            <div class="canteen-card">
+                <div class="card-img-box">
+                    <img src="Img/Frontier.jpg" alt="Frontier">
+                    <div class="img-actions">
+                        <div class="action-icon heart"><i class="fas fa-heart"></i></div>
+                        <div class="action-icon"><i class="fas fa-cog"></i></div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3>Frontier</h3>
+                    <div class="status-row">
+                        <span class="status-text"><span class="dot green"></span> Low Crowd (21%)</span>
+                        <span class="status-fraction">150 / 700</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar green-fill" style="width: 21%;"></div>
+                    </div>
+                    <div class="update-time">Updated about 4 hours ago</div>
+                </div>
+            </div>
+
+            <div class="canteen-card">
+                <div class="card-img-box">
+                    <img src="Img/YIH.jpg" alt="YIH">
+                    <div class="img-actions">
+                        <div class="action-icon heart"><i class="fas fa-heart"></i></div>
+                        <div class="action-icon"><i class="fas fa-cog"></i></div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3>Central Square @ YIH</h3>
+                    <div class="status-row">
+                        <span class="status-text"><span class="dot green"></span> Low Crowd (32%)</span>
+                        <span class="status-fraction">100 / 314</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar green-fill" style="width: 32%;"></div>
+                    </div>
+                    <div class="update-time">Updated about 4 hours ago</div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>                <div class="bubble">Hungry? Let's go!</div>
                 <img src="https://i.ibb.co/6PjCq4x/nus-lion-logo.png" alt="NUS Lion" class="lion-avatar">
             </div>
         </section>
