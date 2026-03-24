@@ -3,38 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NUS CanteenPulse</title>
+    <title>NUS CanteenPulse | Community</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header class="app-header">
-        <div class="container nav-flex">
-            <div class="brand">
-                <span class="nus-badge">NUS</span>
-                <span class="brand-name">CanteenPulse</span>
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo-section">
+                <span class="nus-tag">NUS</span>
+                <span class="app-name">CanteenPulse</span>
             </div>
-            <nav class="main-nav">
+            <nav class="nav-links">
                 <a href="#" class="active"><i class="fas fa-users"></i> Community</a>
                 <a href="#"><i class="fas fa-map-marker-alt"></i> Map</a>
                 <a href="#"><i class="fas fa-star"></i> Recommended</a>
                 <a href="#"><i class="fas fa-heart"></i> Favourites</a>
                 <a href="#"><i class="fas fa-gift"></i> Rewards</a>
             </nav>
-            <div class="header-right">
+            <div class="nav-user">
                 <i class="fas fa-cog"></i>
                 <span><i class="fas fa-sign-out-alt"></i> Logout</span>
             </div>
         </div>
     </header>
 
-    <main class="container">
-        <section class="hero">
-            <h1>Hey there, <span class="orange-text">NUS!</span></h1>
+    <main class="wrapper">
+        <section class="welcome-hero">
+            <h1>Hey there, <span class="accent-orange">NUS!</span></h1>
             <p>Let's find you the best spot to eat ⭐</p>
-            <div class="lion-box">
-                <div class="speech">Hungry? Let's go!</div>
+            <div class="mascot-container">
+                <div class="speech-bubble">Hungry? Let's go!</div>
+                <img src="https://i.ibb.co/6PjCq4x/nus-lion-logo.png" alt="NUS Lion" class="lion-icon">
+            </div>
+        </section>
+
+        <div class="search-container">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search canteens, food, or location...">
+                <button class="search-btn">Search</button>
+            </div>
+        </div>
+
+        <div class="filter-group">
+            <button class="filter-btn active"><i class="fas fa-utensils"></i> All Canteens</button>
+            <button class="filter-btn">Lowest Crowd <i class="fas fa-chevron-down"></i></button>
+            <button class="filter-btn">All Levels <i class="fas fa-chevron-down"></i></button>
+        </div>
+
+        <div class="canteen-grid">
+            <div class="canteen-card">
+                <div class="card-media">
+                    <img src="Img/pgp.jpg" alt="PGP">
+                    <div class="card-overlay">
+                        <div class="overlay-btn heart-btn"><i class="fas fa-heart"></i></div>
+                        <div class="overlay-btn"><i class="fas fa-cog"></i></div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3>PGP Aircon Canteen</h3>
+                    <div class="status-header">
+                        <span class="crowd-level"><span class="status-dot low"></span> Low Crowd (16%)</span>
+                        <span class="crowd-fraction">50 / 308</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-fill low-bg" style="width: 16%;"></div>
+                    </div>
+                    <div class="update-label">Updated 18 minutes ago</div>
+                </div>
+            </div>
+
+            <div class="canteen-card">
+                <div class="card-media">
+                    <img src="Img/Frontier.jpg" alt="Frontier">
+                    <div class="card-overlay">
+                        <div class="overlay-btn heart-btn"><i class="fas fa-heart"></i></div>
+                        <div class="overlay-btn"><i class="fas fa-cog"></i></div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3>Frontier</h3>
+                    <div class="status-header">
+                        <span class="crowd-level"><span class="status-dot low"></span> Low Crowd (21%)</span>
+                        <span class="crowd-fraction">150 / 700</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-fill low-bg" style="width: 21%;"></div>
+                    </div>
+                    <div class="update-label">Updated about 4 hours ago</div>
+                </div>
+            </div>
+
+            <div class="canteen-card">
+                <div class="card-media">
+                    <img src="Img/YIH.jpg" alt="YIH">
+                    <div class="card-overlay">
+                        <div class="overlay-btn heart-btn"><i class="fas fa-heart"></i></div>
+                        <div class="overlay-btn"><i class="fas fa-cog"></i></div>
+                    </div>
+                </div>
+                <div class="card-content">
+                    <h3>Central Square @ YIH</h3>
+                    <div class="status-header">
+                        <span class="crowd-level"><span class="status-dot low"></span> Low Crowd (32%)</span>
+                        <span class="crowd-fraction">100 / 314</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-fill low-bg" style="width: 32%;"></div>
+                    </div>
+                    <div class="update-label">Updated about 4 hours ago</div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>                <div class="speech">Hungry? Let's go!</div>
                 <img src="https://i.ibb.co/6PjCq4x/nus-lion-logo.png" alt="Lion" class="lion-img">
             </div>
         </section>
