@@ -1,40 +1,110 @@
 :root {
-    --nus-blue: #001529;
-    --nus-orange: #F37021;
-    --bg-cream: #FAF7F2;
+    --navy: #001529;
+    --orange: #F37021;
+    --cream: #FAF7F2;
     --green: #52c41a;
-    --text-grey: #8c8c8c;
+    --grey: #8c8c8c;
 }
 
 body {
     margin: 0;
     font-family: 'Inter', -apple-system, sans-serif;
-    background-color: var(--bg-cream);
+    background-color: var(--cream);
     color: #333;
 }
 
-.container {
+.wrapper {
     max-width: 1100px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
-/* Header Styling */
-.app-header {
-    background: var(--nus-blue);
+/* Navbar Styling */
+.navbar {
+    background: var(--navy);
     color: white;
-    padding: 10px 0;
+    padding: 12px 0;
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
 }
 
-.nav-flex {
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0 20px;
 }
 
+.logo-section { display: flex; align-items: center; gap: 10px; }
+.nus-tag { background: #1890ff; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+.app-name { font-weight: bold; font-size: 1.1rem; }
+
+.nav-links { display: flex; gap: 20px; }
+.nav-links a { color: #8c8c8c; text-decoration: none; font-size: 14px; }
+.nav-links a.active { color: white; border-bottom: 2px solid white; padding-bottom: 5px; }
+
+.nav-user { display: flex; align-items: center; gap: 20px; font-size: 14px; cursor: pointer; }
+
+/* Hero & Mascot */
+.welcome-hero { text-align: center; padding: 50px 0; position: relative; }
+.welcome-hero h1 { font-size: 44px; margin: 0; font-weight: 800; }
+.accent-orange { color: var(--orange); }
+
+.mascot-container { display: flex; justify-content: center; align-items: center; margin-top: 15px; gap: 12px; }
+.speech-bubble { background: #1890ff; color: white; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+.lion-icon { width: 45px; height: 45px; border-radius: 50%; }
+
+/* Search Area */
+.search-container { display: flex; justify-content: center; margin-bottom: 30px; }
+.search-bar { 
+    background: white; width: 550px; display: flex; padding: 6px; 
+    border-radius: 40px; box-shadow: 0 8px 20px rgba(0,0,0,0.04); 
+}
+.search-bar i { margin-left: 15px; color: #ccc; align-self: center; }
+.search-bar input { border: none; flex: 1; padding: 10px; outline: none; }
+.search-btn { background: var(--orange); color: white; border: none; padding: 10px 25px; border-radius: 20px; font-weight: bold; cursor: pointer; }
+
+/* Filters */
+.filter-group { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; }
+.filter-btn { background: white; border: 1px solid #eee; padding: 8px 18px; border-radius: 20px; cursor: pointer; font-size: 13px; }
+.filter-btn.active { background: #e6f7ff; color: #1890ff; border-color: #91d5ff; }
+
+/* Canteen Cards */
+.canteen-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    padding-bottom: 60px;
+}
+
+.canteen-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.03); }
+
+/* THIS FIXES THE ELONGATION */
+.card-media { position: relative; height: 180px; width: 100%; }
+.card-media img { width: 100%; height: 100%; object-fit: cover; }
+
+.card-overlay { position: absolute; top: 12px; right: 12px; display: flex; gap: 8px; }
+.overlay-btn { background: rgba(255,255,255,0.9); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; cursor: pointer; }
+.overlay-btn.heart-btn { color: #ff4d4f; }
+
+.card-content { padding: 20px; }
+.card-content h3 { margin: 0 0 15px 0; font-size: 18px; font-weight: 700; }
+
+/* THIS ALIGNS STATUS AND FRACTION ON ONE LINE */
+.status-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.crowd-level { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.status-dot { width: 8px; height: 8px; border-radius: 50%; }
+.status-dot.low { background: var(--green); }
+.crowd-fraction { font-size: 12px; color: var(--grey); font-weight: bold; }
+
+.progress-track { background: #f0f0f0; height: 10px; border-radius: 10px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 10px; }
+.low-bg { background: var(--green); }
+
+.update-label { font-size: 11px; color: #bfbfbf; text-align: right; margin-top: 15px; font-weight: 500; }
 .brand { display: flex; align-items: center; gap: 8px; }
 .nus-badge { background: #1890ff; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; }
 .brand-name { font-weight: bold; font-size: 18px; }
