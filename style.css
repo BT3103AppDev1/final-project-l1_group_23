@@ -235,3 +235,31 @@ main {
     color: #999;
     text-align: right;
 }
+
+
+@media (max-width: 768px) {
+    .canteen-grid {
+        grid-template-columns: 1fr; /* Stack cards in 1 column */
+        padding: 10px;
+    }
+    
+    .search-container {
+        width: 90%; /* Make search bar wider on mobile */
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+}
+
+
+.canteen-card:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+}
+
+/* Make Nav links glow slightly */
+.nav-links a:hover {
+    color: white;
+    text-shadow: 0 0 5px rgba(255,255,255,0.5);
+}
