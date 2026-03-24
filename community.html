@@ -3,38 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NUS CanteenPulse</title>
+    <title>NUS CanteenPulse | Community</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header>
-        <div class="logo-section">
-            <img src="https://via.placeholder.com/150x50/F37021/FFFFFF?text=NUS" alt="NUS Logo">
-            <span class="logo-text">CanteenPulse</span>
-        </div>
-        <nav class="nav-links">
-            <a href="#" class="active"><i class="fas fa-users"></i> Community</a>
-            <a href="#"><i class="fas fa-map-marker-alt"></i> Map</a>
-            <a href="#"><i class="fas fa-star"></i> Recommended</a>
-            <a href="#"><i class="fas fa-heart"></i> Favourites</a>
-            <a href="#"><i class="fas fa-gift"></i> Rewards</a>
-        </nav>
-        <div class="user-controls">
-            <i class="fas fa-cog"></i>
-            <i class="fas fa-sign-out-alt"></i> Logout
+    <header class="main-header">
+        <div class="header-container">
+            <div class="brand">
+                <div class="nus-tag">NUS</div>
+                <span class="app-name">CanteenPulse</span>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active"><i class="fas fa-users"></i> Community</a>
+                <a href="#" class="nav-item"><i class="fas fa-map-marker-alt"></i> Map</a>
+                <a href="#" class="nav-item"><i class="fas fa-star"></i> Recommended</a>
+                <a href="#" class="nav-item"><i class="fas fa-heart"></i> Favourites</a>
+                <a href="#" class="nav-item"><i class="fas fa-gift"></i> Rewards</a>
+            </nav>
+            <div class="header-right">
+                <i class="fas fa-cog"></i>
+                <span class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</span>
+            </div>
         </div>
     </header>
 
-    <main>
-        <div class="hero">
-            <h1>Hey there, <span class="nus">NUS!</span></h1>
-            <p>Let's find you the best spot to eat <i class="fas fa-star" style="color:#FFD700;"></i></p>
-            <div class="bubble-and-lion">
-                <div class="speech-bubble">Hungry? Let's go!</div>
-                <div class="nus-lion">L</div>
+    <main class="main-content">
+        <section class="hero-section">
+            <h1>Hey there, <span class="highlight">NUS!</span></h1>
+            <p>Let's find you the best spot to eat ⭐</p>
+            <div class="status-lion">
+                <div class="bubble">Hungry? Let's go!</div>
+                <img src="https://i.ibb.co/6PjCq4x/nus-lion-logo.png" alt="NUS Lion" class="lion-avatar">
             </div>
+        </section>
+
+        <div class="search-wrapper">
+            <div class="search-inner">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search canteens, food, or location...">
+                <button class="search-trigger">Search</button>
+            </div>
+        </div>
+
+        <div class="filter-row">
+            <button class="chip active"><i class="fas fa-utensils"></i> All Canteens</button>
+            <button class="chip">Lowest Crowd <i class="fas fa-chevron-down"></i></button>
+            <button class="chip">All Levels <i class="fas fa-chevron-down"></i></button>
+        </div>
+
+        <div class="grid-container">
+            <div class="canteen-card">
+                <div class="image-box">
+                    <img src="Img/pgp.jpg" alt="PGP Canteen">
+                    <div class="float-icons">
+                        <span class="circle-btn heart"><i class="fas fa-heart"></i></span>
+                        <span class="circle-btn"><i class="fas fa-cog"></i></span>
+                    </div>
+                </div>
+                <div class="card-details">
+                    <h3>PGP Aircon Canteen</h3>
+                    <div class="status-bar-info">
+                        <span class="crowd-tag"><span class="dot green"></span> Low Crowd (16%)</span>
+                        <span class="fraction-text">50 / 308</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-fill green-bar" style="width: 16%;"></div>
+                    </div>
+                    <div class="meta-info">Updated 18 minutes ago</div>
+                </div>
+            </div>
+
+            <div class="canteen-card">
+                <div class="image-box">
+                    <img src="Img/Frontier.jpg" alt="Frontier">
+                    <div class="float-icons">
+                        <span class="circle-btn heart"><i class="fas fa-heart"></i></span>
+                        <span class="circle-btn"><i class="fas fa-cog"></i></span>
+                    </div>
+                </div>
+                <div class="card-details">
+                    <h3>Frontier</h3>
+                    <div class="status-bar-info">
+                        <span class="crowd-tag"><span class="dot green"></span> Low Crowd (21%)</span>
+                        <span class="fraction-text">150 / 700</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-fill green-bar" style="width: 21%;"></div>
+                    </div>
+                    <div class="meta-info">Updated about 4 hours ago</div>
+                </div>
+            </div>
+
+            <div class="canteen-card">
+                <div class="image-box">
+                    <img src="Img/YIH.jpg" alt="YIH">
+                    <div class="float-icons">
+                        <span class="circle-btn heart"><i class="fas fa-heart"></i></span>
+                        <span class="circle-btn"><i class="fas fa-cog"></i></span>
+                    </div>
+                </div>
+                <div class="card-details">
+                    <h3>Central Square @ YIH</h3>
+                    <div class="status-bar-info">
+                        <span class="crowd-tag"><span class="dot green"></span> Low Crowd (32%)</span>
+                        <span class="fraction-text">100 / 314</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-fill green-bar" style="width: 32%;"></div>
+                    </div>
+                    <div class="meta-info">Updated about 4 hours ago</div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>            </div>
         </div>
 
         <div class="search-container">
