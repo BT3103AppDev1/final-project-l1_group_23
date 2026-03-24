@@ -1,40 +1,117 @@
-/* Color Core */
 :root {
     --nus-blue: #001529;
     --nus-orange: #F37021;
-    --light-bg: #FAF7F2;
-    --success: #52c41a;
-    --muted: #8c8c8c;
+    --bg-cream: #FAF7F2;
+    --status-low: #52c41a;
 }
 
 body {
     margin: 0;
-    font-family: 'Inter', -apple-system, sans-serif;
-    background-color: var(--light-bg);
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: var(--bg-cream);
     color: #333;
 }
 
-.main-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-/* Header & Nav */
-.app-header {
+/* Header */
+.main-header {
     background: var(--nus-blue);
     color: white;
     padding: 12px 0;
     position: sticky;
     top: 0;
-    z-index: 99;
+    z-index: 1000;
 }
 
-.nav-wrapper {
+.header-container {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.brand { display: flex; align-items: center; gap: 10px; }
+.nus-tag { background: #1890ff; padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: bold; }
+.app-name { font-weight: bold; font-size: 18px; }
+
+.nav-menu { display: flex; gap: 20px; }
+.nav-item { color: #8c8c8c; text-decoration: none; font-size: 14px; }
+.nav-item.active { color: white; border-bottom: 2px solid white; padding-bottom: 4px; }
+
+/* Hero Section */
+.hero { text-align: center; padding: 40px 0; position: relative; }
+.hero h1 { font-size: 42px; margin: 0; font-weight: 800; }
+.orange-text { color: var(--nus-orange); }
+
+.lion-status { display: flex; justify-content: center; align-items: center; margin-top: 15px; gap: 10px; }
+.speech-bubble { background: #1890ff; color: white; padding: 5px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+.lion-img { width: 45px; height: 45px; border-radius: 50%; border: 2px solid white; }
+
+/* Search Bar */
+.search-section { display: flex; justify-content: center; margin-bottom: 30px; }
+.search-box { 
+    background: white; width: 550px; display: flex; padding: 6px; 
+    border-radius: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+}
+.search-box i { margin-left: 15px; color: #ccc; align-self: center; }
+.search-box input { border: none; flex: 1; padding: 10px; outline: none; }
+.btn-search { background: var(--nus-orange); color: white; border: none; padding: 8px 25px; border-radius: 25px; font-weight: bold; cursor: pointer; }
+
+/* Filters */
+.filters { display: flex; justify-content: center; gap: 12px; margin-bottom: 40px; }
+.chip { background: white; border: 1px solid #eee; padding: 8px 18px; border-radius: 20px; cursor: pointer; font-size: 13px; }
+.chip.active { background: #e6f7ff; color: #1890ff; border-color: #91d5ff; }
+
+/* Canteen Cards */
+.canteen-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px 60px 20px;
+}
+
+.card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.03); }
+
+/* --- RECTIFICATION FOR ELONGATED IMAGES --- */
+.card-image-box { 
+    position: relative; 
+    height: 190px; /* Forces a fixed height */
+    width: 100%;
+}
+.card-image-box img { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; /* Crops the image to fit the box without stretching */
+    display: block;
+}
+
+.card-overlay { position: absolute; top: 12px; right: 12px; display: flex; gap: 8px; }
+.icon-circle { background: rgba(255,255,255,0.9); width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #666; cursor: pointer; }
+.icon-circle.heart { color: #ff4d4f; }
+
+.card-body { padding: 20px; }
+.card-body h3 { margin: 0 0 15px 0; font-size: 18px; font-weight: 700; }
+
+/* --- RECTIFICATION FOR TEXT ALIGNMENT --- */
+.status-row { 
+    display: flex; 
+    justify-content: space-between; /* Pushes text left and fraction right */
+    align-items: center; 
+    margin-bottom: 8px; 
+}
+.crowd-label { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 6px; }
+.dot { width: 8px; height: 8px; border-radius: 50%; }
+.dot.green { background: var(--status-low); }
+.fraction { font-size: 12px; color: #888; font-weight: bold; }
+
+.progress-bg { background: #f0f0f0; height: 10px; border-radius: 10px; overflow: hidden; }
+.progress-bar { height: 100%; border-radius: 10px; }
+.green-fill { background: var(--status-low); }
+
+.timestamp { font-size: 11px; color: #bfbfbf; text-align: right; margin-top: 15px; font-weight: 500; }    justify-content: space-between;
     align-items: center;
     padding: 0 20px;
 }
