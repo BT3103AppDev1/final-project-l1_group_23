@@ -9,11 +9,11 @@
 </head>
 <body>
 
-    <header class="navbar">
-        <div class="nav-container">
-            <div class="logo-section">
-                <span class="nus-tag">NUS</span>
-                <span class="app-name">CanteenPulse</span>
+    <header class="app-header">
+        <div class="nav-wrapper">
+            <div class="brand-identity">
+                <span class="nus-label">NUS</span>
+                <span class="app-title">CanteenPulse</span>
             </div>
             <nav class="nav-links">
                 <a href="#" class="active"><i class="fas fa-users"></i> Community</a>
@@ -22,19 +22,84 @@
                 <a href="#"><i class="fas fa-heart"></i> Favourites</a>
                 <a href="#"><i class="fas fa-gift"></i> Rewards</a>
             </nav>
-            <div class="nav-user">
+            <div class="user-meta">
                 <i class="fas fa-cog"></i>
                 <span><i class="fas fa-sign-out-alt"></i> Logout</span>
             </div>
         </div>
     </header>
 
-    <main class="wrapper">
-        <section class="welcome-hero">
-            <h1>Hey there, <span class="accent-orange">NUS!</span></h1>
+    <main class="main-container">
+        <section class="hero-header">
+            <h1>Hey there, <span class="nus-orange-text">NUS!</span></h1>
             <p>Let's find you the best spot to eat ⭐</p>
-            <div class="mascot-container">
-                <div class="speech-bubble">Hungry? Let's go!</div>
+            <div class="lion-status-area">
+                <div class="chat-bubble">Hungry? Let's go!</div>
+                <img src="https://i.ibb.co/6PjCq4x/nus-lion-logo.png" alt="NUS Lion" class="lion-avatar">
+            </div>
+        </section>
+
+        <div class="search-region">
+            <div class="search-pill">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search canteens, food, or location...">
+                <button class="search-action">Search</button>
+            </div>
+        </div>
+
+        <div class="filter-flex">
+            <button class="filter-tab active"><i class="fas fa-utensils"></i> All Canteens</button>
+            <button class="filter-tab">Lowest Crowd <i class="fas fa-chevron-down"></i></button>
+            <button class="filter-tab">All Levels <i class="fas fa-chevron-down"></i></button>
+        </div>
+
+        <div class="canteen-layout-grid">
+            <div class="info-card">
+                <div class="photo-frame">
+                    <img src="Img/pgp.jpg" alt="PGP">
+                    <div class="interaction-layer">
+                        <div class="btn-round heart-red"><i class="fas fa-heart"></i></div>
+                        <div class="btn-round"><i class="fas fa-cog"></i></div>
+                    </div>
+                </div>
+                <div class="card-details">
+                    <h3>PGP Aircon Canteen</h3>
+                    <div class="crowd-stats-row">
+                        <span class="status-indicator"><span class="dot-green"></span> Low Crowd (16%)</span>
+                        <span class="count-fraction">50 / 308</span>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar-fill green-fill" style="width: 16%;"></div>
+                    </div>
+                    <div class="time-label">Updated 18 minutes ago</div>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <div class="photo-frame">
+                    <img src="Img/Frontier.jpg" alt="Frontier">
+                    <div class="interaction-layer">
+                        <div class="btn-round heart-red"><i class="fas fa-heart"></i></div>
+                        <div class="btn-round"><i class="fas fa-cog"></i></div>
+                    </div>
+                </div>
+                <div class="card-details">
+                    <h3>Frontier</h3>
+                    <div class="crowd-stats-row">
+                        <span class="status-indicator"><span class="dot-green"></span> Low Crowd (21%)</span>
+                        <span class="count-fraction">150 / 700</span>
+                    </div>
+                    <div class="bar-container">
+                        <div class="bar-fill green-fill" style="width: 21%;"></div>
+                    </div>
+                    <div class="time-label">Updated about 4 hours ago</div>
+                </div>
+            </div>
+            
+            </div>
+    </main>
+</body>
+</html>                <div class="speech-bubble">Hungry? Let's go!</div>
                 <img src="https://i.ibb.co/6PjCq4x/nus-lion-logo.png" alt="NUS Lion" class="lion-icon">
             </div>
         </section>
