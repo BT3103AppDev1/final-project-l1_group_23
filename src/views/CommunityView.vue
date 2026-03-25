@@ -167,7 +167,7 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
 
 .page-wrapper {
-    background: linear-gradient(160deg, #dce8f5 0%, #f0e8e0 100%);
+    background: linear-gradient(180deg, #e6edf5 0%, #fde8cc 70%);
     min-height: 100vh;
 }
 header {
@@ -208,17 +208,21 @@ main {
     align-items: center;
 }
 .hero { text-align: center; position: relative; margin: 50px 0 30px; width: 100%; }
-.hero h1 { font-size: 3rem; font-weight: 800; margin: 0 0 8px; color: #0A1C3E; }
-.hero p { font-size: 1.1rem; color: #555; margin: 0; }
+.hero h1 {
+    font-size: 3.2rem;
+    font-weight: 800;
+}
+.hero p {
+    font-size: 1.1rem;
+    margin-top: 6px;
+}
+
 .nus { color: #F37021; }
 .bubble-and-lion {
-    position: absolute;
-    top: 10px;
-    right: calc(50% - 420px);
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    top: 60px;       
+    right: calc(50% - 360px); 
 }
+
 .speech-bubble { background: white; padding: 8px 16px; border-radius: 18px; font-size: 13px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.12); color: #2A2A2A; }
 .nus-lion { width: 80px; height: 80px; border-radius: 50%; overflow: hidden; border: 3px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.15); background: #F37021; flex-shrink: 0; }
 .nus-lion img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
@@ -231,7 +235,7 @@ main {
 .filter-btn { background: white; border: 1.5px solid #e0e0e0; padding: 9px 20px; border-radius: 24px; cursor: pointer; font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 6px; transition: 0.2s; }
 .filter-btn.active { color: #1a73e8; border-color: #1a73e8; font-weight: 600; }
 .canteen-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; max-width: 1100px; }
-.canteen-card { background: white; border-radius: 18px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.07); transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.canteen-card { background: white; border-radius: 18px; overflow: hidden; box-shadow: 0 6px 20px rgba(0,0,0,0.05); transition: transform 0.25s ease, box-shadow 0.25s ease; }
 .canteen-card:hover { transform: translateY(-5px); box-shadow: 0 10px 28px rgba(0,0,0,0.12); }
 .canteen-image-container { position: relative; height: 185px; }
 .canteen-image-container img { width: 100%; height: 100%; object-fit: cover; display: block; }
