@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page-wrapper">
     <header>
       <div class="logo-section">
         <span class="logo-nus">NUS</span><span class="logo-text">CanteenPulse</span>
@@ -166,20 +166,7 @@
 <style scoped>
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
 
-:root {
-    --primary-blue: #0A1C3E;
-    --accent-orange: #F37021;
-    --text-main: #2A2A2A;
-    --text-muted: #888888;
-    --green: #2ecc71;
-    --orange: #e67e22;
-    --red: #e74c3c;
-}
-* { box-sizing: border-box; }
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', sans-serif;
+.page-wrapper {
     background: linear-gradient(160deg, #dce8f5 0%, #f0e8e0 100%);
     min-height: 100vh;
 }
@@ -214,12 +201,24 @@ header {
 .nav-links a:hover { color: white; }
 .nav-links a.active { color: white; background-color: rgba(255,255,255,0.15); }
 .user-controls { display: flex; align-items: center; gap: 16px; font-size: 14px; cursor: pointer; color: rgba(255,255,255,0.8); }
-main { padding: 0 40px 60px; display: flex; flex-direction: column; align-items: center; }
+main {
+    padding: 0 40px 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .hero { text-align: center; position: relative; margin: 50px 0 30px; width: 100%; }
 .hero h1 { font-size: 3rem; font-weight: 800; margin: 0 0 8px; color: #0A1C3E; }
 .hero p { font-size: 1.1rem; color: #555; margin: 0; }
 .nus { color: #F37021; }
-.bubble-and-lion { position: absolute; top: 10px; right: 5%; display: flex; align-items: center; gap: 10px; }
+.bubble-and-lion {
+    position: absolute;
+    top: 10px;
+    right: calc(50% - 420px);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 .speech-bubble { background: white; padding: 8px 16px; border-radius: 18px; font-size: 13px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.12); color: #2A2A2A; }
 .nus-lion { width: 80px; height: 80px; border-radius: 50%; overflow: hidden; border: 3px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.15); background: #F37021; flex-shrink: 0; }
 .nus-lion img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
@@ -234,7 +233,7 @@ main { padding: 0 40px 60px; display: flex; flex-direction: column; align-items:
 .canteen-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; max-width: 1100px; }
 .canteen-card { background: white; border-radius: 18px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.07); transition: transform 0.25s ease, box-shadow 0.25s ease; }
 .canteen-card:hover { transform: translateY(-5px); box-shadow: 0 10px 28px rgba(0,0,0,0.12); }
-.canteen-image-container { position: relative; height: 150px; }
+.canteen-image-container { position: relative; height: 185px; }
 .canteen-image-container img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .card-actions { position: absolute; top: 10px; right: 10px; display: flex; gap: 8px; }
 .card-action-btn { width: 32px; height: 32px; border-radius: 50%; border: none; background: rgba(255,255,255,0.92); cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.1); transition: 0.2s; }
@@ -258,4 +257,15 @@ main { padding: 0 40px 60px; display: flex; flex-direction: column; align-items:
 .status-dot.medium { background-color: #e67e22; }
 .status-dot.high { background-color: #e74c3c; }
 .updated-time { font-size: 11px; color: #aaa; text-align: right; }
+
+@media (max-width: 900px) {
+    .canteen-grid { grid-template-columns: repeat(2, 1fr); }
+    .bubble-and-lion { right: 5%; }
+}
+@media (max-width: 600px) {
+    .canteen-grid { grid-template-columns: 1fr; }
+    main { padding: 0 16px 40px; }
+    .hero h1 { font-size: 2rem; }
+    .bubble-and-lion { display: none; }
+}
 </style>
