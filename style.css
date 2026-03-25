@@ -1,7 +1,7 @@
 :root {
     --primary-blue: #0A1C3E;
     --accent-orange: #F37021;
-    --background: #FDF9F3;
+    --background: #EEF2F8;
     --card-background: #FFFFFF;
     --text-main: #2A2A2A;
     --text-muted: #888888;
@@ -10,31 +10,364 @@
     --red: #e74c3c;
 }
 
+* { box-sizing: border-box; }
+
 body {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', sans-serif;
-    background-color: var(--background);
+    background: linear-gradient(160deg, #dce8f5 0%, #f0e8e0 100%);
+    min-height: 100vh;
     color: var(--text-main);
 }
 
+/* ── HEADER ── */
 header {
     background-color: var(--primary-blue);
     color: white;
-    padding: 10px 40px;
-    border-bottom-left-radius: 15px;
-    border-bottom-right-radius: 15px;
+    padding: 12px 40px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .logo-section {
     display: flex;
     align-items: center;
+    gap: 4px;
+}
+
+.logo-nus {
+    color: var(--accent-orange);
+    font-weight: 800;
+    font-size: 1.2rem;
+}
+
+.logo-text {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: white;
+}
+
+.nav-links {
+    display: flex;
+    gap: 6px;
+}
+
+.nav-links a {
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: none;
+    font-size: 14px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: 0.2s;
+}
+
+.nav-links a:hover { color: white; }
+
+.nav-links a.active {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.user-controls {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 14px;
+    cursor: pointer;
+    color: rgba(255,255,255,0.8);
+}
+
+/* ── MAIN ── */
+main {
+    padding: 0 40px 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* ── HERO ── */
+.hero {
+    text-align: center;
+    position: relative;
+    margin: 50px 0 30px;
+    width: 100%;
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin: 0 0 8px;
+    color: var(--primary-blue);
+}
+
+.hero p {
+    font-size: 1.1rem;
+    color: #555;
+    margin: 0;
+}
+
+.nus { color: var(--accent-orange); }
+
+/* Speech bubble + mascot — floats top-right of hero */
+.bubble-and-lion {
+    position: absolute;
+    top: -10px;
+    right: calc(50% - 380px);
+    display: flex;
+    align-items: center;
     gap: 10px;
 }
 
+.speech-bubble {
+    background: white;
+    padding: 8px 16px;
+    border-radius: 18px;
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    color: var(--text-main);
+}
+
+/* Lion mascot — uses the real image if you have one,
+   falls back to a styled circle */
+.nus-lion {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    background: var(--accent-orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;  /* shows emoji if no image */
+}
+
+.nus-lion img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ── SEARCH ── */
+.search-container {
+    width: 620px;
+    max-width: 90%;
+    background: white;
+    padding: 6px 6px 6px 16px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    margin-bottom: 24px;
+}
+
+.search-container i {
+    color: #bbb;
+    margin-right: 4px;
+}
+
+.search-container input {
+    border: none;
+    flex: 1;
+    padding: 10px 8px;
+    outline: none;
+    font-size: 15px;
+    background: transparent;
+}
+
+.search-button {
+    background: var(--accent-orange);
+    color: white;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 15px;
+    transition: 0.2s;
+}
+
+.search-button:hover { background: #d45d1a; }
+
+/* ── FILTERS ── */
+.filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 36px;
+}
+
+.filter-btn {
+    background: white;
+    border: 1.5px solid #e0e0e0;
+    padding: 9px 20px;
+    border-radius: 24px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: 0.2s;
+}
+
+.filter-btn.active {
+    background: white;
+    color: #1a73e8;
+    border-color: #1a73e8;
+    font-weight: 600;
+}
+
+/* ── CANTEEN GRID ── */
+.canteen-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    width: 100%;
+    max-width: 1100px;
+}
+
+/* ── CANTEEN CARD ── */
+.canteen-card {
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.canteen-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+}
+
+.canteen-image-container {
+    position: relative;
+    height: 185px;
+}
+
+.canteen-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.card-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 8px;
+}
+
+.card-action-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.92);
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    transition: 0.2s;
+}
+
+.card-action-btn:hover { background: white; }
+.favorite { color: #e74c3c; }
+
+.canteen-info { padding: 16px; }
+
+.canteen-title {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 12px;
+    color: var(--text-main);
+}
+
+.status-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 6px;
+    align-items: center;
+}
+
+.status-level {
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+}
+
+.status-count {
+    color: var(--text-muted);
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.status-dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.progress-bar-container {
+    height: 7px;
+    background: #eee;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    border-radius: 10px;
+}
+
+/* Color classes — apply to both dot, fill, and label text */
+.low  { background-color: var(--green);  color: var(--green);  }
+.medium { background-color: var(--orange); color: var(--orange); }
+.high { background-color: var(--red);   color: var(--red);   }
+
+/* For dots & fills inside .status-level (text color already set by .low/.medium/.high) */
+.status-dot.low    { background-color: var(--green);  }
+.status-dot.medium { background-color: var(--orange); }
+.status-dot.high   { background-color: var(--red);   }
+
+.updated-time {
+    font-size: 11px;
+    color: #aaa;
+    text-align: right;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+    .canteen-grid { grid-template-columns: repeat(2, 1fr); }
+    .bubble-and-lion { right: 5%; }
+}
+
+@media (max-width: 600px) {
+    .canteen-grid { grid-template-columns: 1fr; }
+    main { padding: 0 16px 40px; }
+    .hero h1 { font-size: 2rem; }
+    .bubble-and-lion { display: none; }
+}
 .logo-text {
     font-weight: bold;
     font-size: 1.2rem;
