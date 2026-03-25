@@ -100,8 +100,8 @@ main {
 .nus { color: var(--accent-orange); }
 .bubble-and-lion {
     position: absolute;
-    top: -10px;
-    right: calc(50% - 380px);
+    top: 0px;
+    right: 0px;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -208,7 +208,7 @@ main {
 }
 .canteen-image-container {
     position: relative;
-    height: 185px;
+    height: 150px;
 }
 .canteen-image-container img {
     width: 100%;
@@ -257,6 +257,7 @@ main {
     display: flex;
     align-items: center;
     font-weight: 600;
+    background-color: transparent !important;
 }
 .status-count {
     color: var(--text-muted);
@@ -281,12 +282,15 @@ main {
     height: 100%;
     border-radius: 10px;
 }
-.low  { background-color: var(--green);  color: var(--green);  }
-.medium { background-color: var(--orange); color: var(--orange); }
-.high { background-color: var(--red);    color: var(--red);    }
-.status-dot.low    { background-color: var(--green);  }
+.low  { color: var(--green); }
+.medium { color: var(--orange); }
+.high { color: var(--red); }
+.progress-bar-fill.low    { background-color: var(--green); }
+.progress-bar-fill.medium { background-color: var(--orange); }
+.progress-bar-fill.high   { background-color: var(--red); }
+.status-dot.low    { background-color: var(--green); }
 .status-dot.medium { background-color: var(--orange); }
-.status-dot.high   { background-color: var(--red);    }
+.status-dot.high   { background-color: var(--red); }
 .updated-time {
     font-size: 11px;
     color: #aaa;
