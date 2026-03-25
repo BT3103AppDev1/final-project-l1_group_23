@@ -207,17 +207,9 @@ main {
     flex-direction: column;
     align-items: center;
 }
-.hero {
-    margin: 20px 0 30px;
-}
-.hero h1 {
-    font-size: 3.2rem;
-    font-weight: 800;
-}
-.hero p {
-    font-size: 1.1rem;
-    margin-top: 6px;
-}
+.hero { text-align: center; position: relative; margin: 50px 0 30px; width: 100%; }
+.hero h1 { font-size: 3rem; font-weight: 800; margin: 0 0 8px; color: #0A1C3E; }
+.hero p { font-size: 1.1rem; color: #555; margin: 0; }
 
 .nus { color: #F37021; }
 .bubble-and-lion {
