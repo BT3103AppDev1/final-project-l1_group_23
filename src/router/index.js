@@ -5,7 +5,7 @@ import RegisterView from '@/views/RegisterView.vue'
 import LoginView from '@/views/LoginView.vue'
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory('/final-project-l1_group_23/'),
   routes: [
     { path: '/', component: LandingView },
     { path: '/register', component: RegisterView },
