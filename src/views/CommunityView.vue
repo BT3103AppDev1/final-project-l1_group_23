@@ -207,7 +207,9 @@ main {
     flex-direction: column;
     align-items: center;
 }
-.hero { text-align: center; position: relative; margin: 50px 0 30px; width: 100%; }
+.hero {
+    margin: 20px 0 30px;
+}
 .hero h1 {
     font-size: 3.2rem;
     font-weight: 800;
