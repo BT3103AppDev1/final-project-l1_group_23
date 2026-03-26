@@ -19,11 +19,15 @@
 
     <main>
       <div class="hero">
-        <h1>Hey there, <span class="nus">NUS!</span></h1>
-        <p>Let's find you the best spot to eat </p>
-        <div class="bubble-and-lion">
-          <div class="speech-bubble">Hungry? Let's go!</div>
-          <img class="nus-lion-img" src="/Img/lion.jpg" alt="NUS Lion">
+        <div class="hero-text">
+          <div class="title-row">
+            <h1>Hey there, <span class="nus">NUS!</span></h1>
+            <div class="bubble-and-lion">
+              <div class="speech-bubble">Hungry? Let's go!</div>
+              <img class="nus-lion-img" src="/Img/lion.jpg" alt="NUS Lion">
+            </div>
+          </div>
+          <p>Let's find you the best spot to eat </p>
         </div>
       </div>
 
@@ -163,11 +167,7 @@
   background: linear-gradient(160deg, #dce8f5 0%, #f0e8e0 100%) !important;
   min-height: 100vh;
 }
-
-.page-wrapper {
-  min-height: 100vh;
-}
-
+.page-wrapper { min-height: 100vh; }
 header {
   background-color: #0A1C3E;
   color: white;
@@ -206,7 +206,6 @@ header {
   cursor: pointer;
   color: rgba(255,255,255,0.8);
 }
-
 main {
   padding: 0 40px 60px;
   display: flex;
@@ -216,49 +215,55 @@ main {
 
 /* HERO */
 .hero {
-  text-align: center;
-  position: relative;
   margin: 50px 0 30px;
   width: 100%;
   max-width: 1100px;
+  display: flex;
+  justify-content: center;
 }
-.hero h1 {
+.hero-text {
+  text-align: center;
+}
+.title-row {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.hero-text h1 {
   font-size: 3rem;
   font-weight: 800;
   margin: 0 0 8px;
   color: #0A1C3E;
+  white-space: nowrap;
 }
-.hero p {
+.hero-text p {
   font-size: 1.1rem;
   color: #555;
   margin: 0;
 }
 .nus { color: #F37021; }
 
-/* LION — absolutely positioned top-right within hero */
+/* LION — inline with the h1 title */
 .bubble-and-lion {
-  position: absolute;
-  top: -10px;
-  right: -20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  width: 140px;
+  margin-top: -8px;
 }
 .speech-bubble {
   background: white;
-  padding: 8px 16px;
-  border-radius: 18px;
-  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: 16px;
+  font-size: 12px;
   font-weight: 600;
   box-shadow: 0 4px 12px rgba(0,0,0,0.12);
   color: #2A2A2A;
   white-space: nowrap;
 }
 .nus-lion-img {
-  width: 130px;
-  height: 130px;
+  width: 120px;
+  height: 120px;
   object-fit: contain;
   display: block;
 }
@@ -398,6 +403,6 @@ main {
 @media (max-width: 600px) {
   .canteen-grid { grid-template-columns: 1fr; }
   main { padding: 0 16px 40px; }
-  .hero h1 { font-size: 2rem; }
+  .hero-text h1 { font-size: 2rem; }
 }
 </style>
