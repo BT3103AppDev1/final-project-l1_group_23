@@ -160,6 +160,12 @@
 <style scoped>
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
 
+:global(body) {
+  background: linear-gradient(160deg, #dce8f5 0%, #f0e8e0 100%) !important;
+  min-height: 100vh;
+  margin: 0;
+}
+  
 .page-wrapper {
   background: linear-gradient(160deg, #dce8f5 0%, #f0e8e0 100%);
   min-height: 100vh;
@@ -220,8 +226,8 @@ main {
 .nus { color: #F37021; }
 .bubble-and-lion {
   position: absolute;
-  top: -5px;
-  right: 0;
+  top: 0;
+  right: calc(50% - 550px);
   display: flex;
   align-items: center;
   gap: 10px;
