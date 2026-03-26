@@ -23,9 +23,7 @@
         <p>Let's find you the best spot to eat ⭐</p>
         <div class="bubble-and-lion">
           <div class="speech-bubble">Hungry? Let's go!</div>
-          <div class="nus-lion">
-            <img src="/Img/lion.jpg" alt="NUS Lion">
-          </div>
+          <img class="nus-lion-img" src="/Img/lion.jpg" alt="NUS Lion">
         </div>
       </div>
 
@@ -161,15 +159,15 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
 
 :global(body) {
+  margin: 0;
   background: linear-gradient(160deg, #dce8f5 0%, #f0e8e0 100%) !important;
   min-height: 100vh;
-  margin: 0;
 }
-  
+
 .page-wrapper {
-  background: linear-gradient(160deg, #dce8f5 0%, #f0e8e0 100%);
   min-height: 100vh;
 }
+
 header {
   background-color: #0A1C3E;
   color: white;
@@ -208,12 +206,15 @@ header {
   cursor: pointer;
   color: rgba(255,255,255,0.8);
 }
+
 main {
   padding: 0 40px 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
+/* HERO */
 .hero {
   text-align: center;
   position: relative;
@@ -224,13 +225,16 @@ main {
 .hero h1 { font-size: 3rem; font-weight: 800; margin: 0 0 8px; color: #0A1C3E; }
 .hero p { font-size: 1.1rem; color: #555; margin: 0; }
 .nus { color: #F37021; }
+
+/* LION — not circular, sits top-right next to NUS! */
 .bubble-and-lion {
   position: absolute;
-  top: 0;
-  right: calc(50% - 550px);
+  top: -15px;
+  right: 0;
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
 }
 .speech-bubble {
   background: white;
@@ -242,22 +246,15 @@ main {
   color: #2A2A2A;
   white-space: nowrap;
 }
-.nus-lion {
-  width: 75px;
-  height: 75px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 3px solid white;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  flex-shrink: 0;
-}
-.nus-lion img {
-  width: 100%;
-  height: 100%;
+.nus-lion-img {
+  width: 120px;
+  height: 120px;
   object-fit: cover;
   object-position: top;
   display: block;
 }
+
+/* SEARCH */
 .search-container {
   width: 620px;
   max-width: 90%;
@@ -290,6 +287,8 @@ main {
   transition: 0.2s;
 }
 .search-button:hover { background: #d45d1a; }
+
+/* FILTERS */
 .filters { display: flex; gap: 10px; margin-bottom: 36px; }
 .filter-btn {
   background: white;
@@ -305,6 +304,8 @@ main {
   transition: 0.2s;
 }
 .filter-btn.active { color: #1a73e8; border-color: #1a73e8; font-weight: 600; }
+
+/* GRID */
 .canteen-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
