@@ -47,7 +47,6 @@
             <img src="/Img/pgp.jpg" alt="PGP">
             <div class="card-actions">
               <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
-              <button class="card-action-btn"><i class="fas fa-cog"></i></button>
             </div>
           </div>
           <div class="canteen-info">
@@ -66,7 +65,6 @@
             <img src="/Img/Frontier.jpg" alt="Frontier">
             <div class="card-actions">
               <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
-              <button class="card-action-btn"><i class="fas fa-cog"></i></button>
             </div>
           </div>
           <div class="canteen-info">
@@ -85,7 +83,6 @@
             <img src="/Img/YIH.jpg" alt="Central Square">
             <div class="card-actions">
               <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
-              <button class="card-action-btn"><i class="fas fa-cog"></i></button>
             </div>
           </div>
           <div class="canteen-info">
@@ -104,7 +101,6 @@
             <img src="/Img/FineFood.jpg" alt="Fine Food">
             <div class="card-actions">
               <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
-              <button class="card-action-btn"><i class="fas fa-cog"></i></button>
             </div>
           </div>
           <div class="canteen-info">
@@ -123,7 +119,6 @@
             <img src="/Img/deck.jpg" alt="The Deck">
             <div class="card-actions">
               <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
-              <button class="card-action-btn"><i class="fas fa-cog"></i></button>
             </div>
           </div>
           <div class="canteen-info">
@@ -142,7 +137,6 @@
             <img src="/Img/Flavours.jpg" alt="Flavours">
             <div class="card-actions">
               <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
-              <button class="card-action-btn"><i class="fas fa-cog"></i></button>
             </div>
           </div>
           <div class="canteen-info">
@@ -214,8 +208,6 @@ main {
   flex-direction: column;
   align-items: center;
 }
-
-/* HERO */
 .hero {
   text-align: center;
   position: relative;
@@ -226,11 +218,9 @@ main {
 .hero h1 { font-size: 3rem; font-weight: 800; margin: 0 0 8px; color: #0A1C3E; }
 .hero p { font-size: 1.1rem; color: #555; margin: 0; }
 .nus { color: #F37021; }
-
-/* LION — positioned relative to the hero box */
 .bubble-and-lion {
   position: absolute;
-  top: 0;
+  top: -5px;
   right: 0;
   display: flex;
   align-items: center;
@@ -247,8 +237,8 @@ main {
   white-space: nowrap;
 }
 .nus-lion {
-  width: 90px;
-  height: 90px;
+  width: 75px;
+  height: 75px;
   border-radius: 50%;
   overflow: hidden;
   border: 3px solid white;
@@ -262,8 +252,6 @@ main {
   object-position: top;
   display: block;
 }
-
-/* SEARCH */
 .search-container {
   width: 620px;
   max-width: 90%;
@@ -296,8 +284,6 @@ main {
   transition: 0.2s;
 }
 .search-button:hover { background: #d45d1a; }
-
-/* FILTERS */
 .filters { display: flex; gap: 10px; margin-bottom: 36px; }
 .filter-btn {
   background: white;
@@ -313,8 +299,6 @@ main {
   transition: 0.2s;
 }
 .filter-btn.active { color: #1a73e8; border-color: #1a73e8; font-weight: 600; }
-
-/* GRID */
 .canteen-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -351,11 +335,34 @@ main {
 .favorite { color: #e74c3c; }
 .canteen-info { padding: 16px; }
 .canteen-title { font-weight: 700; font-size: 1rem; margin-bottom: 12px; color: #2A2A2A; }
-.status-line { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; align-items: center; }
-.status-level { display: flex; align-items: center; font-weight: 600; background-color: transparent !important; }
+.status-line {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  margin-bottom: 6px;
+  align-items: center;
+}
+.status-level {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  background-color: transparent !important;
+}
 .status-count { color: #888888; font-weight: 700; font-size: 12px; }
-.status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; }
-.progress-bar-container { height: 7px; background: #eee; border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
+.status-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+.progress-bar-container {
+  height: 7px;
+  background: #eee;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
 .progress-bar-fill { height: 100%; border-radius: 10px; }
 .low { color: #2ecc71; }
 .medium { color: #e67e22; }
