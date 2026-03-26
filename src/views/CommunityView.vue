@@ -19,10 +19,8 @@
 
     <main>
       <div class="hero">
-        <div class="hero-content">
-          <h1>Hey there, <span class="nus">NUS!</span></h1>
-          <p>Let's find you the best spot to eat ⭐</p>
-        </div>
+        <h1>Hey there, <span class="nus">NUS!</span></h1>
+        <p>Let's find you the best spot to eat </p>
         <div class="bubble-and-lion">
           <div class="speech-bubble">Hungry? Let's go!</div>
           <img class="nus-lion-img" src="/Img/lion.jpg" alt="NUS Lion">
@@ -216,37 +214,37 @@ main {
   align-items: center;
 }
 
-/* HERO — flex row so text is left, lion is right */
+/* HERO */
 .hero {
+  text-align: center;
   position: relative;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-end;
-  margin: 40px 0 30px;
+  margin: 50px 0 30px;
   width: 100%;
   max-width: 1100px;
-  overflow: visible;
 }
-.hero-content {
-  text-align: center;
-  flex: 1;
-  padding-right: 160px;
+.hero h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 0 0 8px;
+  color: #0A1C3E;
 }
-.hero h1 { font-size: 3rem; font-weight: 800; margin: 0 0 8px; color: #0A1C3E; }
-.hero p { font-size: 1.1rem; color: #555; margin: 0; }
+.hero p {
+  font-size: 1.1rem;
+  color: #555;
+  margin: 0;
+}
 .nus { color: #F37021; }
 
-/* LION */
+/* LION — absolutely positioned top-right within hero */
 .bubble-and-lion {
   position: absolute;
-  right: 20px;
-  top: 40px;
+  top: -10px;
+  right: -20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  flex-shrink: 0;
+  gap: 4px;
+  width: 140px;
 }
 .speech-bubble {
   background: white;
@@ -259,8 +257,8 @@ main {
   white-space: nowrap;
 }
 .nus-lion-img {
-  width: 110px;
-  height: 110px;
+  width: 130px;
+  height: 130px;
   object-fit: contain;
   display: block;
 }
@@ -401,6 +399,5 @@ main {
   .canteen-grid { grid-template-columns: 1fr; }
   main { padding: 0 16px 40px; }
   .hero h1 { font-size: 2rem; }
-  .hero { flex-direction: column; }
 }
 </style>
