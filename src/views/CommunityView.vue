@@ -21,7 +21,8 @@
       <div class="hero-wrapper">
         <h1>Hey there, <span class="nus">NUS!</span></h1>
         <p>Let's find you the best spot to eat </p>
-        <div class="search-and-lion">
+
+        <div class="search-row">
           <div class="search-container">
             <i class="fas fa-search"></i>
             <input type="text" placeholder="Search canteens, food, or location...">
@@ -230,15 +231,16 @@ main {
 .hero-wrapper p {
   font-size: 1.1rem;
   color: #555;
-  margin: 0 0 20px;
+  margin: 0 0 16px;
 }
 .nus { color: #F37021; }
 
-/* SEARCH + LION side by side */
-.search-and-lion {
+/* SEARCH ROW — search bar + lion side by side, no gap between them */
+.search-row {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
+  justify-content: center;
   gap: 0;
 }
 
@@ -251,6 +253,7 @@ main {
   display: flex;
   align-items: center;
   box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  flex-shrink: 0;
 }
 .search-container i { color: #bbb; margin-right: 4px; }
 .search-container input {
@@ -274,13 +277,15 @@ main {
 }
 .search-button:hover { background: #d45d1a; }
 
-/* LION — sits right of search bar, bottom aligned */
+/* LION — no gap, bottom flush with search bar bottom */
 .bubble-and-lion {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  margin-left: 8px;
+  justify-content: flex-end;
+  gap: 0;
+  margin-left: 0;
+  margin-bottom: 0;
 }
 .speech-bubble {
   background: white;
@@ -291,12 +296,16 @@ main {
   box-shadow: 0 4px 12px rgba(0,0,0,0.12);
   color: #2A2A2A;
   white-space: nowrap;
+  margin-bottom: 2px;
 }
 .nus-lion-img {
-  width: 120px;
-  height: 120px;
+  width: 110px;
+  height: 110px;
   object-fit: contain;
   display: block;
+  margin: 0;
+  padding: 0;
+  vertical-align: bottom;
 }
 
 /* FILTERS */
