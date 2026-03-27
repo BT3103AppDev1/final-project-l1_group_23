@@ -19,22 +19,19 @@
 
     <main>
       <div class="hero">
-        <div class="hero-text">
-          <div class="title-row">
-            <h1>Hey there, <span class="nus">NUS!</span></h1>
-            <div class="bubble-and-lion">
-              <div class="speech-bubble">Hungry? Let's go!</div>
-              <img class="nus-lion-img" src="/Img/lion.jpg" alt="NUS Lion">
-            </div>
-          </div>
+        <div class="hero-left">
+          <h1>Hey there, <span class="nus">NUS!</span></h1>
           <p>Let's find you the best spot to eat </p>
+          <div class="search-container">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search canteens, food, or location...">
+            <button class="search-button">Search</button>
+          </div>
         </div>
-      </div>
-
-      <div class="search-container">
-        <i class="fas fa-search"></i>
-        <input type="text" placeholder="Search canteens, food, or location...">
-        <button class="search-button">Search</button>
+        <div class="bubble-and-lion">
+          <div class="speech-bubble">Hungry? Let's go!</div>
+          <img class="nus-lion-img" src="/Img/lion.jpg" alt="NUS Lion">
+        </div>
       </div>
 
       <div class="filters">
@@ -168,6 +165,7 @@
   min-height: 100vh;
 }
 .page-wrapper { min-height: 100vh; }
+
 header {
   background-color: #0A1C3E;
   color: white;
@@ -206,6 +204,7 @@ header {
   cursor: pointer;
   color: rgba(255,255,255,0.8);
 }
+
 main {
   padding: 0 40px 60px;
   display: flex;
@@ -213,72 +212,49 @@ main {
   align-items: center;
 }
 
-/* HERO */
+/* HERO — flex row, left side has text+search, right side has lion */
 .hero {
-  margin: 50px 0 30px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  margin: 50px 0 24px;
   width: 100%;
   max-width: 1100px;
-  display: flex;
-  justify-content: center;
+  gap: 0;
 }
-.hero-text {
-  text-align: center;
-}
-.title-row {
-  display: inline-flex;
-  align-items: flex-start;
-  gap: 12px;
-}
-.hero-text h1 {
-  font-size: 3rem;
-  font-weight: 800;
-  margin: 0 0 8px;
-  color: #0A1C3E;
-  white-space: nowrap;
-}
-.hero-text p {
-  font-size: 1.1rem;
-  color: #555;
-  margin: 0;
-}
-.nus { color: #F37021; }
 
-/* LION — inline with the h1 title */
-.bubble-and-lion {
+/* LEFT — text and search bar stacked */
+.hero-left {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  margin-top: -8px;
+  text-align: center;
 }
-.speech-bubble {
-  background: white;
-  padding: 6px 14px;
-  border-radius: 16px;
-  font-size: 12px;
-  font-weight: 600;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-  color: #2A2A2A;
-  white-space: nowrap;
+.hero-left h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 0 0 6px;
+  color: #0A1C3E;
 }
-.nus-lion-img {
-  width: 120px;
-  height: 120px;
-  object-fit: contain;
-  display: block;
+.hero-left p {
+  font-size: 1.1rem;
+  color: #555;
+  margin: 0 0 20px;
 }
+.nus { color: #F37021; }
 
-/* SEARCH */
+/* SEARCH inside hero-left */
 .search-container {
-  width: 620px;
-  max-width: 90%;
+  width: 100%;
+  max-width: 620px;
   background: white;
   padding: 6px 6px 6px 16px;
   border-radius: 40px;
   display: flex;
   align-items: center;
   box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-  margin-bottom: 24px;
 }
 .search-container i { color: #bbb; margin-right: 4px; }
 .search-container input {
@@ -301,6 +277,34 @@ main {
   transition: 0.2s;
 }
 .search-button:hover { background: #d45d1a; }
+
+/* RIGHT — lion sits flush at bottom next to search bar */
+.bubble-and-lion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+  margin-bottom: 0;
+}
+.speech-bubble {
+  background: white;
+  padding: 6px 14px;
+  border-radius: 16px;
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  color: #2A2A2A;
+  white-space: nowrap;
+}
+.nus-lion-img {
+  width: 130px;
+  height: 130px;
+  object-fit: contain;
+  display: block;
+  margin-bottom: 0;
+}
 
 /* FILTERS */
 .filters { display: flex; gap: 10px; margin-bottom: 36px; }
@@ -399,10 +403,11 @@ main {
 @media (max-width: 900px) {
   .canteen-grid { grid-template-columns: repeat(2, 1fr); }
   .bubble-and-lion { display: none; }
+  .hero { flex-direction: column; align-items: center; }
 }
 @media (max-width: 600px) {
   .canteen-grid { grid-template-columns: 1fr; }
   main { padding: 0 16px 40px; }
-  .hero-text h1 { font-size: 2rem; }
+  .hero-left h1 { font-size: 2rem; }
 }
 </style>
