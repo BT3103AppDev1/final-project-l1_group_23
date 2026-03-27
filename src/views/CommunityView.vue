@@ -19,20 +19,18 @@
 
     <main>
       <div class="hero-wrapper">
-        <!-- Centred content -->
-        <div class="hero-center">
-          <h1>Hey there, <span class="nus">NUS!</span></h1>
-          <p>Let's find you the best spot to eat </p>
+        <h1>Hey there, <span class="nus">NUS!</span></h1>
+        <p>Let's find you the best spot to eat </p>
+        <div class="search-and-lion">
           <div class="search-container">
             <i class="fas fa-search"></i>
             <input type="text" placeholder="Search canteens, food, or location...">
             <button class="search-button">Search</button>
           </div>
-        </div>
-        <!-- Lion absolutely positioned -->
-        <div class="bubble-and-lion">
-          <div class="speech-bubble">Hungry? Let's go!</div>
-          <img class="nus-lion-img" src="/Img/lion.jpg" alt="NUS Lion">
+          <div class="bubble-and-lion">
+            <div class="speech-bubble">Hungry? Let's go!</div>
+            <img class="nus-lion-img" src="/Img/lion.jpg" alt="NUS Lion">
+          </div>
         </div>
       </div>
 
@@ -214,41 +212,39 @@ main {
   align-items: center;
 }
 
-/* HERO WRAPPER — relative so lion can be absolutely positioned */
+/* HERO */
 .hero-wrapper {
-  position: relative;
-  width: 100%;
-  max-width: 1100px;
-  margin: 50px 0 24px;
-  display: flex;
-  justify-content: center;
-}
-
-/* CENTRE — text and search bar, fully centred */
-.hero-center {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  margin: 50px 0 24px;
   width: 100%;
 }
-.hero-center h1 {
+.hero-wrapper h1 {
   font-size: 3rem;
   font-weight: 800;
   margin: 0 0 6px;
   color: #0A1C3E;
 }
-.hero-center p {
+.hero-wrapper p {
   font-size: 1.1rem;
   color: #555;
   margin: 0 0 20px;
 }
 .nus { color: #F37021; }
 
+/* SEARCH + LION side by side */
+.search-and-lion {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 0;
+}
+
 /* SEARCH BAR */
 .search-container {
   width: 620px;
-  max-width: 90%;
   background: white;
   padding: 6px 6px 6px 16px;
   border-radius: 40px;
@@ -278,15 +274,13 @@ main {
 }
 .search-button:hover { background: #d45d1a; }
 
-/* LION — absolutely positioned, bottom aligned with search bar */
+/* LION — sits right of search bar, bottom aligned */
 .bubble-and-lion {
-  position: absolute;
-  right: 0;
-  bottom: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
+  margin-left: 8px;
 }
 .speech-bubble {
   background: white;
@@ -299,8 +293,8 @@ main {
   white-space: nowrap;
 }
 .nus-lion-img {
-  width: 130px;
-  height: 130px;
+  width: 120px;
+  height: 120px;
   object-fit: contain;
   display: block;
 }
@@ -402,10 +396,11 @@ main {
 @media (max-width: 900px) {
   .canteen-grid { grid-template-columns: repeat(2, 1fr); }
   .bubble-and-lion { display: none; }
+  .search-container { width: 90%; }
 }
 @media (max-width: 600px) {
   .canteen-grid { grid-template-columns: 1fr; }
   main { padding: 0 16px 40px; }
-  .hero-center h1 { font-size: 2rem; }
+  .hero-wrapper h1 { font-size: 2rem; }
 }
 </style>
