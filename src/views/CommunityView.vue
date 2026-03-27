@@ -18,8 +18,9 @@
     </header>
 
     <main>
-      <div class="hero">
-        <div class="hero-left">
+      <div class="hero-wrapper">
+        <!-- Centred content -->
+        <div class="hero-center">
           <h1>Hey there, <span class="nus">NUS!</span></h1>
           <p>Let's find you the best spot to eat </p>
           <div class="search-container">
@@ -28,6 +29,7 @@
             <button class="search-button">Search</button>
           </div>
         </div>
+        <!-- Lion absolutely positioned -->
         <div class="bubble-and-lion">
           <div class="speech-bubble">Hungry? Let's go!</div>
           <img class="nus-lion-img" src="/Img/lion.jpg" alt="NUS Lion">
@@ -212,43 +214,41 @@ main {
   align-items: center;
 }
 
-/* HERO — flex row, left side has text+search, right side has lion */
-.hero {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: center;
-  margin: 50px 0 24px;
+/* HERO WRAPPER — relative so lion can be absolutely positioned */
+.hero-wrapper {
+  position: relative;
   width: 100%;
   max-width: 1100px;
-  gap: 0;
+  margin: 50px 0 24px;
+  display: flex;
+  justify-content: center;
 }
 
-/* LEFT — text and search bar stacked */
-.hero-left {
-  flex: 1;
+/* CENTRE — text and search bar, fully centred */
+.hero-center {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  width: 100%;
 }
-.hero-left h1 {
+.hero-center h1 {
   font-size: 3rem;
   font-weight: 800;
   margin: 0 0 6px;
   color: #0A1C3E;
 }
-.hero-left p {
+.hero-center p {
   font-size: 1.1rem;
   color: #555;
   margin: 0 0 20px;
 }
 .nus { color: #F37021; }
 
-/* SEARCH inside hero-left */
+/* SEARCH BAR */
 .search-container {
-  width: 100%;
-  max-width: 620px;
+  width: 620px;
+  max-width: 90%;
   background: white;
   padding: 6px 6px 6px 16px;
   border-radius: 40px;
@@ -278,15 +278,15 @@ main {
 }
 .search-button:hover { background: #d45d1a; }
 
-/* RIGHT — lion sits flush at bottom next to search bar */
+/* LION — absolutely positioned, bottom aligned with search bar */
 .bubble-and-lion {
+  position: absolute;
+  right: 0;
+  bottom: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
   gap: 4px;
-  flex-shrink: 0;
-  margin-bottom: 0;
 }
 .speech-bubble {
   background: white;
@@ -303,7 +303,6 @@ main {
   height: 130px;
   object-fit: contain;
   display: block;
-  margin-bottom: 0;
 }
 
 /* FILTERS */
@@ -403,11 +402,10 @@ main {
 @media (max-width: 900px) {
   .canteen-grid { grid-template-columns: repeat(2, 1fr); }
   .bubble-and-lion { display: none; }
-  .hero { flex-direction: column; align-items: center; }
 }
 @media (max-width: 600px) {
   .canteen-grid { grid-template-columns: 1fr; }
   main { padding: 0 16px 40px; }
-  .hero-left h1 { font-size: 2rem; }
+  .hero-center h1 { font-size: 2rem; }
 }
 </style>
