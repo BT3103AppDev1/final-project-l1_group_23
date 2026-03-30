@@ -3,7 +3,7 @@
     <header>
       <div class="logo-section">
         <span class="logo-nus">NUS</span><span class="logo-text">CanteenPulse</span>
-      </div> 
+      </div>
       <nav class="nav-links">
         <a href="#" class="active"><i class="fas fa-users"></i> Community</a>
         <a href="#"><i class="fas fa-map-marker-alt"></i> Map</a>
@@ -19,20 +19,20 @@
 
     <main>
       <div class="hero-wrapper">
-        <!-- Left: text + search stacked -->
-        <div class="hero-left">
-          <h1>Hey there, <span class="nus">NUS!</span></h1>
-          <p>Let's find you the best spot to eat </p>
+        <div class="hero-text-block">
+          <div class="title-lion-row">
+            <h1>Hey there, <span class="nus">NUS!</span></h1>
+            <div class="bubble-and-lion">
+              <div class="speech-bubble">Hungry? Let's go!</div>
+              <img class="nus-lion-img" src="/Img/lion.jpg" alt="NUS Lion">
+            </div>
+          </div>
+          <p>Let's find you the best spot to eat ⭐</p>
           <div class="search-container">
             <i class="fas fa-search"></i>
             <input type="text" placeholder="Search canteens, food, or location...">
             <button class="search-button">Search</button>
           </div>
-        </div>
-        <!-- Right: lion flush against search bar top -->
-        <div class="bubble-and-lion">
-          <div class="speech-bubble">Hungry? Let's go!</div>
-          <img class="nus-lion-img" src="/Img/lion.jpg" alt="NUS Lion">
         </div>
       </div>
 
@@ -214,44 +214,79 @@ main {
   align-items: center;
 }
 
-/* HERO — flex row, left side centred, lion on right bottom-aligned */
+/* HERO */
 .hero-wrapper {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: center;
   margin: 40px 0 24px;
   width: 100%;
-  max-width: 900px;
-  gap: 0;
+  display: flex;
+  justify-content: center;
 }
 
-/* LEFT side — centred text + search */
-.hero-left {
+.hero-text-block {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  flex: 1;
 }
-.hero-left h1 {
+
+/* Title row — h1 and lion side by side */
+.title-lion-row {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 4px;
+}
+
+.hero-text-block h1 {
   font-size: 3rem;
   font-weight: 800;
-  margin: 0 0 4px;
+  margin: 0;
   color: #0A1C3E;
   white-space: nowrap;
-}
-.hero-left p {
-  font-size: 1.1rem;
-  color: #555;
-  margin: 0 0 12px;
+  line-height: 1;
 }
 .nus { color: #F37021; }
 
-/* SEARCH BAR */
+/* Lion sits right of h1, bottom flush with text baseline */
+.bubble-and-lion {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin-left: 8px;
+  margin-bottom: 0;
+}
+.speech-bubble {
+  background: white;
+  padding: 5px 12px;
+  border-radius: 14px;
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  color: #2A2A2A;
+  white-space: nowrap;
+}
+.nus-lion-img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  display: block;
+  margin: 0;
+}
+
+/* Subtitle */
+.hero-text-block p {
+  font-size: 1.1rem;
+  color: #555;
+  margin: 0 0 10px;
+}
+
+/* Search bar */
 .search-container {
-  width: 100%;
-  max-width: 580px;
+  width: 620px;
+  max-width: 90%;
   background: white;
   padding: 6px 6px 6px 16px;
   border-radius: 40px;
@@ -281,34 +316,8 @@ main {
 }
 .search-button:hover { background: #d45d1a; }
 
-/* LION — right side, bottom aligned to search bar bottom */
-.bubble-and-lion {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  flex-shrink: 0;
-  margin-left: 0;
-}
-.speech-bubble {
-  background: white;
-  padding: 6px 14px;
-  border-radius: 16px;
-  font-size: 12px;
-  font-weight: 600;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-  color: #2A2A2A;
-  white-space: nowrap;
-}
-.nus-lion-img {
-  width: 110px;
-  height: 110px;
-  object-fit: contain;
-  display: block;
-}
-
 /* FILTERS */
-.filters { display: flex; gap: 10px; margin-bottom: 36px; }
+.filters { display: flex; gap: 10px; margin-bottom: 36px; margin-top: 16px; }
 .filter-btn {
   background: white;
   border: 1.5px solid #e0e0e0;
@@ -404,11 +413,10 @@ main {
 @media (max-width: 900px) {
   .canteen-grid { grid-template-columns: repeat(2, 1fr); }
   .bubble-and-lion { display: none; }
-  .hero-wrapper { flex-direction: column; align-items: center; }
 }
 @media (max-width: 600px) {
   .canteen-grid { grid-template-columns: 1fr; }
   main { padding: 0 16px 40px; }
-  .hero-left h1 { font-size: 2rem; }
+  .hero-text-block h1 { font-size: 2rem; white-space: normal; }
 }
-</style> 
+</style>
