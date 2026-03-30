@@ -1,6 +1,11 @@
 <template>
   <div class="landing">
     <div class="hero">
+      <!-- Auth error message shown when redirected from a protected route -->
+      <div v-if="authError" class="auth-error">
+        {{ authError }}
+      </div>
+
       <h1><span class="nus">NUS</span> CanteenPulse</h1>
       <p>Real-time visibility into campus canteen crowds. Never struggle to find a seat again.</p>
       <div class="buttons">
@@ -13,8 +18,15 @@
 </template>
 
 <script>
+import { useRoute } from 'vue-router'
+
 export default {
   name: 'LandingView',
+  setup() {
+    const route = useRoute()
+    const authError = route.query.authError || null
+    return { authError }
+  },
 }
 </script>
 
@@ -108,5 +120,19 @@ footer {
   color: rgba(255, 255, 255, 0.6);
   padding: 24px;
   font-size: 0.9rem;
+}
+
+/* Error banner for auth redirect */
+.auth-error {
+  background-color: #ffe0e0;
+  color: #c0392b;
+  border: 1px solid #c0392b;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 500;
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
 }
 </style>
