@@ -3,7 +3,7 @@
     <header>
       <div class="logo-section">
         <span class="logo-nus">NUS</span><span class="logo-text">CanteenPulse</span>
-      </div>
+      </div> 
       <nav class="nav-links">
         <a href="#" class="active"><i class="fas fa-users"></i> Community</a>
         <a href="#"><i class="fas fa-map-marker-alt"></i> Map</a>
@@ -411,4 +411,4 @@ main {
   main { padding: 0 16px 40px; }
   .hero-left h1 { font-size: 2rem; }
 }
-</style>
+</style> 
