@@ -13,42 +13,39 @@
       </nav>
       <div class="user-controls">
         <i class="fas fa-cog"></i>
-        <span @click="logout"><i class="fas fa-sign-out-alt"></i> Logout</span>
+        <i class="fas fa-sign-out-alt"></i> Logout
       </div>
     </header>
 
     <main>
       <div class="hero-wrapper">
-        <h1>Hey there, <span class="nus">NUS!</span></h1>
-        <p>Let's find you the best spot to eat</p>
-
-        <div class="search-row">
+        <!-- Left: text + search stacked -->
+        <div class="hero-left">
+          <h1>Hey there, <span class="nus">NUS!</span></h1>
+          <p>Let's find you the best spot to eat </p>
           <div class="search-container">
             <i class="fas fa-search"></i>
-            <input type="text" placeholder="Search canteens, food, or location..." />
+            <input type="text" placeholder="Search canteens, food, or location...">
             <button class="search-button">Search</button>
           </div>
-          <div class="bubble-and-lion">
-            <div class="speech-bubble">Hungry? Let's go!</div>
-            <img class="nus-lion-img" src="/Img/lion.jpg" alt="NUS Lion" />
-          </div>
+        </div>
+        <!-- Right: lion flush against search bar top -->
+        <div class="bubble-and-lion">
+          <div class="speech-bubble">Hungry? Let's go!</div>
+          <img class="nus-lion-img" src="/Img/lion.jpg" alt="NUS Lion">
         </div>
       </div>
 
       <div class="filters">
         <button class="filter-btn active"><i class="fas fa-utensils"></i> All Canteens</button>
-        <button class="filter-btn">
-          <i class="fas fa-sort-amount-down"></i> Lowest Crowd <i class="fas fa-chevron-down"></i>
-        </button>
-        <button class="filter-btn">
-          <i class="fas fa-layer-group"></i> All Levels <i class="fas fa-chevron-down"></i>
-        </button>
+        <button class="filter-btn"><i class="fas fa-sort-amount-down"></i> Lowest Crowd <i class="fas fa-chevron-down"></i></button>
+        <button class="filter-btn"><i class="fas fa-layer-group"></i> All Levels <i class="fas fa-chevron-down"></i></button>
       </div>
 
       <div class="canteen-grid">
         <div class="canteen-card">
           <div class="canteen-image-container">
-            <img src="/Img/pgp.jpg" alt="PGP" />
+            <img src="/Img/pgp.jpg" alt="PGP">
             <div class="card-actions">
               <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
             </div>
@@ -56,21 +53,17 @@
           <div class="canteen-info">
             <div class="canteen-title">PGP Aircon Canteen</div>
             <div class="status-line">
-              <span class="status-level low"
-                ><span class="status-dot low"></span> Low Crowd (16%)</span
-              >
+              <span class="status-level low"><span class="status-dot low"></span> Low Crowd (16%)</span>
               <span class="status-count">50 / 308</span>
             </div>
-            <div class="progress-bar-container">
-              <div class="progress-bar-fill low" style="width: 16%"></div>
-            </div>
+            <div class="progress-bar-container"><div class="progress-bar-fill low" style="width: 16%;"></div></div>
             <div class="updated-time">Updated 18 minutes ago</div>
           </div>
         </div>
 
         <div class="canteen-card">
           <div class="canteen-image-container">
-            <img src="/Img/Frontier.jpg" alt="Frontier" />
+            <img src="/Img/Frontier.jpg" alt="Frontier">
             <div class="card-actions">
               <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
             </div>
@@ -78,21 +71,17 @@
           <div class="canteen-info">
             <div class="canteen-title">Frontier</div>
             <div class="status-line">
-              <span class="status-level low"
-                ><span class="status-dot low"></span> Low Crowd (21%)</span
-              >
+              <span class="status-level low"><span class="status-dot low"></span> Low Crowd (21%)</span>
               <span class="status-count">150 / 700</span>
             </div>
-            <div class="progress-bar-container">
-              <div class="progress-bar-fill low" style="width: 21%"></div>
-            </div>
+            <div class="progress-bar-container"><div class="progress-bar-fill low" style="width: 21%;"></div></div>
             <div class="updated-time">Updated about 4 hours ago</div>
           </div>
         </div>
 
         <div class="canteen-card">
           <div class="canteen-image-container">
-            <img src="/Img/YIH.jpg" alt="Central Square" />
+            <img src="/Img/YIH.jpg" alt="Central Square">
             <div class="card-actions">
               <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
             </div>
@@ -100,21 +89,17 @@
           <div class="canteen-info">
             <div class="canteen-title">Central Square @ YIH</div>
             <div class="status-line">
-              <span class="status-level low"
-                ><span class="status-dot low"></span> Low Crowd (32%)</span
-              >
+              <span class="status-level low"><span class="status-dot low"></span> Low Crowd (32%)</span>
               <span class="status-count">100 / 314</span>
             </div>
-            <div class="progress-bar-container">
-              <div class="progress-bar-fill low" style="width: 32%"></div>
-            </div>
+            <div class="progress-bar-container"><div class="progress-bar-fill low" style="width: 32%;"></div></div>
             <div class="updated-time">Updated about 4 hours ago</div>
           </div>
         </div>
 
         <div class="canteen-card">
           <div class="canteen-image-container">
-            <img src="/Img/FineFood.jpg" alt="Fine Food" />
+            <img src="/Img/FineFood.jpg" alt="Fine Food">
             <div class="card-actions">
               <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
             </div>
@@ -122,21 +107,17 @@
           <div class="canteen-info">
             <div class="canteen-title">Fine Food @ UTown</div>
             <div class="status-line">
-              <span class="status-level medium"
-                ><span class="status-dot medium"></span> Medium Crowd (42%)</span
-              >
+              <span class="status-level medium"><span class="status-dot medium"></span> Medium Crowd (42%)</span>
               <span class="status-count">250 / 600</span>
             </div>
-            <div class="progress-bar-container">
-              <div class="progress-bar-fill medium" style="width: 42%"></div>
-            </div>
+            <div class="progress-bar-container"><div class="progress-bar-fill medium" style="width: 42%;"></div></div>
             <div class="updated-time">Updated about 4 hours ago</div>
           </div>
         </div>
 
         <div class="canteen-card">
           <div class="canteen-image-container">
-            <img src="/Img/deck.jpg" alt="The Deck" />
+            <img src="/Img/deck.jpg" alt="The Deck">
             <div class="card-actions">
               <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
             </div>
@@ -144,21 +125,17 @@
           <div class="canteen-info">
             <div class="canteen-title">The Deck</div>
             <div class="status-line">
-              <span class="status-level high"
-                ><span class="status-dot high"></span> High Crowd (79%)</span
-              >
+              <span class="status-level high"><span class="status-dot high"></span> High Crowd (79%)</span>
               <span class="status-count">800 / 1018</span>
             </div>
-            <div class="progress-bar-container">
-              <div class="progress-bar-fill high" style="width: 79%"></div>
-            </div>
+            <div class="progress-bar-container"><div class="progress-bar-fill high" style="width: 79%;"></div></div>
             <div class="updated-time">Updated about 4 hours ago</div>
           </div>
         </div>
 
         <div class="canteen-card">
           <div class="canteen-image-container">
-            <img src="/Img/Flavours.jpg" alt="Flavours" />
+            <img src="/Img/Flavours.jpg" alt="Flavours">
             <div class="card-actions">
               <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
             </div>
@@ -166,14 +143,10 @@
           <div class="canteen-info">
             <div class="canteen-title">Flavours @ UTown</div>
             <div class="status-line">
-              <span class="status-level high"
-                ><span class="status-dot high"></span> High Crowd (80%)</span
-              >
+              <span class="status-level high"><span class="status-dot high"></span> High Crowd (80%)</span>
               <span class="status-count">400 / 500</span>
             </div>
-            <div class="progress-bar-container">
-              <div class="progress-bar-fill high" style="width: 80%"></div>
-            </div>
+            <div class="progress-bar-container"><div class="progress-bar-fill high" style="width: 80%;"></div></div>
             <div class="updated-time">Updated about 4 hours ago</div>
           </div>
         </div>
@@ -183,29 +156,6 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue'
-import { useRouter } from 'vue-router'
-import { auth } from '@/firebase'
-import { signOut, onAuthStateChanged } from 'firebase/auth'
-
-console.log('CommunityView script running')
-
-const router = useRouter()
-
-// Double check auth on component mount
-onMounted(() => {
-  onAuthStateChanged(auth, (user) => {
-    console.log('community mounted, user:', user)
-    if (!user) {
-      router.push({ path: '/', query: { authError: 'You must be logged in to access this page.' } })
-    }
-  })
-})
-
-async function logout() {
-  await signOut(auth)
-  router.push('/')
-}
 </script>
 
 <style scoped>
@@ -216,12 +166,10 @@ async function logout() {
   background: linear-gradient(160deg, #dce8f5 0%, #f0e8e0 100%) !important;
   min-height: 100vh;
 }
-.page-wrapper {
-  min-height: 100vh;
-}
+.page-wrapper { min-height: 100vh; }
 
 header {
-  background-color: #0a1c3e;
+  background-color: #0A1C3E;
   color: white;
   padding: 12px 40px;
   border-bottom-left-radius: 20px;
@@ -233,27 +181,12 @@ header {
   top: 0;
   z-index: 100;
 }
-.logo-section {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-}
-.logo-nus {
-  color: #f37021;
-  font-weight: 800;
-  font-size: 1.2rem;
-}
-.logo-text {
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: white;
-}
-.nav-links {
-  display: flex;
-  gap: 6px;
-}
+.logo-section { display: flex; align-items: center; gap: 2px; }
+.logo-nus { color: #F37021; font-weight: 800; font-size: 1.2rem; }
+.logo-text { font-weight: 700; font-size: 1.2rem; color: white; }
+.nav-links { display: flex; gap: 6px; }
 .nav-links a {
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(255,255,255,0.65);
   text-decoration: none;
   font-size: 14px;
   padding: 6px 14px;
@@ -263,20 +196,15 @@ header {
   gap: 6px;
   transition: 0.2s;
 }
-.nav-links a:hover {
-  color: white;
-}
-.nav-links a.active {
-  color: white;
-  background-color: rgba(255, 255, 255, 0.15);
-}
+.nav-links a:hover { color: white; }
+.nav-links a.active { color: white; background-color: rgba(255,255,255,0.15); }
 .user-controls {
   display: flex;
   align-items: center;
   gap: 16px;
   font-size: 14px;
   cursor: pointer;
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255,255,255,0.8);
 }
 
 main {
@@ -286,54 +214,52 @@ main {
   align-items: center;
 }
 
-/* HERO */
+/* HERO — flex row, left side centred, lion on right bottom-aligned */
 .hero-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  margin: 50px 0 24px;
-  width: 100%;
-}
-.hero-wrapper h1 {
-  font-size: 3rem;
-  font-weight: 800;
-  margin: 0 0 6px;
-  color: #0a1c3e;
-}
-.hero-wrapper p {
-  font-size: 1.1rem;
-  color: #555;
-  margin: 0 0 16px;
-}
-.nus {
-  color: #f37021;
-}
-
-/* SEARCH ROW — search bar + lion side by side, no gap between them */
-.search-row {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
   justify-content: center;
+  margin: 40px 0 24px;
+  width: 100%;
+  max-width: 900px;
   gap: 0;
 }
 
+/* LEFT side — centred text + search */
+.hero-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+}
+.hero-left h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin: 0 0 4px;
+  color: #0A1C3E;
+  white-space: nowrap;
+}
+.hero-left p {
+  font-size: 1.1rem;
+  color: #555;
+  margin: 0 0 12px;
+}
+.nus { color: #F37021; }
+
 /* SEARCH BAR */
 .search-container {
-  width: 620px;
+  width: 100%;
+  max-width: 580px;
   background: white;
   padding: 6px 6px 6px 16px;
   border-radius: 40px;
   display: flex;
   align-items: center;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-  flex-shrink: 0;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
 }
-.search-container i {
-  color: #bbb;
-  margin-right: 4px;
-}
+.search-container i { color: #bbb; margin-right: 4px; }
 .search-container input {
   border: none;
   flex: 1;
@@ -343,7 +269,7 @@ main {
   background: transparent;
 }
 .search-button {
-  background: #f37021;
+  background: #F37021;
   color: white;
   border: none;
   padding: 12px 28px;
@@ -353,19 +279,16 @@ main {
   font-size: 15px;
   transition: 0.2s;
 }
-.search-button:hover {
-  background: #d45d1a;
-}
+.search-button:hover { background: #d45d1a; }
 
-/* LION — no gap, bottom flush with search bar bottom */
+/* LION — right side, bottom aligned to search bar bottom */
 .bubble-and-lion {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
-  gap: 0;
+  gap: 2px;
+  flex-shrink: 0;
   margin-left: 0;
-  margin-bottom: 0;
 }
 .speech-bubble {
   background: white;
@@ -373,27 +296,19 @@ main {
   border-radius: 16px;
   font-size: 12px;
   font-weight: 600;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-  color: #2a2a2a;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  color: #2A2A2A;
   white-space: nowrap;
-  margin-bottom: 2px;
 }
 .nus-lion-img {
   width: 110px;
   height: 110px;
   object-fit: contain;
   display: block;
-  margin: 0;
-  padding: 0;
-  vertical-align: bottom;
 }
 
 /* FILTERS */
-.filters {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 36px;
-}
+.filters { display: flex; gap: 10px; margin-bottom: 36px; }
 .filter-btn {
   background: white;
   border: 1.5px solid #e0e0e0;
@@ -407,11 +322,7 @@ main {
   gap: 6px;
   transition: 0.2s;
 }
-.filter-btn.active {
-  color: #1a73e8;
-  border-color: #1a73e8;
-  font-weight: 600;
-}
+.filter-btn.active { color: #1a73e8; border-color: #1a73e8; font-weight: 600; }
 
 /* GRID */
 .canteen-grid {
@@ -425,61 +336,31 @@ main {
   background: white;
   border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.07);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.canteen-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
-}
-.canteen-image-container {
-  position: relative;
-  height: 185px;
-}
-.canteen-image-container img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-.card-actions {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  display: flex;
-  gap: 8px;
-}
+.canteen-card:hover { transform: translateY(-5px); box-shadow: 0 10px 28px rgba(0,0,0,0.12); }
+.canteen-image-container { position: relative; height: 185px; }
+.canteen-image-container img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.card-actions { position: absolute; top: 10px; right: 10px; display: flex; gap: 8px; }
 .card-action-btn {
   width: 32px;
   height: 32px;
   border-radius: 50%;
   border: none;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255,255,255,0.92);
   cursor: pointer;
   font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   transition: 0.2s;
 }
-.card-action-btn:hover {
-  background: white;
-}
-.favorite {
-  color: #e74c3c;
-}
-.canteen-info {
-  padding: 16px;
-}
-.canteen-title {
-  font-weight: 700;
-  font-size: 1rem;
-  margin-bottom: 12px;
-  color: #2a2a2a;
-}
+.card-action-btn:hover { background: white; }
+.favorite { color: #e74c3c; }
+.canteen-info { padding: 16px; }
+.canteen-title { font-weight: 700; font-size: 1rem; margin-bottom: 12px; color: #2A2A2A; }
 .status-line {
   display: flex;
   justify-content: space-between;
@@ -493,11 +374,7 @@ main {
   font-weight: 600;
   background-color: transparent !important;
 }
-.status-count {
-  color: #888888;
-  font-weight: 700;
-  font-size: 12px;
-}
+.status-count { color: #888888; font-weight: 700; font-size: 12px; }
 .status-dot {
   display: inline-block;
   width: 8px;
@@ -512,63 +389,26 @@ main {
   margin-bottom: 10px;
   overflow: hidden;
 }
-.progress-bar-fill {
-  height: 100%;
-  border-radius: 10px;
-}
-.low {
-  color: #2ecc71;
-}
-.medium {
-  color: #e67e22;
-}
-.high {
-  color: #e74c3c;
-}
-.progress-bar-fill.low {
-  background-color: #2ecc71;
-}
-.progress-bar-fill.medium {
-  background-color: #e67e22;
-}
-.progress-bar-fill.high {
-  background-color: #e74c3c;
-}
-.status-dot.low {
-  background-color: #2ecc71;
-}
-.status-dot.medium {
-  background-color: #e67e22;
-}
-.status-dot.high {
-  background-color: #e74c3c;
-}
-.updated-time {
-  font-size: 11px;
-  color: #aaa;
-  text-align: right;
-}
+.progress-bar-fill { height: 100%; border-radius: 10px; }
+.low { color: #2ecc71; }
+.medium { color: #e67e22; }
+.high { color: #e74c3c; }
+.progress-bar-fill.low { background-color: #2ecc71; }
+.progress-bar-fill.medium { background-color: #e67e22; }
+.progress-bar-fill.high { background-color: #e74c3c; }
+.status-dot.low { background-color: #2ecc71; }
+.status-dot.medium { background-color: #e67e22; }
+.status-dot.high { background-color: #e74c3c; }
+.updated-time { font-size: 11px; color: #aaa; text-align: right; }
 
 @media (max-width: 900px) {
-  .canteen-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .bubble-and-lion {
-    display: none;
-  }
-  .search-container {
-    width: 90%;
-  }
+  .canteen-grid { grid-template-columns: repeat(2, 1fr); }
+  .bubble-and-lion { display: none; }
+  .hero-wrapper { flex-direction: column; align-items: center; }
 }
 @media (max-width: 600px) {
-  .canteen-grid {
-    grid-template-columns: 1fr;
-  }
-  main {
-    padding: 0 16px 40px;
-  }
-  .hero-wrapper h1 {
-    font-size: 2rem;
-  }
+  .canteen-grid { grid-template-columns: 1fr; }
+  main { padding: 0 16px 40px; }
+  .hero-left h1 { font-size: 2rem; }
 }
 </style>
