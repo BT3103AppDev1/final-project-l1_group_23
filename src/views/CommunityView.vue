@@ -29,7 +29,7 @@
               <img class="nus-lion-img" src="/Img/lion.jpg" alt="NUS Lion">
             </div>
           </div>
-          <p>Let's find you the best spot to eat ⭐</p>
+          <p>Let's find you the best spot to eat </p>
           <div class="search-container">
             <i class="fas fa-search"></i>
             <input type="text" placeholder="Search canteens, food, or location...">
@@ -297,8 +297,8 @@ main {
   white-space: nowrap;
 }
 .nus-lion-img {
-  width: 100px;
-  height: 100px;
+  width: 110px;
+  height: 110px;
   object-fit: contain;
   display: block;
   /* Negative margin pulls lion down to touch search bar */
