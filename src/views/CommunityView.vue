@@ -297,12 +297,12 @@ main {
   white-space: nowrap;
 }
 .nus-lion-img {
-  width: 110px;
-  height: 110px;
+  width: 150px;
+  height: 150px;
   object-fit: contain;
   display: block;
   /* Negative margin pulls lion down to touch search bar */
-  margin-bottom: -44px;
+  margin-bottom: -50px;
 }
 
 /* Subtitle */
