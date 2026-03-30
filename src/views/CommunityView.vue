@@ -7,13 +7,15 @@
       <nav class="nav-links">
         <a href="#" class="active"><i class="fas fa-users"></i> Community</a>
         <a href="#"><i class="fas fa-map-marker-alt"></i> Map</a>
-        <a href="#"><i class="fas fa-star"></i> Recommended</a> 
+        <a href="#"><i class="fas fa-star"></i> Recommended</a>
         <a href="#"><i class="fas fa-heart"></i> Favourites</a>
         <a href="#"><i class="fas fa-gift"></i> Rewards</a>
       </nav>
       <div class="user-controls">
         <i class="fas fa-cog"></i>
-        <i class="fas fa-sign-out-alt"></i> Logout
+        <button class="logout-btn" @click="handleLogout">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
       </div>
     </header>
 
@@ -27,7 +29,7 @@
               <img class="nus-lion-img" src="/Img/lion.jpg" alt="NUS Lion">
             </div>
           </div>
-          <p>Let's find you the best spot to eat</p> 
+          <p>Let's find you the best spot to eat ⭐</p>
           <div class="search-container">
             <i class="fas fa-search"></i>
             <input type="text" placeholder="Search canteens, food, or location...">
@@ -156,6 +158,20 @@
 </template>
 
 <script setup>
+import { signOut } from 'firebase/auth'
+import { auth } from '@/firebase'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+const handleLogout = async () => {
+  try {
+    await signOut(auth)
+    router.push('/')
+  } catch (error) {
+    console.error('Logout error:', error)
+  }
+}
 </script>
 
 <style scoped>
@@ -203,9 +219,20 @@ header {
   align-items: center;
   gap: 16px;
   font-size: 14px;
-  cursor: pointer;
   color: rgba(255,255,255,0.8);
 }
+.logout-btn {
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0;
+}
+.logout-btn:hover { color: white; }
 
 main {
   padding: 0 40px 60px;
@@ -229,14 +256,14 @@ main {
   text-align: center;
 }
 
-/* Title row — h1 and lion side by side */
+/* Title + lion in same row, bottom aligned */
 .title-lion-row {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
   justify-content: center;
   gap: 0;
-  margin-bottom: 4px;
+  line-height: 1;
 }
 
 .hero-text-block h1 {
@@ -249,13 +276,14 @@ main {
 }
 .nus { color: #F37021; }
 
-/* Lion sits right of h1, bottom flush with text baseline */
+/* Lion immediately right of NUS! */
 .bubble-and-lion {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 2px;
-  margin-left: 8px;
+  margin-left: 6px;
+  /* Pull lion UP so bottom aligns with search bar top */
   margin-bottom: 0;
 }
 .speech-bubble {
@@ -273,14 +301,15 @@ main {
   height: 100px;
   object-fit: contain;
   display: block;
-  margin: 0;
+  /* Negative margin pulls lion down to touch search bar */
+  margin-bottom: -44px;
 }
 
 /* Subtitle */
 .hero-text-block p {
   font-size: 1.1rem;
   color: #555;
-  margin: 0 0 10px;
+  margin: 6px 0 10px;
 }
 
 /* Search bar */
@@ -293,6 +322,8 @@ main {
   display: flex;
   align-items: center;
   box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  position: relative;
+  z-index: 1;
 }
 .search-container i { color: #bbb; margin-right: 4px; }
 .search-container input {
@@ -317,7 +348,12 @@ main {
 .search-button:hover { background: #d45d1a; }
 
 /* FILTERS */
-.filters { display: flex; gap: 10px; margin-bottom: 36px; margin-top: 16px; }
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 36px;
+  margin-top: 20px;
+}
 .filter-btn {
   background: white;
   border: 1.5px solid #e0e0e0;
