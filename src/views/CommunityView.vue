@@ -7,7 +7,7 @@
       <nav class="nav-links">
         <a href="#" class="active"><i class="fas fa-users"></i> Community</a>
         <a href="#"><i class="fas fa-map-marker-alt"></i> Map</a>
-        <a href="#"><i class="fas fa-star"></i> Recommended</a>
+        <a href="#"><i class="fas fa-star"></i> Recommended</a> 
         <a href="#"><i class="fas fa-heart"></i> Favourites</a>
         <a href="#"><i class="fas fa-gift"></i> Rewards</a>
       </nav>
