@@ -27,7 +27,7 @@
               <img class="nus-lion-img" src="/Img/lion.jpg" alt="NUS Lion">
             </div>
           </div>
-          <p>Let's find you the best spot to eat ⭐</p>
+          <p>Let's find you the best spot to eat</p>
           <div class="search-container">
             <i class="fas fa-search"></i>
             <input type="text" placeholder="Search canteens, food, or location...">
