@@ -3,9 +3,10 @@ import { auth } from '@/firebase'
 import LandingView from '@/views/LandingView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import LoginView from '@/views/LoginView.vue'
+import { onAuthStateChanged } from 'firebase/auth'
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHistory('/final-project-l1_group_23/'),
   routes: [
     { path: '/', component: LandingView },
     { path: '/register', component: RegisterView },
@@ -27,12 +28,26 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const requiresAuth = to.meta.requiresAuth
-  const user = auth.currentUser
-  if (requiresAuth && !user) {
-    next('/')
-  } else {
+  if (!requiresAuth) {
     next()
+    return
   }
+
+  const user = auth.currentUser
+  if (user) {
+    next()
+    return
+  }
+
+  // If currentUser is null, wait for Firebase to finish initializing
+  const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+    unsubscribe()
+    if (firebaseUser) {
+      next()
+    } else {
+      next({ path: '/', query: { authError: 'You must be logged in to access this page.' } })
+    }
+  })
 })
 
 export default router

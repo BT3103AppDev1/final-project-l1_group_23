@@ -1,7 +1,5 @@
 <template>
   <div class="page-wrapper">
-
-    <!-- ── Navigation Bar  ── -->
     <header>
       <div class="logo-section">
         <span class="logo-nus">NUS</span><span class="logo-text">CanteenPulse</span>
@@ -19,7 +17,6 @@
     </header>
 
     <main>
-      <!-- ── Hero ── -->
       <div class="hero-wrapper">
         <div class="hero-text-block">
           <h1>Hey there, <span class="nus">NUS!</span></h1>
@@ -40,29 +37,18 @@
         </div>
       </div>
 
-      <!-- ── Filter bar ── -->
       <div class="filters">
-        <button class="filter-btn" :class="{ active: activeSort === 'all' }" @click="setSort('all')">
-          🍽 All Canteens
-        </button>
-        <button class="filter-btn" :class="{ active: activeSort === 'lowest' }" @click="setSort('lowest')">
-          ↓ Lowest Crowd
-        </button>
-        <button class="filter-btn" :class="{ active: activeSort === 'highest' }" @click="setSort('highest')">
-          ↑ Highest Crowd
-        </button>
-        <button class="filter-btn" :class="{ active: activeSort === 'alpha' }" @click="setSort('alpha')">
-          🔤 A–Z
-        </button>
+        <button class="filter-btn" :class="{ active: activeSort === 'all' }" @click="setSort('all')">🍽 All Canteens</button>
+        <button class="filter-btn" :class="{ active: activeSort === 'lowest' }" @click="setSort('lowest')">↓ Lowest Crowd</button>
+        <button class="filter-btn" :class="{ active: activeSort === 'highest' }" @click="setSort('highest')">↑ Highest Crowd</button>
+        <button class="filter-btn" :class="{ active: activeSort === 'alpha' }" @click="setSort('alpha')">🔤 A–Z</button>
       </div>
 
-      <!-- ── Loading state ── -->
       <div v-if="loading" class="loading-state">
         <div class="spinner"></div>
         <p>Loading canteens...</p>
       </div>
 
-      <!-- ── Canteen grid  ── -->
       <div v-else class="canteen-grid">
         <div
           class="canteen-card"
@@ -83,7 +69,6 @@
               >♥</button>
             </div>
           </div>
-
           <div class="canteen-info">
             <div class="canteen-title">{{ canteen.name }}</div>
             <div class="status-line">
@@ -103,7 +88,6 @@
             <div class="updated-time">Updated just now</div>
           </div>
         </div>
-
         <div v-if="filteredCanteens.length === 0" class="no-results">
           No canteens match your search.
         </div>
@@ -208,7 +192,6 @@ export default {
 
 header {
   background-color: #0A1C3E;
-  color: white;
   padding: 12px 40px;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
@@ -219,7 +202,7 @@ header {
   top: 0;
   z-index: 100;
 }
-.logo-section { display: flex; align-items: center; }
+.logo-section { display: flex; align-items: center; gap: 2px; }
 .logo-nus  { color: #F37021; font-weight: 800; font-size: 1.2rem; }
 .logo-text { font-weight: 700; font-size: 1.2rem; color: white; }
 .nav-links { display: flex; gap: 6px; }
@@ -295,7 +278,6 @@ main { padding: 0 40px 60px; display: flex; flex-direction: column; align-items:
 .canteen-image-container { position: relative; height: 185px; }
 .canteen-image-container img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease; }
 .canteen-card:hover img { transform: scale(1.05); }
-
 .img-fallback { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 4rem; font-weight: 900; color: rgba(255,255,255,0.25); }
 
 .card-actions { position: absolute; top: 10px; right: 10px; }
@@ -305,12 +287,10 @@ main { padding: 0 40px 60px; display: flex; flex-direction: column; align-items:
 
 .canteen-info { padding: 16px; }
 .canteen-title { font-weight: 700; font-size: 1rem; margin-bottom: 10px; color: #2A2A2A; }
-
 .status-line { display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 6px; align-items: center; }
 .status-level { display: flex; align-items: center; font-weight: 600; }
 .status-count { color: #888; font-weight: 700; font-size: 12px; }
 .status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; }
-
 .progress-bar-container { height: 7px; background: #eee; border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
 .progress-bar-fill { height: 100%; border-radius: 10px; transition: width 0.5s ease; }
 
