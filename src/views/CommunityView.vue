@@ -329,13 +329,14 @@ main {
   box-shadow: 0 4px 12px rgba(0,0,0,0.12);
   color: #2A2A2A;
   white-space: nowrap;
+  margin-bottom: -10px;
 }
 .nus-lion-img {
   width: 110px;
   height: 110px;
   object-fit: contain;
   display: block;
-  margin-bottom: -40px;
+  margin-bottom: 10px;
 }
 
 /* FILTERS */
