@@ -131,7 +131,7 @@ export default {
         'The Deck':             baseUrl + 'Img/deck.jpg',
         'Flavours @ UTown':     baseUrl + 'Img/Flavours.jpg',
         'TechnoEdge':     baseUrl + 'Img/TechnoEdge.jpg',
-        'The Terrace @ Com3':     baseUrl + 'Img/Terrace.jpg',
+        'The Terrace @ COM3':     baseUrl + 'Img/Terrace.jpg',
       },
     }
   },
