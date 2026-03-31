@@ -19,7 +19,7 @@ const router = createRouter({
     {
       path: '/canteen/:id',
       name: 'CanteenDetail',   // ← must match exactly
-      component: () => import('@/views/CanteenView.vue')
+      component: CanteenView
     },
     { path: '/:pathMatch(.*)*', component: () => import('../views/NotFoundView.vue') },
   ],
