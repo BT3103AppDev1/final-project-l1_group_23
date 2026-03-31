@@ -115,7 +115,7 @@ export default {
       activeSort: 'lowest',
       favourites: [],
       imageMap: {
-        'PGP Aircon Canteen': '/Img/pgp.jpg',
+        'PGP Aircon Canteen': '/Img/Pgpairconcanteen.jpg',
         'Frontier': '/Img/Frontier.jpg',
         'Central Square @ YIH': '/Img/YIH.jpg',
         'Fine Food @ UTown': '/Img/FineFood.jpg',
