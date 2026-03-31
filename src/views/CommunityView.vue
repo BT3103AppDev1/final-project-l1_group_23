@@ -336,7 +336,7 @@ main {
   height: 110px;
   object-fit: contain;
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 }
 
 /* FILTERS */
