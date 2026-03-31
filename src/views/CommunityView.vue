@@ -35,7 +35,8 @@
         </div>
         <div class="bubble-and-lion">
           <div class="speech-bubble">Hungry? Let's go!</div>
-          <img class="nus-lion-img" src="/Img/lion.jpg" alt="NUS Lion">
+          <!-- ✅ FIX 1: Use :src binding with baseUrl instead of a hardcoded string -->
+          <img class="nus-lion-img" :src="baseUrl + 'Img/lion.jpg'" alt="NUS Lion">
         </div>
       </div>
 
@@ -106,6 +107,9 @@ import { db, auth } from '@/firebase'
 export default {
   name: 'CommunityView',
   data() {
+    // ✅ FIX 2: Capture BASE_URL once — resolves correctly whether base is "/" or "/myapp/"
+    const baseUrl = import.meta.env.BASE_URL  // Always ends with "/"
+
     return {
       canteens: [],
       loading: true,
@@ -114,13 +118,18 @@ export default {
       activeSearch: '',
       activeSort: 'lowest',
       favourites: [],
+
+      // ✅ Expose baseUrl so the template's :src binding can access it
+      baseUrl,
+
+      // ✅ FIX 3: All imageMap paths prefixed with baseUrl (no leading slash on filename)
       imageMap: {
-        'PGP Aircon Canteen': '/Img/pgp.jpg',
-        'Frontier': '/Img/Frontier.jpg',
-        'Central Square @ YIH': '/Img/YIH.jpg',
-        'Fine Food @ UTown': '/Img/FineFood.jpg',
-        'The Deck': '/Img/deck.jpg',
-        'Flavours @ UTown': '/Img/Flavours.jpg',
+        'PGP Aircon Canteen':    baseUrl + 'Img/pgp.jpg',
+        'Frontier':              baseUrl + 'Img/Frontier.jpg',
+        'Central Square @ YIH': baseUrl + 'Img/YIH.jpg',
+        'Fine Food @ UTown':    baseUrl + 'Img/FineFood.jpg',
+        'The Deck':             baseUrl + 'Img/deck.jpg',
+        'Flavours @ UTown':     baseUrl + 'Img/Flavours.jpg',
       },
     }
   },
@@ -151,8 +160,9 @@ export default {
     if (this.unsubscribe) this.unsubscribe()
   },
   methods: {
+    // ✅ FIX 4: Fallback also uses baseUrl via this.baseUrl
     getLocalImage(name) {
-      return this.imageMap[name] || '/Img/pgp.jpg'
+      return this.imageMap[name] || this.baseUrl + 'Img/pgp.jpg'
     },
     getOccupancyPercent(canteen) {
       if (!canteen.totalSeats) return 0
