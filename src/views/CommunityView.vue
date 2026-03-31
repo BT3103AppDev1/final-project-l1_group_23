@@ -125,11 +125,13 @@ export default {
       // ✅ FIX 3: All imageMap paths prefixed with baseUrl (no leading slash on filename)
       imageMap: {
         'PGP Aircon Canteen':    baseUrl + 'Img/pgp.jpg',
-        'Frontier':              baseUrl + 'Img/Frontier.jpg',
+        'Frontier (Science Canteen)': baseUrl + 'Img/Frontier.jpg',
         'Central Square @ YIH': baseUrl + 'Img/YIH.jpg',
         'Fine Food @ UTown':    baseUrl + 'Img/FineFood.jpg',
         'The Deck':             baseUrl + 'Img/deck.jpg',
         'Flavours @ UTown':     baseUrl + 'Img/Flavours.jpg',
+        'TechnoEdge':     baseUrl + 'Img/TechnoEdge.jpg',
+        'The Terrace @ Com3':     baseUrl + 'Img/Terrace.jpg',
       },
     }
   },
