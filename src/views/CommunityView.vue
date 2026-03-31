@@ -310,9 +310,7 @@ main {
 /* LION — absolutely positioned, right of centre, bottom = top of search bar */
 .bubble-and-lion {
   position: absolute;
-  /* Sits at the right edge of the search bar area */
-  left: calc(50% + 310px - 110px);
-  /* Bottom of lion = bottom of hero-wrapper = top of search bar */
+  left: calc(50% + 160px);
   bottom: 0;
   display: flex;
   flex-direction: column;
