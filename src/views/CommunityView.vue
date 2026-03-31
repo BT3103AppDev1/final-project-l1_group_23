@@ -28,11 +28,12 @@
             <i class="fas fa-search"></i>
             <input type="text" placeholder="Search canteens, food, or location...">
             <button class="search-button">Search</button>
+            
+            <div class="bubble-and-lion">
+              <div class="speech-bubble">Hungry? Let's go!</div>
+              <img class="nus-lion-img" src="/Img/lion.jpg" alt="NUS Lion">
+            </div>
           </div>
-        </div>
-        <div class="bubble-and-lion">
-          <div class="speech-bubble">Hungry? Let's go!</div>
-          <img class="nus-lion-img" src="/Img/lion.jpg" alt="NUS Lion">
         </div>
       </div>
 
@@ -43,7 +44,7 @@
       </div>
 
       <div class="canteen-grid">
-        <div class="canteen-card">
+        <div class="canteen-card" v-for="i in 6" :key="i">
           <div class="canteen-image-container">
             <img src="/Img/pgp.jpg" alt="PGP">
             <div class="card-actions">
@@ -58,96 +59,6 @@
             </div>
             <div class="progress-bar-container"><div class="progress-bar-fill low" style="width: 16%;"></div></div>
             <div class="updated-time">Updated 18 minutes ago</div>
-          </div>
-        </div>
-
-        <div class="canteen-card">
-          <div class="canteen-image-container">
-            <img src="/Img/Frontier.jpg" alt="Frontier">
-            <div class="card-actions">
-              <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
-            </div>
-          </div>
-          <div class="canteen-info">
-            <div class="canteen-title">Frontier</div>
-            <div class="status-line">
-              <span class="status-level low"><span class="status-dot low"></span> Low Crowd (21%)</span>
-              <span class="status-count">150 / 700</span>
-            </div>
-            <div class="progress-bar-container"><div class="progress-bar-fill low" style="width: 21%;"></div></div>
-            <div class="updated-time">Updated about 4 hours ago</div>
-          </div>
-        </div>
-
-        <div class="canteen-card">
-          <div class="canteen-image-container">
-            <img src="/Img/YIH.jpg" alt="Central Square">
-            <div class="card-actions">
-              <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
-            </div>
-          </div>
-          <div class="canteen-info">
-            <div class="canteen-title">Central Square @ YIH</div>
-            <div class="status-line">
-              <span class="status-level low"><span class="status-dot low"></span> Low Crowd (32%)</span>
-              <span class="status-count">100 / 314</span>
-            </div>
-            <div class="progress-bar-container"><div class="progress-bar-fill low" style="width: 32%;"></div></div>
-            <div class="updated-time">Updated about 4 hours ago</div>
-          </div>
-        </div>
-
-        <div class="canteen-card">
-          <div class="canteen-image-container">
-            <img src="/Img/FineFood.jpg" alt="Fine Food">
-            <div class="card-actions">
-              <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
-            </div>
-          </div>
-          <div class="canteen-info">
-            <div class="canteen-title">Fine Food @ UTown</div>
-            <div class="status-line">
-              <span class="status-level medium"><span class="status-dot medium"></span> Medium Crowd (42%)</span>
-              <span class="status-count">250 / 600</span>
-            </div>
-            <div class="progress-bar-container"><div class="progress-bar-fill medium" style="width: 42%;"></div></div>
-            <div class="updated-time">Updated about 4 hours ago</div>
-          </div>
-        </div>
-
-        <div class="canteen-card">
-          <div class="canteen-image-container">
-            <img src="/Img/deck.jpg" alt="The Deck">
-            <div class="card-actions">
-              <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
-            </div>
-          </div>
-          <div class="canteen-info">
-            <div class="canteen-title">The Deck</div>
-            <div class="status-line">
-              <span class="status-level high"><span class="status-dot high"></span> High Crowd (79%)</span>
-              <span class="status-count">800 / 1018</span>
-            </div>
-            <div class="progress-bar-container"><div class="progress-bar-fill high" style="width: 79%;"></div></div>
-            <div class="updated-time">Updated about 4 hours ago</div>
-          </div>
-        </div>
-
-        <div class="canteen-card">
-          <div class="canteen-image-container">
-            <img src="/Img/Flavours.jpg" alt="Flavours">
-            <div class="card-actions">
-              <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
-            </div>
-          </div>
-          <div class="canteen-info">
-            <div class="canteen-title">Flavours @ UTown</div>
-            <div class="status-line">
-              <span class="status-level high"><span class="status-dot high"></span> High Crowd (80%)</span>
-              <span class="status-count">400 / 500</span>
-            </div>
-            <div class="progress-bar-container"><div class="progress-bar-fill high" style="width: 80%;"></div></div>
-            <div class="updated-time">Updated about 4 hours ago</div>
           </div>
         </div>
       </div>
@@ -180,7 +91,6 @@ const handleLogout = async () => {
   background: linear-gradient(160deg, #dce8f5 0%, #f0e8e0 100%) !important;
   min-height: 100vh;
 }
-.page-wrapper { min-height: 100vh; }
 
 header {
   background-color: #0A1C3E;
@@ -195,6 +105,7 @@ header {
   top: 0;
   z-index: 100;
 }
+
 .logo-section { display: flex; align-items: center; gap: 2px; }
 .logo-nus { color: #F37021; font-weight: 800; font-size: 1.2rem; }
 .logo-text { font-weight: 700; font-size: 1.2rem; color: white; }
@@ -208,29 +119,8 @@ header {
   display: flex;
   align-items: center;
   gap: 6px;
-  transition: 0.2s;
 }
-.nav-links a:hover { color: white; }
 .nav-links a.active { color: white; background-color: rgba(255,255,255,0.15); }
-.user-controls {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  font-size: 14px;
-  color: rgba(255,255,255,0.8);
-}
-.logout-btn {
-  background: none;
-  border: none;
-  color: rgba(255,255,255,0.8);
-  font-size: 14px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 0;
-}
-.logout-btn:hover { color: white; }
 
 main {
   padding: 0 40px 60px;
@@ -239,210 +129,119 @@ main {
   align-items: center;
 }
 
-/* HERO — position relative so lion can be absolutely placed */
 .hero-wrapper {
-  position: relative;
-  margin: 40px 0 0;
+  margin: 60px 0 20px;
   width: 100%;
   max-width: 1100px;
-  display: flex;
-  justify-content: center;
-}
-
-/* Centred text block */
-.hero-text-block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  width: 100%;
 }
 
 .hero-text-block h1 {
-  font-size: 3rem;
+  font-size: 3.5rem;
   font-weight: 800;
-  margin: 0 0 4px;
+  margin: 0;
   color: #0A1C3E;
 }
 .nus { color: #F37021; }
 
-.hero-text-block p {
-  font-size: 1.1rem;
-  color: #555;
-  margin: 0 0 12px;
-}
-
-/* Search bar */
 .search-container {
-  width: 620px;
-  max-width: 90%;
+  width: 650px;
+  max-width: 95%;
   background: white;
-  padding: 6px 6px 6px 16px;
-  border-radius: 40px;
+  padding: 8px 8px 8px 20px;
+  border-radius: 50px;
   display: flex;
   align-items: center;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-  position: relative;
-  z-index: 2;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  margin: 30px auto;
+  position: relative; /* Context for the Lion */
 }
-.search-container i { color: #bbb; margin-right: 4px; }
+
 .search-container input {
   border: none;
   flex: 1;
-  padding: 10px 8px;
   outline: none;
-  font-size: 15px;
-  background: transparent;
+  font-size: 16px;
 }
+
 .search-button {
   background: #F37021;
   color: white;
   border: none;
-  padding: 12px 28px;
-  border-radius: 30px;
+  padding: 14px 40px;
+  border-radius: 40px;
   cursor: pointer;
   font-weight: 700;
-  font-size: 15px;
-  transition: 0.2s;
 }
-.search-button:hover { background: #d45d1a; }
 
-/* LION — absolutely positioned, right of centre, bottom = top of search bar */
+/* LION POSITIONING */
 .bubble-and-lion {
   position: absolute;
-  /* Sits at the right edge of the search bar area */
-  left: calc(50% + 310px - 110px);
-  /* Bottom of lion = bottom of hero-wrapper = top of search bar */
-  bottom: 0;
+  right: 20px; /* Aligns relative to the search container edge */
+  bottom: 25px; /* Pulls it up so it overlaps the bar */
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  z-index: 3;
+  z-index: 10; /* Ensures it sits ABOVE the search bar */
+  pointer-events: none; /* Allows clicking the search button underneath */
 }
+
 .speech-bubble {
   background: white;
-  padding: 5px 12px;
-  border-radius: 14px;
-  font-size: 12px;
-  font-weight: 600;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-  color: #2A2A2A;
-  white-space: nowrap;
-}
-.nus-lion-img {
-  width: 110px;
-  height: 110px;
-  object-fit: contain;
-  display: block;
+  padding: 8px 15px;
+  border-radius: 15px;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  color: #333;
+  margin-bottom: -10px; /* Overlap with lion */
+  margin-right: 60px; /* Shifted left relative to lion */
+  position: relative;
 }
 
-/* FILTERS */
-.filters {
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
-  margin-bottom: 36px;
+/* The Little Triangle for the Bubble */
+.speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  right: 20%;
+  border-width: 8px 8px 0;
+  border-style: solid;
+  border-color: white transparent transparent;
 }
+
+.nus-lion-img {
+  width: 120px; /* Slightly larger */
+  height: auto;
+  object-fit: contain;
+}
+
+/* FILTERS & GRID (Rest of your styles) */
+.filters { display: flex; gap: 10px; margin-bottom: 40px; }
 .filter-btn {
   background: white;
-  border: 1.5px solid #e0e0e0;
-  padding: 9px 20px;
-  border-radius: 24px;
-  cursor: pointer;
-  font-size: 13px;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: 0.2s;
-}
-.filter-btn.active { color: #1a73e8; border-color: #1a73e8; font-weight: 600; }
-
-/* GRID */
-.canteen-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  width: 100%;
-  max-width: 1100px;
-}
-.canteen-card {
-  background: white;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.07);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-.canteen-card:hover { transform: translateY(-5px); box-shadow: 0 10px 28px rgba(0,0,0,0.12); }
-.canteen-image-container { position: relative; height: 185px; }
-.canteen-image-container img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.card-actions { position: absolute; top: 10px; right: 10px; display: flex; gap: 8px; }
-.card-action-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255,255,255,0.92);
+  border: 1px solid #eee;
+  padding: 10px 20px;
+  border-radius: 25px;
   cursor: pointer;
   font-size: 14px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  transition: 0.2s;
+  gap: 8px;
 }
-.card-action-btn:hover { background: white; }
-.favorite { color: #e74c3c; }
-.canteen-info { padding: 16px; }
-.canteen-title { font-weight: 700; font-size: 1rem; margin-bottom: 12px; color: #2A2A2A; }
-.status-line {
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-  margin-bottom: 6px;
-  align-items: center;
-}
-.status-level {
-  display: flex;
-  align-items: center;
-  font-weight: 600;
-  background-color: transparent !important;
-}
-.status-count { color: #888888; font-weight: 700; font-size: 12px; }
-.status-dot {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  margin-right: 5px;
-}
-.progress-bar-container {
-  height: 7px;
-  background: #eee;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  overflow: hidden;
-}
-.progress-bar-fill { height: 100%; border-radius: 10px; }
-.low { color: #2ecc71; }
-.medium { color: #e67e22; }
-.high { color: #e74c3c; }
-.progress-bar-fill.low { background-color: #2ecc71; }
-.progress-bar-fill.medium { background-color: #e67e22; }
-.progress-bar-fill.high { background-color: #e74c3c; }
-.status-dot.low { background-color: #2ecc71; }
-.status-dot.medium { background-color: #e67e22; }
-.status-dot.high { background-color: #e74c3c; }
-.updated-time { font-size: 11px; color: #aaa; text-align: right; }
+.filter-btn.active { background: #eef4ff; color: #1a73e8; border-color: #d0e0ff; }
 
-@media (max-width: 900px) {
-  .canteen-grid { grid-template-columns: repeat(2, 1fr); }
-  .bubble-and-lion { display: none; }
+.canteen-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  width: 100%;
 }
-@media (max-width: 600px) {
-  .canteen-grid { grid-template-columns: 1fr; }
-  main { padding: 0 16px 40px; }
-  .hero-text-block h1 { font-size: 2rem; }
-}
+.canteen-card { background: white; border-radius: 20px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+.canteen-image-container { height: 200px; }
+.canteen-image-container img { width: 100%; height: 100%; object-fit: cover; }
+.canteen-info { padding: 20px; }
+.progress-bar-container { height: 8px; background: #f0f0f0; border-radius: 4px; margin: 10px 0; }
+.progress-bar-fill { height: 100%; border-radius: 4px; }
+.progress-bar-fill.low { background: #2ecc71; }
+.updated-time { font-size: 12px; color: #999; text-align: right; }
 </style>
