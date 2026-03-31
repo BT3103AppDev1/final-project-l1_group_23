@@ -16,7 +16,7 @@
       </div>
     </header>
 
-     <main>
+    <main>
       <div class="hero-wrapper">
         <div class="hero-text-block">
           <h1>Hey there, <span class="nus">NUS!</span></h1>
@@ -59,10 +59,10 @@
           @click="$router.push('/canteen/' + canteen.id)"
         >
           <div class="canteen-image-container">
-            <img v-if="canteen.imageUrl" :src="canteen.imageUrl" :alt="canteen.name" />
-            <div v-else class="img-fallback" :style="{ background: getCardGradient(canteen) }">
-              {{ canteen.name[0] }}
-            </div>
+            <img
+              :src="getLocalImage(canteen.name)"
+              :alt="canteen.name"
+            />
             <div class="card-actions">
               <button
                 class="card-action-btn"
@@ -111,15 +111,24 @@ export default {
       loading: true,
       unsubscribe: null,
       searchQuery: '',
+      activeSearch: '',
       activeSort: 'lowest',
       favourites: [],
+      imageMap: {
+        'PGP Aircon Canteen': '/Img/pgp.jpg',
+        'Frontier': '/Img/Frontier.jpg',
+        'Central Square @ YIH': '/Img/YIH.jpg',
+        'Fine Food @ UTown': '/Img/FineFood.jpg',
+        'The Deck': '/Img/deck.jpg',
+        'Flavours @ UTown': '/Img/Flavours.jpg',
+      },
     }
   },
   computed: {
     filteredCanteens() {
       let list = [...this.canteens]
-      if (this.searchQuery.trim()) {
-        const q = this.searchQuery.toLowerCase()
+      if (this.activeSearch.trim()) {
+        const q = this.activeSearch.toLowerCase()
         list = list.filter((c) => c.name.toLowerCase().includes(q))
       }
       if (this.activeSort === 'lowest') {
@@ -142,6 +151,9 @@ export default {
     if (this.unsubscribe) this.unsubscribe()
   },
   methods: {
+    getLocalImage(name) {
+      return this.imageMap[name] || '/Img/pgp.jpg'
+    },
     getOccupancyPercent(canteen) {
       if (!canteen.totalSeats) return 0
       return Math.min(Math.round((canteen.occupiedSeats / canteen.totalSeats) * 100), 100)
@@ -174,6 +186,14 @@ export default {
       const idx = this.favourites.indexOf(id)
       if (idx === -1) this.favourites.push(id)
       else this.favourites.splice(idx, 1)
+    },
+    handleSearch() {
+      this.activeSearch = this.searchQuery.trim()
+    },
+    handleInput() {
+      if (this.searchQuery === '') {
+        this.activeSearch = ''
+      }
     },
     async logout() {
       await signOut(auth)
@@ -254,7 +274,6 @@ main { padding: 0 40px 60px; display: flex; flex-direction: column; align-items:
   align-items: center;
   box-shadow: 0 6px 20px rgba(0,0,0,0.08);
 }
-.search-icon { color: #bbb; margin-right: 4px; }
 .search-container input { border: none; flex: 1; padding: 10px 8px; outline: none; font-size: 15px; background: transparent; }
 .search-button { background: #F37021; color: white; border: none; padding: 12px 28px; border-radius: 30px; cursor: pointer; font-weight: 700; font-size: 15px; transition: 0.2s; }
 .search-button:hover { background: #d45d1a; }
@@ -270,13 +289,7 @@ main { padding: 0 40px 60px; display: flex; flex-direction: column; align-items:
   z-index: 3;
 }
 .speech-bubble { background: white; padding: 5px 12px; border-radius: 14px; font-size: 12px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.12); color: #2A2A2A; white-space: nowrap; margin-bottom: -18px; }
-.nus-lion-img {
-  width: 110px;
-  height: 110px;
-  object-fit: contain;
-  display: block;
-  margin-bottom: 35px;
-}
+.nus-lion-img { width: 110px; height: 110px; object-fit: contain; display: block; margin-bottom: 35px; }
 
 .filters { display: flex; gap: 10px; margin-top: 28px; margin-bottom: 32px; flex-wrap: wrap; justify-content: center; }
 .filter-btn { background: white; border: 1.5px solid #e0e0e0; padding: 9px 20px; border-radius: 24px; cursor: pointer; font-size: 13px; font-weight: 500; transition: 0.2s; }
@@ -295,7 +308,6 @@ main { padding: 0 40px 60px; display: flex; flex-direction: column; align-items:
 .canteen-image-container { position: relative; height: 185px; }
 .canteen-image-container img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease; }
 .canteen-card:hover img { transform: scale(1.05); }
-.img-fallback { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 4rem; font-weight: 900; color: rgba(255,255,255,0.25); }
 
 .card-actions { position: absolute; top: 10px; right: 10px; }
 .card-action-btn { width: 32px; height: 32px; border-radius: 50%; border: none; background: rgba(255,255,255,0.92); cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.1); transition: 0.2s; color: #ccc; }
