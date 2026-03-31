@@ -22,12 +22,18 @@
     <main>
       <div class="hero-wrapper">
         <div class="hero-text-block">
-          <h1>Hey there, <span class="nus">NUS!</span></h1> 
+          <h1>Hey there, <span class="nus">NUS!</span></h1>
           <p>Let's find you the best spot to eat</p>
           <div class="search-container">
             <i class="fas fa-search"></i>
-            <input type="text" placeholder="Search canteens, food, or location...">
-            <button class="search-button">Search</button>
+            <input
+              type="text"
+              placeholder="Search canteens, food, or location..."
+              v-model="searchQuery"
+              @input="handleInput"
+              @keyup.enter="handleSearch"
+            >
+            <button class="search-button" @click="handleSearch">Search</button>
           </div>
         </div>
         <div class="bubble-and-lion">
@@ -42,8 +48,12 @@
         <button class="filter-btn"><i class="fas fa-layer-group"></i> All Levels <i class="fas fa-chevron-down"></i></button>
       </div>
 
+      <div v-if="filteredCanteens.length === 0" class="no-results">
+        No canteens found for "{{ activeSearch }}"
+      </div>
+
       <div class="canteen-grid">
-        <div class="canteen-card">
+        <div class="canteen-card" v-show="isVisible(0)">
           <div class="canteen-image-container">
             <img src="/Img/pgp.jpg" alt="PGP">
             <div class="card-actions">
@@ -63,7 +73,7 @@
           </div>
         </div>
 
-        <div class="canteen-card">
+        <div class="canteen-card" v-show="isVisible(1)">
           <div class="canteen-image-container">
             <img src="/Img/Frontier.jpg" alt="Frontier">
             <div class="card-actions">
@@ -83,7 +93,7 @@
           </div>
         </div>
 
-        <div class="canteen-card">
+        <div class="canteen-card" v-show="isVisible(2)">
           <div class="canteen-image-container">
             <img src="/Img/YIH.jpg" alt="Central Square">
             <div class="card-actions">
@@ -103,7 +113,7 @@
           </div>
         </div>
 
-        <div class="canteen-card">
+        <div class="canteen-card" v-show="isVisible(3)">
           <div class="canteen-image-container">
             <img src="/Img/FineFood.jpg" alt="Fine Food">
             <div class="card-actions">
@@ -123,7 +133,7 @@
           </div>
         </div>
 
-        <div class="canteen-card">
+        <div class="canteen-card" v-show="isVisible(4)">
           <div class="canteen-image-container">
             <img src="/Img/deck.jpg" alt="The Deck">
             <div class="card-actions">
@@ -143,7 +153,7 @@
           </div>
         </div>
 
-        <div class="canteen-card">
+        <div class="canteen-card" v-show="isVisible(5)">
           <div class="canteen-image-container">
             <img src="/Img/Flavours.jpg" alt="Flavours">
             <div class="card-actions">
@@ -168,7 +178,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { signOut } from 'firebase/auth'
 import { auth } from '@/firebase'
 import { useRouter } from 'vue-router'
@@ -185,9 +195,42 @@ const handleLogout = async () => {
 }
 
 const liked = ref([false, false, false, false, false, false])
-
 const toggleLike = (index) => {
   liked.value[index] = !liked.value[index]
+}
+
+const canteenNames = [
+  'PGP Aircon Canteen',
+  'Frontier',
+  'Central Square @ YIH',
+  'Fine Food @ UTown',
+  'The Deck',
+  'Flavours @ UTown',
+]
+
+const searchQuery = ref('')
+const activeSearch = ref('')
+
+const handleSearch = () => {
+  activeSearch.value = searchQuery.value.trim()
+}
+
+const handleInput = () => {
+  if (searchQuery.value === '') {
+    activeSearch.value = ''
+  }
+}
+
+const filteredCanteens = computed(() => {
+  if (!activeSearch.value) return canteenNames
+  return canteenNames.filter(name =>
+    name.toLowerCase().includes(activeSearch.value.toLowerCase())
+  )
+})
+
+const isVisible = (index) => {
+  if (!activeSearch.value) return true
+  return canteenNames[index].toLowerCase().includes(activeSearch.value.toLowerCase())
 }
 </script>
 
@@ -368,6 +411,13 @@ main {
   transition: 0.2s;
 }
 .filter-btn.active { color: #1a73e8; border-color: #1a73e8; font-weight: 600; }
+
+.no-results {
+  font-size: 1rem;
+  color: #888;
+  margin-bottom: 24px;
+  text-align: center;
+}
 
 .canteen-grid {
   display: grid;
