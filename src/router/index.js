@@ -18,9 +18,8 @@ const router = createRouter({
     },
     {
       path: '/canteen/:id',
-      component: () => import('../views/CanteenView.vue'),
-      props: true,
-      meta: { requiresAuth: true },
+      name: 'CanteenDetail',   // ← must match exactly
+      component: () => import('@/views/CanteenView.vue')
     },
     { path: '/:pathMatch(.*)*', component: () => import('../views/NotFoundView.vue') },
   ],
