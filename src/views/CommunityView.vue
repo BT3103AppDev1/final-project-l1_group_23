@@ -47,7 +47,9 @@
           <div class="canteen-image-container">
             <img src="/Img/pgp.jpg" alt="PGP">
             <div class="card-actions">
-              <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
+              <button class="card-action-btn" :class="{ liked: liked[0] }" @click="toggleLike(0)">
+                <i class="fas fa-heart"></i>
+              </button>
             </div>
           </div>
           <div class="canteen-info">
@@ -65,7 +67,9 @@
           <div class="canteen-image-container">
             <img src="/Img/Frontier.jpg" alt="Frontier">
             <div class="card-actions">
-              <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
+              <button class="card-action-btn" :class="{ liked: liked[1] }" @click="toggleLike(1)">
+                <i class="fas fa-heart"></i>
+              </button>
             </div>
           </div>
           <div class="canteen-info">
@@ -83,7 +87,9 @@
           <div class="canteen-image-container">
             <img src="/Img/YIH.jpg" alt="Central Square">
             <div class="card-actions">
-              <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
+              <button class="card-action-btn" :class="{ liked: liked[2] }" @click="toggleLike(2)">
+                <i class="fas fa-heart"></i>
+              </button>
             </div>
           </div>
           <div class="canteen-info">
@@ -101,7 +107,9 @@
           <div class="canteen-image-container">
             <img src="/Img/FineFood.jpg" alt="Fine Food">
             <div class="card-actions">
-              <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
+              <button class="card-action-btn" :class="{ liked: liked[3] }" @click="toggleLike(3)">
+                <i class="fas fa-heart"></i>
+              </button>
             </div>
           </div>
           <div class="canteen-info">
@@ -119,7 +127,9 @@
           <div class="canteen-image-container">
             <img src="/Img/deck.jpg" alt="The Deck">
             <div class="card-actions">
-              <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
+              <button class="card-action-btn" :class="{ liked: liked[4] }" @click="toggleLike(4)">
+                <i class="fas fa-heart"></i>
+              </button>
             </div>
           </div>
           <div class="canteen-info">
@@ -137,7 +147,9 @@
           <div class="canteen-image-container">
             <img src="/Img/Flavours.jpg" alt="Flavours">
             <div class="card-actions">
-              <button class="card-action-btn favorite"><i class="fas fa-heart"></i></button>
+              <button class="card-action-btn" :class="{ liked: liked[5] }" @click="toggleLike(5)">
+                <i class="fas fa-heart"></i>
+              </button>
             </div>
           </div>
           <div class="canteen-info">
@@ -156,6 +168,7 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { signOut } from 'firebase/auth'
 import { auth } from '@/firebase'
 import { useRouter } from 'vue-router'
@@ -169,6 +182,12 @@ const handleLogout = async () => {
   } catch (error) {
     console.error('Logout error:', error)
   }
+}
+
+const liked = ref([false, false, false, false, false, false])
+
+const toggleLike = (index) => {
+  liked.value[index] = !liked.value[index]
 }
 </script>
 
@@ -239,7 +258,6 @@ main {
   align-items: center;
 }
 
-/* HERO — position relative so lion can be absolutely placed */
 .hero-wrapper {
   position: relative;
   margin: 40px 0 0;
@@ -248,8 +266,6 @@ main {
   display: flex;
   justify-content: center;
 }
-
-/* Centred text block */
 .hero-text-block {
   display: flex;
   flex-direction: column;
@@ -257,7 +273,6 @@ main {
   text-align: center;
   width: 100%;
 }
-
 .hero-text-block h1 {
   font-size: 3rem;
   font-weight: 800;
@@ -265,14 +280,11 @@ main {
   color: #0A1C3E;
 }
 .nus { color: #F37021; }
-
 .hero-text-block p {
   font-size: 1.1rem;
   color: #555;
   margin: 0 0 12px;
 }
-
-/* Search bar */
 .search-container {
   width: 620px;
   max-width: 90%;
@@ -307,7 +319,6 @@ main {
 }
 .search-button:hover { background: #d45d1a; }
 
-/* LION — absolutely positioned, right of centre, bottom = top of search bar */
 .bubble-and-lion {
   position: absolute;
   left: calc(50% + 160px);
@@ -337,7 +348,6 @@ main {
   margin-bottom: 35px;
 }
 
-/* FILTERS */
 .filters {
   display: flex;
   gap: 10px;
@@ -359,7 +369,6 @@ main {
 }
 .filter-btn.active { color: #1a73e8; border-color: #1a73e8; font-weight: 600; }
 
-/* GRID */
 .canteen-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -391,9 +400,11 @@ main {
   justify-content: center;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   transition: 0.2s;
+  color: #ccc;
 }
 .card-action-btn:hover { background: white; }
-.favorite { color: #e74c3c; }
+.card-action-btn.liked { color: #e74c3c; }
+
 .canteen-info { padding: 16px; }
 .canteen-title { font-weight: 700; font-size: 1rem; margin-bottom: 12px; color: #2A2A2A; }
 .status-line {
