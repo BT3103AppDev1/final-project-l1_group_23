@@ -18,6 +18,7 @@ const router = createRouter({
     },
     {
       path: '/canteen/:id',
+      name: 'CanteenDetail',   // ← add this
       component: () => import('../views/CanteenView.vue'),
       props: true,
       meta: { requiresAuth: true },
