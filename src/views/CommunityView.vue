@@ -22,7 +22,7 @@
     <main>
       <div class="hero-wrapper">
         <div class="hero-text-block">
-          <h1>Hey there, <span class="nus">NUS!</span></h1>
+          <h1>Hey there, <span class="nus">NUS!</span></h1> 
           <p>Let's find you the best spot to eat</p>
           <div class="search-container">
             <i class="fas fa-search"></i>
