@@ -16,24 +16,26 @@
       </div>
     </header>
 
-    <main>
+     <main>
       <div class="hero-wrapper">
         <div class="hero-text-block">
           <h1>Hey there, <span class="nus">NUS!</span></h1>
-          <p>Let's find you the best spot to eat 🌟</p>
+          <p>Let's find you the best spot to eat</p>
           <div class="search-container">
-            <span class="search-icon">🔍</span>
+            <i class="fas fa-search"></i>
             <input
               type="text"
               placeholder="Search canteens, food, or location..."
               v-model="searchQuery"
-            />
-            <button class="search-button">Search</button>
+              @input="handleInput"
+              @keyup.enter="handleSearch"
+            >
+            <button class="search-button" @click="handleSearch">Search</button>
           </div>
         </div>
         <div class="bubble-and-lion">
           <div class="speech-bubble">Hungry? Let's go!</div>
-          <div class="lion-emoji">🦁</div>
+          <img class="nus-lion-img" src="/Img/lion.jpg" alt="NUS Lion">
         </div>
       </div>
 
@@ -257,9 +259,24 @@ main { padding: 0 40px 60px; display: flex; flex-direction: column; align-items:
 .search-button { background: #F37021; color: white; border: none; padding: 12px 28px; border-radius: 30px; cursor: pointer; font-weight: 700; font-size: 15px; transition: 0.2s; }
 .search-button:hover { background: #d45d1a; }
 
-.bubble-and-lion { position: absolute; left: calc(50% + 200px); bottom: 0; display: flex; flex-direction: column; align-items: center; }
-.speech-bubble { background: white; padding: 5px 12px; border-radius: 14px; font-size: 12px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.12); color: #2A2A2A; white-space: nowrap; margin-bottom: 4px; }
-.lion-emoji { font-size: 5rem; line-height: 1; }
+.bubble-and-lion {
+  position: absolute;
+  left: calc(50% + 160px);
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  z-index: 3;
+}
+.speech-bubble { background: white; padding: 5px 12px; border-radius: 14px; font-size: 12px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.12); color: #2A2A2A; white-space: nowrap; margin-bottom: -18px; }
+.nus-lion-img {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+  display: block;
+  margin-bottom: 35px;
+}
 
 .filters { display: flex; gap: 10px; margin-top: 28px; margin-bottom: 32px; flex-wrap: wrap; justify-content: center; }
 .filter-btn { background: white; border: 1.5px solid #e0e0e0; padding: 9px 20px; border-radius: 24px; cursor: pointer; font-size: 13px; font-weight: 500; transition: 0.2s; }
