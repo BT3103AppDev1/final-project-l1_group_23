@@ -35,7 +35,6 @@
         </div>
         <div class="bubble-and-lion">
           <div class="speech-bubble">Hungry? Let's go!</div>
-          <!-- ✅ FIX 1: Use :src binding with baseUrl instead of a hardcoded string -->
           <img class="nus-lion-img" :src="baseUrl + 'Img/lion.jpg'" alt="NUS Lion">
         </div>
       </div>
@@ -57,8 +56,9 @@
           class="canteen-card"
           v-for="canteen in filteredCanteens"
           :key="canteen.id"
-          @click="$router.push('/canteen/' + canteen.id)"
+          @click="goToCanteen(canteen)"
         >
+          <!-- ✅ FIX: replaced inline $router.push with goToCanteen(canteen) method -->
           <div class="canteen-image-container">
             <img
               :src="getLocalImage(canteen.name)"
@@ -107,8 +107,7 @@ import { db, auth } from '@/firebase'
 export default {
   name: 'CommunityView',
   data() {
-    // ✅ FIX 2: Capture BASE_URL once — resolves correctly whether base is "/" or "/myapp/"
-    const baseUrl = import.meta.env.BASE_URL  // Always ends with "/"
+    const baseUrl = import.meta.env.BASE_URL
 
     return {
       canteens: [],
@@ -118,20 +117,16 @@ export default {
       activeSearch: '',
       activeSort: 'lowest',
       favourites: [],
-
-      // ✅ Expose baseUrl so the template's :src binding can access it
       baseUrl,
-
-      // ✅ FIX 3: All imageMap paths prefixed with baseUrl (no leading slash on filename)
       imageMap: {
-        'PGP Aircon Canteen':    baseUrl + 'Img/pgp.jpg',
-        'Frontier (Science Canteen)': baseUrl + 'Img/Frontier.jpg',
-        'Central Square @ YIH': baseUrl + 'Img/YIH.jpg',
-        'Fine Food @ UTown':    baseUrl + 'Img/FineFood.jpg',
-        'The Deck':             baseUrl + 'Img/deck.jpg',
-        'Flavours @ UTown':     baseUrl + 'Img/Flavours.jpg',
-        'TechnoEdge':     baseUrl + 'Img/TechnoEdge.jpg',
-        'The Terrace @ COM3':     baseUrl + 'Img/Terrace.jpg',
+        'PGP Aircon Canteen':              baseUrl + 'Img/pgp.jpg',
+        'Frontier (Science Canteen)':      baseUrl + 'Img/Frontier.jpg',
+        'Central Square @ YIH':            baseUrl + 'Img/YIH.jpg',
+        'Fine Food @ UTown':               baseUrl + 'Img/FineFood.jpg',
+        'The Deck':                        baseUrl + 'Img/deck.jpg',
+        'Flavours @ UTown':                baseUrl + 'Img/Flavours.jpg',
+        'TechnoEdge':                      baseUrl + 'Img/TechnoEdge.jpg',
+        'The Terrace @ COM3':              baseUrl + 'Img/Terrace.jpg',
       },
     }
   },
@@ -162,7 +157,23 @@ export default {
     if (this.unsubscribe) this.unsubscribe()
   },
   methods: {
-    // ✅ FIX 4: Fallback also uses baseUrl via this.baseUrl
+    // ✅ FIX: Dedicated navigation method with error handling and ID validation
+    goToCanteen(canteen) {
+      // Guard: warn if ID is missing so you can spot Firestore mapping issues
+      if (!canteen.id) {
+        console.warn('[CommunityView] canteen.id is undefined — check Firestore data:', canteen)
+        return
+      }
+
+      console.log('[CommunityView] Navigating to canteen:', canteen.id)
+
+      this.$router.push({ name: 'CanteenDetail', params: { id: canteen.id } })
+        .catch((err) => {
+          // Catches missing route, navigation guards, etc.
+          console.error('[CommunityView] Router navigation failed:', err)
+        })
+    },
+
     getLocalImage(name) {
       return this.imageMap[name] || this.baseUrl + 'Img/pgp.jpg'
     },
@@ -299,6 +310,8 @@ main { padding: 0 40px 60px; display: flex; flex-direction: column; align-items:
   align-items: center;
   gap: 4px;
   z-index: 3;
+  /* ✅ Ensure the lion decoration never blocks card clicks */
+  pointer-events: none;
 }
 .speech-bubble { background: white; padding: 5px 12px; border-radius: 14px; font-size: 12px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.12); color: #2A2A2A; white-space: nowrap; margin-bottom: -18px; }
 .nus-lion-img { width: 110px; height: 110px; object-fit: contain; display: block; margin-bottom: 35px; }
