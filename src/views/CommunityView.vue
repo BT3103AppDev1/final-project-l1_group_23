@@ -22,19 +22,17 @@
     <main>
       <div class="hero-wrapper">
         <div class="hero-text-block">
-          <div class="title-lion-row">
-            <h1>Hey there, <span class="nus">NUS!</span></h1>
-            <div class="bubble-and-lion">
-              <div class="speech-bubble">Hungry? Let's go!</div>
-              <img class="nus-lion-img" src="/Img/lion.jpg" alt="NUS Lion">
-            </div>
-          </div>
-          <p>Let's find you the best spot to eat </p>
+          <h1>Hey there, <span class="nus">NUS!</span></h1>
+          <p>Let's find you the best spot to eat</p>
           <div class="search-container">
             <i class="fas fa-search"></i>
             <input type="text" placeholder="Search canteens, food, or location...">
             <button class="search-button">Search</button>
           </div>
+        </div>
+        <div class="bubble-and-lion">
+          <div class="speech-bubble">Hungry? Let's go!</div>
+          <img class="nus-lion-img" src="/Img/lion.jpg" alt="NUS Lion">
         </div>
       </div>
 
@@ -241,75 +239,37 @@ main {
   align-items: center;
 }
 
-/* HERO */
+/* HERO — position relative so lion can be absolutely placed */
 .hero-wrapper {
-  margin: 40px 0 24px;
+  position: relative;
+  margin: 40px 0 0;
   width: 100%;
+  max-width: 1100px;
   display: flex;
   justify-content: center;
 }
 
+/* Centred text block */
 .hero-text-block {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-}
-
-/* Title + lion in same row, bottom aligned */
-.title-lion-row {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 0;
-  line-height: 1;
+  width: 100%;
 }
 
 .hero-text-block h1 {
   font-size: 3rem;
   font-weight: 800;
-  margin: 0;
+  margin: 0 0 4px;
   color: #0A1C3E;
-  white-space: nowrap;
-  line-height: 1;
 }
 .nus { color: #F37021; }
 
-/* Lion immediately right of NUS! */
-.bubble-and-lion {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  margin-left: 6px;
-  /* Pull lion UP so bottom aligns with search bar top */
-  margin-bottom: 0;
-}
-.speech-bubble {
-  background: white;
-  padding: 5px 12px;
-  border-radius: 14px;
-  font-size: 12px;
-  font-weight: 600;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
-  color: #2A2A2A;
-  white-space: nowrap;
-}
-.nus-lion-img {
-  width: 150px;
-  height: 150px;
-  object-fit: contain;
-  display: block;
-  /* Negative margin pulls lion down to touch search bar */
-  margin-bottom: -50px;
-}
-
-/* Subtitle */
 .hero-text-block p {
   font-size: 1.1rem;
   color: #555;
-  margin: 6px 0 10px;
+  margin: 0 0 12px;
 }
 
 /* Search bar */
@@ -323,7 +283,7 @@ main {
   align-items: center;
   box-shadow: 0 6px 20px rgba(0,0,0,0.08);
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 .search-container i { color: #bbb; margin-right: 4px; }
 .search-container input {
@@ -347,12 +307,42 @@ main {
 }
 .search-button:hover { background: #d45d1a; }
 
+/* LION — absolutely positioned, right of centre, bottom = top of search bar */
+.bubble-and-lion {
+  position: absolute;
+  /* Sits at the right edge of the search bar area */
+  left: calc(50% + 310px - 110px);
+  /* Bottom of lion = bottom of hero-wrapper = top of search bar */
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  z-index: 3;
+}
+.speech-bubble {
+  background: white;
+  padding: 5px 12px;
+  border-radius: 14px;
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  color: #2A2A2A;
+  white-space: nowrap;
+}
+.nus-lion-img {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+  display: block;
+}
+
 /* FILTERS */
 .filters {
   display: flex;
   gap: 10px;
-  margin-bottom: 36px;
   margin-top: 20px;
+  margin-bottom: 36px;
 }
 .filter-btn {
   background: white;
@@ -453,6 +443,6 @@ main {
 @media (max-width: 600px) {
   .canteen-grid { grid-template-columns: 1fr; }
   main { padding: 0 16px 40px; }
-  .hero-text-block h1 { font-size: 2rem; white-space: normal; }
+  .hero-text-block h1 { font-size: 2rem; }
 }
 </style>
