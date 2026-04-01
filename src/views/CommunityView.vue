@@ -5,11 +5,11 @@
         <span class="logo-nus">NUS</span><span class="logo-text">CanteenPulse</span>
       </div>
       <nav class="nav-links">
-        <RouterLink to="/community" class="nav-link" active-class="active">🏠 Community</RouterLink>
-        <RouterLink to="/map" class="nav-link" active-class="active">🗺 Map</RouterLink>
-        <RouterLink to="/recommended" class="nav-link" active-class="active">⭐ Recommended</RouterLink>
-        <RouterLink to="/favourites" class="nav-link" active-class="active">♡ Favourites</RouterLink>
-        <RouterLink to="/rewards" class="nav-link" active-class="active">🎁 Rewards</RouterLink>
+        <RouterLink to="/community" active-class="active">🏠 Community</RouterLink>
+        <RouterLink to="/map" active-class="active">🗺 Map</RouterLink>
+        <RouterLink to="/recommended" active-class="active">⭐ Recommended</RouterLink>
+        <RouterLink to="/favourites" active-class="active">♡ Favourites</RouterLink>
+        <RouterLink to="/rewards" active-class="active">🎁 Rewards</RouterLink>
       </nav>
       <div class="user-controls">
         <button class="logout-btn" @click="logout">↪ Logout</button>
@@ -102,9 +102,11 @@
 import { collection, onSnapshot } from 'firebase/firestore'
 import { signOut } from 'firebase/auth'
 import { db, auth } from '@/firebase'
+import { RouterLink } from 'vue-router'
 
 export default {
   name: 'CommunityView',
+  components: { RouterLink },
   data() {
     const baseUrl = import.meta.env.BASE_URL
 
@@ -139,10 +141,8 @@ export default {
       }
 
       if (this.activeSort === 'lowest') {
-        // Sort by exact raw percentage ascending (least crowded first)
         list.sort((a, b) => this.getOccupancyPercent(a) - this.getOccupancyPercent(b))
       } else if (this.activeSort === 'highest') {
-        // Sort by exact raw percentage descending (most crowded first)
         list.sort((a, b) => this.getOccupancyPercent(b) - this.getOccupancyPercent(a))
       } else if (this.activeSort === 'alpha') {
         list.sort((a, b) => a.name.localeCompare(b.name))
@@ -166,7 +166,6 @@ export default {
         console.warn('[CommunityView] canteen.id is undefined — check Firestore data:', canteen)
         return
       }
-      console.log('[CommunityView] Navigating to canteen:', canteen.id)
       this.$router.push({ name: 'CanteenDetail', params: { id: canteen.id } })
         .catch((err) => {
           console.error('[CommunityView] Router navigation failed:', err)
@@ -177,13 +176,11 @@ export default {
       return this.imageMap[name] || this.baseUrl + 'Img/pgp.jpg'
     },
 
-    // Raw unrounded percentage — used for sorting so order is always exact
     getOccupancyPercent(canteen) {
       if (!canteen.totalSeats) return 0
       return Math.min((canteen.occupiedSeats / canteen.totalSeats) * 100, 100)
     },
 
-    // Rounded percentage — used only for display in the badge label
     getOccupancyDisplay(canteen) {
       return Math.round(this.getOccupancyPercent(canteen))
     },
@@ -199,17 +196,6 @@ export default {
       if (pct >= 70) return 'High Crowd'
       if (pct >= 40) return 'Medium Crowd'
       return 'Low Crowd'
-    },
-    getCardGradient(canteen) {
-      const gradients = [
-        'linear-gradient(135deg, #1e3a6e, #2d5299)',
-        'linear-gradient(135deg, #7c3aed, #4f46e5)',
-        'linear-gradient(135deg, #0f766e, #0891b2)',
-        'linear-gradient(135deg, #b45309, #d97706)',
-        'linear-gradient(135deg, #be123c, #e11d48)',
-        'linear-gradient(135deg, #166534, #15803d)',
-      ]
-      return gradients[canteen.name.charCodeAt(0) % gradients.length]
     },
     setSort(s) { this.activeSort = s },
     toggleFavourite(id) {
@@ -227,7 +213,7 @@ export default {
     },
     async logout() {
       await signOut(auth)
-      this.$router.push('/')
+      this.$router.push({ name: 'Landing' })
     },
   },
 }
