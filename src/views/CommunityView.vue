@@ -58,7 +58,6 @@
           :key="canteen.id"
           @click="goToCanteen(canteen)"
         >
-          <!-- ✅ FIX: replaced inline $router.push with goToCanteen(canteen) method -->
           <div class="canteen-image-container">
             <img
               :src="getLocalImage(canteen.name)"
@@ -77,7 +76,7 @@
             <div class="status-line">
               <span class="status-level" :class="getCrowdClass(canteen)">
                 <span class="status-dot" :class="getCrowdClass(canteen)"></span>
-                {{ getCrowdLabel(canteen) }} ({{ getOccupancyPercent(canteen) }}%)
+                {{ getCrowdLabel(canteen) }} ({{ getOccupancyDisplay(canteen) }}%)
               </span>
               <span class="status-count">{{ canteen.occupiedSeats }} / {{ canteen.totalSeats }}</span>
             </div>
@@ -133,17 +132,22 @@ export default {
   computed: {
     filteredCanteens() {
       let list = [...this.canteens]
+
       if (this.activeSearch.trim()) {
         const q = this.activeSearch.toLowerCase()
         list = list.filter((c) => c.name.toLowerCase().includes(q))
       }
+
       if (this.activeSort === 'lowest') {
+        // Sort by exact raw percentage ascending (least crowded first)
         list.sort((a, b) => this.getOccupancyPercent(a) - this.getOccupancyPercent(b))
       } else if (this.activeSort === 'highest') {
+        // Sort by exact raw percentage descending (most crowded first)
         list.sort((a, b) => this.getOccupancyPercent(b) - this.getOccupancyPercent(a))
       } else if (this.activeSort === 'alpha') {
         list.sort((a, b) => a.name.localeCompare(b.name))
       }
+
       return list
     },
   },
@@ -157,19 +161,14 @@ export default {
     if (this.unsubscribe) this.unsubscribe()
   },
   methods: {
-    // ✅ FIX: Dedicated navigation method with error handling and ID validation
     goToCanteen(canteen) {
-      // Guard: warn if ID is missing so you can spot Firestore mapping issues
       if (!canteen.id) {
         console.warn('[CommunityView] canteen.id is undefined — check Firestore data:', canteen)
         return
       }
-
       console.log('[CommunityView] Navigating to canteen:', canteen.id)
-
       this.$router.push({ name: 'CanteenDetail', params: { id: canteen.id } })
         .catch((err) => {
-          // Catches missing route, navigation guards, etc.
           console.error('[CommunityView] Router navigation failed:', err)
         })
     },
@@ -177,10 +176,18 @@ export default {
     getLocalImage(name) {
       return this.imageMap[name] || this.baseUrl + 'Img/pgp.jpg'
     },
+
+    // Raw unrounded percentage — used for sorting so order is always exact
     getOccupancyPercent(canteen) {
       if (!canteen.totalSeats) return 0
-      return Math.min(Math.round((canteen.occupiedSeats / canteen.totalSeats) * 100), 100)
+      return Math.min((canteen.occupiedSeats / canteen.totalSeats) * 100, 100)
     },
+
+    // Rounded percentage — used only for display in the badge label
+    getOccupancyDisplay(canteen) {
+      return Math.round(this.getOccupancyPercent(canteen))
+    },
+
     getCrowdClass(canteen) {
       const pct = this.getOccupancyPercent(canteen)
       if (pct >= 70) return 'high'
@@ -310,7 +317,6 @@ main { padding: 0 40px 60px; display: flex; flex-direction: column; align-items:
   align-items: center;
   gap: 4px;
   z-index: 3;
-  /* ✅ Ensure the lion decoration never blocks card clicks */
   pointer-events: none;
 }
 .speech-bubble { background: white; padding: 5px 12px; border-radius: 14px; font-size: 12px; font-weight: 600; box-shadow: 0 4px 12px rgba(0,0,0,0.12); color: #2A2A2A; white-space: nowrap; margin-bottom: -18px; }
