@@ -17,7 +17,6 @@
     </header>
 
     <main>
-      <!-- Hero -->
       <div class="hero-wrapper">
         <div class="hero-text-block">
           <h1>🏆 Top <span class="nus">Recommendations</span></h1>
@@ -25,19 +24,16 @@
         </div>
       </div>
 
-      <!-- Loading -->
       <div v-if="loading" class="loading-state">
         <div class="spinner"></div>
         <p>Fetching real-time crowd data...</p>
       </div>
 
-      <!-- Error -->
       <div v-else-if="error && !canteens.length" class="loading-state">
         <p style="color:#e74c3c;">⚠️ {{ error }}</p>
         <button class="search-button" @click="fetchCanteens" style="margin-top:12px;">Retry</button>
       </div>
 
-      <!-- Cards -->
       <div v-else class="canteen-grid">
         <div
           class="canteen-card"
@@ -57,8 +53,8 @@
             <div class="card-actions">
               <button
                 class="card-action-btn"
-                :class="{ liked: favs.includes(canteen.id) }"
-                @click.stop="toggleFav(canteen.id)"
+                :class="{ liked: favStore.isFavourite(canteen.id) }"
+                @click.stop="favStore.toggle(canteen.id)"
               >♥</button>
             </div>
           </div>
@@ -96,10 +92,15 @@ import { collection, onSnapshot } from 'firebase/firestore'
 import { signOut } from 'firebase/auth'
 import { db, auth } from '@/firebase'
 import { RouterLink } from 'vue-router'
+import { useFavouritesStore } from '@/stores/favourites'
 
 export default {
   name: 'RecommendedView',
   components: { RouterLink },
+  setup() {
+    const favStore = useFavouritesStore()
+    return { favStore }
+  },
   data() {
     const baseUrl = import.meta.env.BASE_URL
     return {
@@ -107,7 +108,6 @@ export default {
       loading: true,
       error: null,
       unsubscribe: null,
-      favs: [],
       baseUrl,
       imageMap: {
         'PGP Aircon Canteen':         baseUrl + 'Img/pgp.jpg',
@@ -173,11 +173,6 @@ export default {
       if (pct >= 40) return 'Medium Crowd'
       return 'Low Crowd'
     },
-    toggleFav(id) {
-      const idx = this.favs.indexOf(id)
-      if (idx === -1) this.favs.push(id)
-      else this.favs.splice(idx, 1)
-    },
     async handleLogout() {
       await signOut(auth)
       this.$router.push({ name: 'Landing' })
@@ -195,7 +190,6 @@ export default {
   font-family: Arial, sans-serif;
 }
 
-/* ── Header ── */
 header {
   background-color: #0A1C3E;
   padding: 12px 40px;
@@ -235,10 +229,8 @@ header {
 }
 .logout-btn:hover { color: white; background: rgba(255,255,255,0.12); }
 
-/* ── Main ── */
 main { padding: 0 40px 60px; display: flex; flex-direction: column; align-items: center; }
 
-/* ── Hero ── */
 .hero-wrapper {
   margin: 40px 0 32px;
   width: 100%;
@@ -249,30 +241,13 @@ main { padding: 0 40px 60px; display: flex; flex-direction: column; align-items:
 .nus { color: #F37021; }
 .hero-text-block p { font-size: 1.1rem; color: #555; }
 
-/* ── Loading ── */
 .loading-state { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 60px 0; color: #999; }
 .spinner { width: 36px; height: 36px; border: 3px solid #e2e8f0; border-top-color: #0A1C3E; border-radius: 50%; animation: spin 0.8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* ── Grid ── */
-.canteen-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  width: 100%;
-  max-width: 1100px;
-}
+.canteen-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; width: 100%; max-width: 1100px; }
 
-/* ── Card ── */
-.canteen-card {
-  background: white;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.07);
-  cursor: pointer;
-  position: relative;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
+.canteen-card { background: white; border-radius: 18px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,0.07); cursor: pointer; position: relative; transition: transform 0.25s ease, box-shadow 0.25s ease; }
 .canteen-card:hover { transform: translateY(-5px); box-shadow: 0 10px 28px rgba(0,0,0,0.12); }
 .canteen-card.is-top { border: 2px solid #F37021; }
 
@@ -293,15 +268,7 @@ main { padding: 0 40px 60px; display: flex; flex-direction: column; align-items:
 .canteen-card:hover img { transform: scale(1.05); }
 
 .card-actions { position: absolute; top: 10px; right: 10px; }
-.card-action-btn {
-  width: 32px; height: 32px;
-  border-radius: 50%; border: none;
-  background: rgba(255,255,255,0.92);
-  cursor: pointer; font-size: 14px;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  transition: 0.2s; color: #ccc;
-}
+.card-action-btn { width: 32px; height: 32px; border-radius: 50%; border: none; background: rgba(255,255,255,0.92); cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(0,0,0,0.1); transition: 0.2s; color: #ccc; }
 .card-action-btn:hover { background: white; }
 .card-action-btn.liked { color: #e74c3c; }
 
@@ -327,7 +294,6 @@ main { padding: 0 40px 60px; display: flex; flex-direction: column; align-items:
 .updated-time { font-size: 11px; color: #aaa; text-align: right; }
 .no-results { grid-column: 1 / -1; font-size: 1rem; color: #888; text-align: center; padding: 60px 0; }
 
-/* ── Responsive ── */
 @media (max-width: 900px) {
   .canteen-grid { grid-template-columns: repeat(2, 1fr); }
   .nav-links { display: none; }
