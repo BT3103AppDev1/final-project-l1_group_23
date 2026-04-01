@@ -3,13 +3,11 @@
   <head>
     <meta charset="utf-8">
     <script>
-      // Redirect to index.html, preserving the path as a query param
-      var path = window.location.pathname;
-      var search = window.location.search;
-      var hash = window.location.hash;
-      var redirect = path.slice(1) + (search ? '&q=' + search.slice(1) : '') + hash;
-      window.location.replace(
-        window.location.origin + '/final-project-l1_group_23/?redirect=' + encodeURIComponent(redirect)
+      var l = window.location;
+      l.replace(
+        l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        '/final-project-l1_group_23/' +
+        '?p=' + encodeURIComponent(l.pathname.slice(1) + l.search + l.hash)
       );
     </script>
   </head>
