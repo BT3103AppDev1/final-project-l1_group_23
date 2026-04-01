@@ -10,31 +10,65 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      name: 'Landing',
       component: LandingView,
     },
     {
       path: '/register',
+      name: 'Register',
       component: RegisterView,
     },
     {
       path: '/login',
+      name: 'Login',
       component: LoginView,
     },
     {
-      path: '/community',             // ← restored as its own separate route object
+      path: '/community',
       name: 'Community',
       component: () => import('../views/CommunityView.vue'),
       meta: { requiresAuth: true },
     },
     {
-      path: '/canteen/:id',           // ← separate route object
+      path: '/canteen/:id',
       name: 'CanteenDetail',
       component: () => import('../views/CanteenView.vue'),
       props: true,
       meta: { requiresAuth: true },
     },
     {
+      path: '/recommended',
+      name: 'Recommended',
+      component: () => import('../views/RecommendedView.vue'),
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/favourites',
+      name: 'Favourites',
+      component: () => import('../views/FavouritesView.vue'),
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/rewards',
+      name: 'Rewards',
+      component: () => import('../views/RewardsView.vue'),
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/map',
+      name: 'Map',
+      component: () => import('../views/MapView.vue'),
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/settings',
+      name: 'Settings',
+      component: () => import('../views/SettingsView.vue'),
+      meta: { requiresAuth: true },
+    },
+    {
       path: '/:pathMatch(.*)*',
+      name: 'NotFound',
       component: () => import('../views/NotFoundView.vue'),
     },
   ],
@@ -43,15 +77,13 @@ const router = createRouter({
 // Helper: resolves once Firebase auth state is known
 function getCurrentUser() {
   return new Promise((resolve) => {
-    // If already initialized, return immediately
     if (auth.currentUser !== null) {
       resolve(auth.currentUser)
       return
     }
-    // Otherwise wait for Firebase to finish initializing
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       unsubscribe()
-      resolve(user) // resolves with user OR null
+      resolve(user)
     })
   })
 }
@@ -61,9 +93,7 @@ router.beforeEach(async (to, from, next) => {
     next()
     return
   }
-
-  const user = await getCurrentUser() // always wait for Firebase
-
+  const user = await getCurrentUser()
   if (user) {
     next()
   } else {
