@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { auth } from '@/firebase'
-
 import LandingView from '@/views/LandingView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import LoginView from '@/views/LoginView.vue'
@@ -22,42 +21,54 @@ const router = createRouter({
       component: LoginView,
     },
     {
-      path: '/community',
+      path: '/community',             // ← restored as its own separate route object
+      name: 'Community',
       component: () => import('../views/CommunityView.vue'),
-      path: '/canteen/:id',
-      name: 'CanteenDetail',   // ← add this
+      meta: { requiresAuth: true },
+    },
+    {
+      path: '/canteen/:id',           // ← separate route object
+      name: 'CanteenDetail',
       component: () => import('../views/CanteenView.vue'),
       props: true,
       meta: { requiresAuth: true },
     },
-    { path: '/:pathMatch(.*)*', component: () => import('../views/NotFoundView.vue') },
+    {
+      path: '/:pathMatch(.*)*',
+      component: () => import('../views/NotFoundView.vue'),
+    },
   ],
 })
 
-router.beforeEach((to, from, next) => {
-  const requiresAuth = to.meta.requiresAuth
-  if (!requiresAuth) {
-    next()
-    return
-  }
-
-  const user = auth.currentUser
-  if (requiresAuth && !user) {
-    next('/')
-  } else {
-    next()
-    return
-  }
-
-  // If currentUser is null, wait for Firebase to finish initializing
-  const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
-    unsubscribe()
-    if (firebaseUser) {
-      next()
-    } else {
-      next({ path: '/', query: { authError: 'You must be logged in to access this page.' } })
+// Helper: resolves once Firebase auth state is known
+function getCurrentUser() {
+  return new Promise((resolve) => {
+    // If already initialized, return immediately
+    if (auth.currentUser !== null) {
+      resolve(auth.currentUser)
+      return
     }
+    // Otherwise wait for Firebase to finish initializing
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      unsubscribe()
+      resolve(user) // resolves with user OR null
+    })
   })
+}
+
+router.beforeEach(async (to, from, next) => {
+  if (!to.meta.requiresAuth) {
+    next()
+    return
+  }
+
+  const user = await getCurrentUser() // always wait for Firebase
+
+  if (user) {
+    next()
+  } else {
+    next({ path: '/', query: { authError: 'You must be logged in to access this page.' } })
+  }
 })
 
 export default router
