@@ -53,7 +53,7 @@ export default {
 
       try {
         await signInWithEmailAndPassword(auth, this.email, this.password)
-        this.$router.push('/community')
+        this.$router.push({ name: 'Community' })
       } catch (error) {
         if (
           error.code === 'auth/user-not-found' ||
