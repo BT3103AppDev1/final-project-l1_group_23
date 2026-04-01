@@ -30,6 +30,12 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
+      path: '/map',
+      name: 'Map',
+      component: () => import('../views/MapView.vue'),
+      meta: { requiresAuth: true },
+    },
+    {
       path: '/canteen/:id',
       name: 'CanteenDetail',
       component: () => import('../views/CanteenView.vue'),
@@ -70,17 +76,11 @@ function getCurrentUser() {
   })
 }
 
-router.beforeEach(async (to, from, next) => {
-  if (!to.meta.requiresAuth) {
-    next()
-    return
-  }
+router.beforeEach(async (to, from) => {
+  if (!to.meta.requiresAuth) return true
   const user = await getCurrentUser()
-  if (user) {
-    next()
-  } else {
-    next({ path: '/', query: { authError: 'You must be logged in to access this page.' } })
-  }
+  if (user) return true
+  return { path: '/', query: { authError: 'You must be logged in to access this page.' } }
 })
 
 export default router
