@@ -2,19 +2,17 @@
 <html lang="">
   <head>
     <meta charset="UTF-8">
-    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/final-project-l1_group_23/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vite App</title>
+    <title>CanteenPulse</title>
     <script>
-  // On load, check if we were redirected from 404.html and restore the path
-  (function() {
-    var redirect = new URLSearchParams(window.location.search).get('redirect');
-    if (redirect) {
-      var newUrl = window.location.origin + '/' + decodeURIComponent(redirect);
-      window.history.replaceState(null, '', newUrl);
-    }
-  })();
-</script>
+      (function() {
+        var p = new URLSearchParams(window.location.search).get('p');
+        if (p) {
+          window.history.replaceState(null, null, '/' + decodeURIComponent(p));
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="app"></div>
