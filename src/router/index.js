@@ -30,6 +30,11 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
+      path: '/map',
+      component: () => import('../views/MapView.vue'),
+      meta: { requiresAuth: true },
+    },
+    {
       path: '/canteen/:id',
       name: 'CanteenDetail',
       component: () => import('../views/CanteenView.vue'),
