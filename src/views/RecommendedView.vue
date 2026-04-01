@@ -1,7 +1,7 @@
 <template>
   <div class="page-wrapper">
     <header>
-      <div class="logo-section">
+      <div class="logo-section"> 
         <span class="logo-nus">NUS</span><span class="logo-text">CanteenPulse</span>
       </div>
       <nav class="nav-links">
