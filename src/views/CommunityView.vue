@@ -1,6 +1,6 @@
 <template>
   <div class="page-wrapper">
-    <header>
+    <header> 
       <div class="logo-section">
         <span class="logo-nus">NUS</span><span class="logo-text">CanteenPulse</span>
       </div>
