@@ -43,30 +43,6 @@ const router = createRouter({
       meta: { requiresAuth: true },
     },
     {
-      path: '/favourites',
-      name: 'Favourites',
-      component: () => import('../views/FavouritesView.vue'),
-      meta: { requiresAuth: true },
-    },
-    {
-      path: '/rewards',
-      name: 'Rewards',
-      component: () => import('../views/RewardsView.vue'),
-      meta: { requiresAuth: true },
-    },
-    {
-      path: '/map',
-      name: 'Map',
-      component: () => import('../views/MapView.vue'),
-      meta: { requiresAuth: true },
-    },
-    {
-      path: '/settings',
-      name: 'Settings',
-      component: () => import('../views/SettingsView.vue'),
-      meta: { requiresAuth: true },
-    },
-    {
       path: '/:pathMatch(.*)*',
       name: 'NotFound',
       component: () => import('../views/NotFoundView.vue'),
@@ -74,7 +50,6 @@ const router = createRouter({
   ],
 })
 
-// Helper: resolves once Firebase auth state is known
 function getCurrentUser() {
   return new Promise((resolve) => {
     if (auth.currentUser !== null) {
