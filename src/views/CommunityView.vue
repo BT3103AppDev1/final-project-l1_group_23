@@ -1,6 +1,6 @@
 <template>
   <div class="page-wrapper">
-    <header> 
+    <header>
       <div class="logo-section">
         <span class="logo-nus">NUS</span><span class="logo-text">CanteenPulse</span>
       </div>
@@ -59,15 +59,12 @@
           @click="goToCanteen(canteen)"
         >
           <div class="canteen-image-container">
-            <img
-              :src="getLocalImage(canteen.name)"
-              :alt="canteen.name"
-            />
+            <img :src="getLocalImage(canteen.name)" :alt="canteen.name" />
             <div class="card-actions">
               <button
                 class="card-action-btn"
-                :class="{ liked: favourites.includes(canteen.id) }"
-                @click.stop="toggleFavourite(canteen.id)"
+                :class="{ liked: favStore.isFavourite(canteen.id) }"
+                @click.stop="favStore.toggle(canteen.id)"
               >♥</button>
             </div>
           </div>
@@ -103,13 +100,17 @@ import { collection, onSnapshot } from 'firebase/firestore'
 import { signOut } from 'firebase/auth'
 import { db, auth } from '@/firebase'
 import { RouterLink } from 'vue-router'
+import { useFavouritesStore } from '@/stores/favourites'
 
 export default {
   name: 'CommunityView',
   components: { RouterLink },
+  setup() {
+    const favStore = useFavouritesStore()
+    return { favStore }
+  },
   data() {
     const baseUrl = import.meta.env.BASE_URL
-
     return {
       canteens: [],
       loading: true,
@@ -117,29 +118,26 @@ export default {
       searchQuery: '',
       activeSearch: '',
       activeSort: 'lowest',
-      favourites: [],
       baseUrl,
       imageMap: {
-        'PGP Aircon Canteen':              baseUrl + 'Img/pgp.jpg',
-        'Frontier (Science Canteen)':      baseUrl + 'Img/Frontier.jpg',
-        'Central Square @ YIH':            baseUrl + 'Img/YIH.jpg',
-        'Fine Food @ UTown':               baseUrl + 'Img/FineFood.jpg',
-        'The Deck':                        baseUrl + 'Img/deck.jpg',
-        'Flavours @ UTown':                baseUrl + 'Img/Flavours.jpg',
-        'TechnoEdge':                      baseUrl + 'Img/TechnoEdge.jpg',
-        'The Terrace @ COM3':              baseUrl + 'Img/Terrace.jpg',
+        'PGP Aircon Canteen':         baseUrl + 'Img/pgp.jpg',
+        'Frontier (Science Canteen)': baseUrl + 'Img/Frontier.jpg',
+        'Central Square @ YIH':       baseUrl + 'Img/YIH.jpg',
+        'Fine Food @ UTown':          baseUrl + 'Img/FineFood.jpg',
+        'The Deck':                   baseUrl + 'Img/deck.jpg',
+        'Flavours @ UTown':           baseUrl + 'Img/Flavours.jpg',
+        'TechnoEdge':                 baseUrl + 'Img/TechnoEdge.jpg',
+        'The Terrace @ COM3':         baseUrl + 'Img/Terrace.jpg',
       },
     }
   },
   computed: {
     filteredCanteens() {
       let list = [...this.canteens]
-
       if (this.activeSearch.trim()) {
         const q = this.activeSearch.toLowerCase()
         list = list.filter((c) => c.name.toLowerCase().includes(q))
       }
-
       if (this.activeSort === 'lowest') {
         list.sort((a, b) => this.getOccupancyPercent(a) - this.getOccupancyPercent(b))
       } else if (this.activeSort === 'highest') {
@@ -147,7 +145,6 @@ export default {
       } else if (this.activeSort === 'alpha') {
         list.sort((a, b) => a.name.localeCompare(b.name))
       }
-
       return list
     },
   },
@@ -163,28 +160,22 @@ export default {
   methods: {
     goToCanteen(canteen) {
       if (!canteen.id) {
-        console.warn('[CommunityView] canteen.id is undefined — check Firestore data:', canteen)
+        console.warn('[CommunityView] canteen.id is undefined:', canteen)
         return
       }
       this.$router.push({ name: 'CanteenDetail', params: { id: canteen.id } })
-        .catch((err) => {
-          console.error('[CommunityView] Router navigation failed:', err)
-        })
+        .catch((err) => console.error('[CommunityView] Navigation failed:', err))
     },
-
     getLocalImage(name) {
       return this.imageMap[name] || this.baseUrl + 'Img/pgp.jpg'
     },
-
     getOccupancyPercent(canteen) {
       if (!canteen.totalSeats) return 0
       return Math.min((canteen.occupiedSeats / canteen.totalSeats) * 100, 100)
     },
-
     getOccupancyDisplay(canteen) {
       return Math.round(this.getOccupancyPercent(canteen))
     },
-
     getCrowdClass(canteen) {
       const pct = this.getOccupancyPercent(canteen)
       if (pct >= 70) return 'high'
@@ -198,18 +189,9 @@ export default {
       return 'Low Crowd'
     },
     setSort(s) { this.activeSort = s },
-    toggleFavourite(id) {
-      const idx = this.favourites.indexOf(id)
-      if (idx === -1) this.favourites.push(id)
-      else this.favourites.splice(idx, 1)
-    },
-    handleSearch() {
-      this.activeSearch = this.searchQuery.trim()
-    },
+    handleSearch() { this.activeSearch = this.searchQuery.trim() },
     handleInput() {
-      if (this.searchQuery === '') {
-        this.activeSearch = ''
-      }
+      if (this.searchQuery === '') this.activeSearch = ''
     },
     async logout() {
       await signOut(auth)
@@ -252,7 +234,8 @@ header {
   border-radius: 20px;
   transition: 0.2s;
 }
-.nav-links a:hover, .nav-links a.active { color: white; background: rgba(255,255,255,0.15); }
+.nav-links a:hover,
+.nav-links a.active { color: white; background: rgba(255,255,255,0.15); }
 .user-controls { display: flex; align-items: center; }
 .logout-btn {
   background: none;
