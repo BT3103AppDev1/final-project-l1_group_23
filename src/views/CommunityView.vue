@@ -5,11 +5,11 @@
         <span class="logo-nus">NUS</span><span class="logo-text">CanteenPulse</span>
       </div>
       <nav class="nav-links">
-        <a href="#" class="active">🏠 Community</a>
-        <a href="#">🗺 Map</a>
-        <a href="#">⭐ Recommended</a>
-        <a href="#">♡ Favourites</a>
-        <a href="#">🎁 Rewards</a>
+        <RouterLink to="/community" class="nav-link" active-class="active">🏠 Community</RouterLink>
+        <RouterLink to="/map" class="nav-link" active-class="active">🗺 Map</RouterLink>
+        <RouterLink to="/recommended" class="nav-link" active-class="active">⭐ Recommended</RouterLink>
+        <RouterLink to="/favourites" class="nav-link" active-class="active">♡ Favourites</RouterLink>
+        <RouterLink to="/rewards" class="nav-link" active-class="active">🎁 Rewards</RouterLink>
       </nav>
       <div class="user-controls">
         <button class="logout-btn" @click="logout">↪ Logout</button>
