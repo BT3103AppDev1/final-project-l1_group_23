@@ -1,15 +1,15 @@
 <template>
-  <div class="page-wrapper">
+  <div class="page-wrapper"> 
     <header>
       <div class="logo-section">
         <span class="logo-nus">NUS</span><span class="logo-text">CanteenPulse</span>
       </div>
       <nav class="nav-links">
-        <a href="#" class="active">🏠 Community</a>
-        <a @click="$router.push('/map')" style="cursor:pointer">🗺 Map</a>
-        <a href="#">⭐ Recommended</a>
-        <a href="#">♡ Favourites</a>
-        <a href="#">🎁 Rewards</a>
+        <RouterLink to="/community" active-class="active">🏠 Community</RouterLink>
+        <RouterLink to="/map" active-class="active">🗺 Map</RouterLink>
+        <RouterLink to="/recommended" active-class="active">⭐ Recommended</RouterLink>
+        <RouterLink to="/favourites" active-class="active">♡ Favourites</RouterLink>
+        <RouterLink to="/rewards" active-class="active">🎁 Rewards</RouterLink>
       </nav>
       <div class="user-controls">
         <button class="logout-btn" @click="logout">↪ Logout</button>
@@ -59,15 +59,12 @@
           @click="goToCanteen(canteen)"
         >
           <div class="canteen-image-container">
-            <img
-              :src="getLocalImage(canteen.name)"
-              :alt="canteen.name"
-            />
+            <img :src="getLocalImage(canteen.name)" :alt="canteen.name" />
             <div class="card-actions">
               <button
                 class="card-action-btn"
-                :class="{ liked: favourites.includes(canteen.id) }"
-                @click.stop="toggleFavourite(canteen.id)"
+                :class="{ liked: favStore.isFavourite(canteen.id) }"
+                @click.stop="favStore.toggle(canteen.id)"
               >♥</button>
             </div>
           </div>
@@ -102,12 +99,18 @@
 import { collection, onSnapshot } from 'firebase/firestore'
 import { signOut } from 'firebase/auth'
 import { db, auth } from '@/firebase'
+import { RouterLink } from 'vue-router'
+import { useFavouritesStore } from '@/stores/favourites'
 
 export default {
   name: 'CommunityView',
+  components: { RouterLink },
+  setup() {
+    const favStore = useFavouritesStore()
+    return { favStore }
+  },
   data() {
     const baseUrl = import.meta.env.BASE_URL
-
     return {
       canteens: [],
       loading: true,
@@ -115,39 +118,33 @@ export default {
       searchQuery: '',
       activeSearch: '',
       activeSort: 'lowest',
-      favourites: [],
       baseUrl,
       imageMap: {
-        'PGP Aircon Canteen':              baseUrl + 'Img/pgp.jpg',
-        'Frontier (Science Canteen)':      baseUrl + 'Img/Frontier.jpg',
-        'Central Square @ YIH':            baseUrl + 'Img/YIH.jpg',
-        'Fine Food @ UTown':               baseUrl + 'Img/FineFood.jpg',
-        'The Deck':                        baseUrl + 'Img/deck.jpg',
-        'Flavours @ UTown':                baseUrl + 'Img/Flavours.jpg',
-        'TechnoEdge':                      baseUrl + 'Img/TechnoEdge.jpg',
-        'The Terrace @ COM3':              baseUrl + 'Img/Terrace.jpg',
+        'PGP Aircon Canteen':         baseUrl + 'Img/pgp.jpg',
+        'Frontier (Science Canteen)': baseUrl + 'Img/Frontier.jpg',
+        'Central Square @ YIH':       baseUrl + 'Img/YIH.jpg',
+        'Fine Food @ UTown':          baseUrl + 'Img/FineFood.jpg',
+        'The Deck':                   baseUrl + 'Img/deck.jpg',
+        'Flavours @ UTown':           baseUrl + 'Img/Flavours.jpg',
+        'TechnoEdge':                 baseUrl + 'Img/TechnoEdge.jpg',
+        'The Terrace @ COM3':         baseUrl + 'Img/Terrace.jpg',
       },
     }
   },
   computed: {
     filteredCanteens() {
       let list = [...this.canteens]
-
       if (this.activeSearch.trim()) {
         const q = this.activeSearch.toLowerCase()
         list = list.filter((c) => c.name.toLowerCase().includes(q))
       }
-
       if (this.activeSort === 'lowest') {
-        // Sort by exact raw percentage ascending (least crowded first)
         list.sort((a, b) => this.getOccupancyPercent(a) - this.getOccupancyPercent(b))
       } else if (this.activeSort === 'highest') {
-        // Sort by exact raw percentage descending (most crowded first)
         list.sort((a, b) => this.getOccupancyPercent(b) - this.getOccupancyPercent(a))
       } else if (this.activeSort === 'alpha') {
         list.sort((a, b) => a.name.localeCompare(b.name))
       }
-
       return list
     },
   },
@@ -163,31 +160,22 @@ export default {
   methods: {
     goToCanteen(canteen) {
       if (!canteen.id) {
-        console.warn('[CommunityView] canteen.id is undefined — check Firestore data:', canteen)
+        console.warn('[CommunityView] canteen.id is undefined:', canteen)
         return
       }
-      console.log('[CommunityView] Navigating to canteen:', canteen.id)
       this.$router.push({ name: 'CanteenDetail', params: { id: canteen.id } })
-        .catch((err) => {
-          console.error('[CommunityView] Router navigation failed:', err)
-        })
+        .catch((err) => console.error('[CommunityView] Navigation failed:', err))
     },
-
     getLocalImage(name) {
       return this.imageMap[name] || this.baseUrl + 'Img/pgp.jpg'
     },
-
-    // Raw unrounded percentage — used for sorting so order is always exact
     getOccupancyPercent(canteen) {
       if (!canteen.totalSeats) return 0
       return Math.min((canteen.occupiedSeats / canteen.totalSeats) * 100, 100)
     },
-
-    // Rounded percentage — used only for display in the badge label
     getOccupancyDisplay(canteen) {
       return Math.round(this.getOccupancyPercent(canteen))
     },
-
     getCrowdClass(canteen) {
       const pct = this.getOccupancyPercent(canteen)
       if (pct >= 70) return 'high'
@@ -200,34 +188,14 @@ export default {
       if (pct >= 40) return 'Medium Crowd'
       return 'Low Crowd'
     },
-    getCardGradient(canteen) {
-      const gradients = [
-        'linear-gradient(135deg, #1e3a6e, #2d5299)',
-        'linear-gradient(135deg, #7c3aed, #4f46e5)',
-        'linear-gradient(135deg, #0f766e, #0891b2)',
-        'linear-gradient(135deg, #b45309, #d97706)',
-        'linear-gradient(135deg, #be123c, #e11d48)',
-        'linear-gradient(135deg, #166534, #15803d)',
-      ]
-      return gradients[canteen.name.charCodeAt(0) % gradients.length]
-    },
     setSort(s) { this.activeSort = s },
-    toggleFavourite(id) {
-      const idx = this.favourites.indexOf(id)
-      if (idx === -1) this.favourites.push(id)
-      else this.favourites.splice(idx, 1)
-    },
-    handleSearch() {
-      this.activeSearch = this.searchQuery.trim()
-    },
+    handleSearch() { this.activeSearch = this.searchQuery.trim() },
     handleInput() {
-      if (this.searchQuery === '') {
-        this.activeSearch = ''
-      }
+      if (this.searchQuery === '') this.activeSearch = ''
     },
     async logout() {
       await signOut(auth)
-      this.$router.push('/')
+      this.$router.push({ name: 'Landing' })
     },
   },
 }
@@ -266,7 +234,8 @@ header {
   border-radius: 20px;
   transition: 0.2s;
 }
-.nav-links a:hover, .nav-links a.active { color: white; background: rgba(255,255,255,0.15); }
+.nav-links a:hover,
+.nav-links a.active { color: white; background: rgba(255,255,255,0.15); }
 .user-controls { display: flex; align-items: center; }
 .logout-btn {
   background: none;
