@@ -1,32 +1,21 @@
 <template>
-  <div class="recommended-page">
-    <nav class="navbar">
-      <div class="navbar-brand">
-        <span class="brand-nus">NUS</span>
-        <span class="brand-pulse">CanteenPulse</span>
+  <div class="page-wrapper">
+    <header>
+      <div class="logo-section">
+        <span class="logo-nus">NUS</span><span class="logo-text">CanteenPulse</span>
       </div>
-
-      <div class="navbar-links">
-        <RouterLink to="/community" class="nav-link">
-          <span class="nav-icon">⊞</span> Community
-        </RouterLink>
-        <RouterLink to="/map" class="nav-link"> <span class="nav-icon">⊕</span> Map </RouterLink>
-        <RouterLink to="/recommended" class="nav-link active">
-          <span class="nav-icon">☆</span> Recommended
-        </RouterLink>
-        <RouterLink to="/favourites" class="nav-link">
-          <span class="nav-icon">♡</span> Favourites
-        </RouterLink>
-        <RouterLink to="/rewards" class="nav-link">
-          <span class="nav-icon">⚑</span> Rewards
-        </RouterLink>
+      <nav class="nav-links">
+        <RouterLink to="/community" active-class="active">🏠 Community</RouterLink>
+        <RouterLink to="/map" active-class="active">🗺 Map</RouterLink>
+        <RouterLink to="/recommended" active-class="active">⭐ Recommended</RouterLink>
+        <RouterLink to="/favourites" active-class="active">♡ Favourites</RouterLink>
+        <RouterLink to="/rewards" active-class="active">🎁 Rewards</RouterLink>
+        <RouterLink to="/settings" active-class="active">⚙️ Settings</RouterLink>
+      </nav>
+      <div class="user-controls">
+        <button class="logout-btn" @click="logout">↪ Logout</button>
       </div>
-
-      <div class="navbar-right">
-        <RouterLink to="/settings" class="nav-link icon-only">⚙</RouterLink>
-        <button class="logout-btn" @click="handleLogout">↪ Logout</button>
-      </div>
-    </nav>
+    </header>
 
     <div class="hero-banner">
       <div class="hero-center">
@@ -71,21 +60,20 @@
           :key="canteen.id"
           class="canteen-card"
           :class="{ 'is-top': index === 0 }"
+          @click="goToCanteen(canteen)"
         >
           <div v-if="index === 0" class="top-ribbon">Top Pick</div>
-
           <div class="img-wrap">
             <img
-              :src="canteen.imageUrl"
+              :src="getLocalImage(canteen.name)"
               :alt="canteen.name"
               class="card-img"
-              @error="(e) => (e.target.src = fallbackImg)"
+              @error="(e) => (e.target.src = baseUrl + 'Img/pgp.jpg')"
             />
             <button class="fav-btn" @click.stop="favStore.toggle(canteen.id)">
               {{ favStore.isFavourite(canteen.id) ? '❤️' : '🤍' }}
             </button>
           </div>
-
           <div class="card-body">
             <h3 class="canteen-name">{{ canteen.name }}</h3>
             <div class="crowd-row">
@@ -93,7 +81,7 @@
               <span class="crowd-lbl" :class="crowdClass(canteen.pct)">
                 {{ crowdLabel(canteen.pct) }} ({{ canteen.pct }}%)
               </span>
-              <span class="capacity">{{ canteen.current }} / {{ canteen.max }}</span>
+              <span class="capacity">{{ canteen.occupiedSeats }} / {{ canteen.totalSeats }}</span>
             </div>
             <div class="bar-track">
               <div
@@ -114,295 +102,205 @@
   </div>
 </template>
 
-<script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { RouterLink, useRouter } from 'vue-router'
-import { db, auth } from '@/firebase'
-import { collection, onSnapshot, query, orderBy, setDoc, doc, Timestamp } from 'firebase/firestore'
+<script>
+import { collection, onSnapshot } from 'firebase/firestore'
 import { signOut } from 'firebase/auth'
-import { useFavouritesStore } from '@/favourites'
+import { db, auth } from '@/firebase'
+import { RouterLink } from 'vue-router'
+import { useFavouritesStore } from '@/stores/favourites'
 
-const router = useRouter()
-const favStore = useFavouritesStore()
+export default {
+  name: 'RecommendedView',
+  components: { RouterLink },
 
-const canteens = ref([])
-const loading = ref(true)
-const error = ref(null)
-let unsub = null
+  setup() {
+    const favStore = useFavouritesStore()
+    const baseUrl = import.meta.env.BASE_URL
+    return { favStore, baseUrl }
+  },
 
-const fallbackImg = '/lion.jpg'
+  data() {
+    return {
+      canteens: [],
+      loading: true,
+      error: null,
+      unsubscribe: null,
+      imageMap: {},
+    }
+  },
 
-const NUS_CANTEENS = [
-  {
-    id: 'pgp-aircon',
-    name: 'PGP Aircon Canteen',
-    maxCapacity: 300,
-    imageUrl: '/pgp.jpg',
+  computed: {
+    sortedCanteens() {
+      return [...this.canteens].sort((a, b) => a.pct - b.pct)
+    },
   },
-  {
-    id: 'frontier',
-    name: 'Frontier (Science Canteen)',
-    maxCapacity: 700,
-    imageUrl: '/Frontier.jpg',
-  },
-  {
-    id: 'central-square-yih',
-    name: 'Central Square @ YIH',
-    maxCapacity: 314,
-    imageUrl: '/YIH.jpg',
-  },
-  {
-    id: 'the-deck',
-    name: 'The Deck',
-    maxCapacity: 1018,
-    imageUrl: '/deck.jpg',
-  },
-  {
-    id: 'technoedge',
-    name: 'TechnoEdge',
-    maxCapacity: 600,
-    imageUrl: '/lion.jpg',
-  },
-  {
-    id: 'terrace-com3',
-    name: 'The Terrace @ COM3',
-    maxCapacity: 400,
-    imageUrl: '/lion.jpg',
-  },
-  {
-    id: 'flavours-utown',
-    name: 'Flavours @ UTown',
-    maxCapacity: 500,
-    imageUrl: '/Flavours.jpg',
-  },
-  {
-    id: 'fine-food-utown',
-    name: 'Fine Food @ UTown',
-    maxCapacity: 450,
-    imageUrl: '/FineFood.jpg',
-  },
-  {
-    id: 'pgp-canteen',
-    name: "Prince George's Park Canteen",
-    maxCapacity: 350,
-    imageUrl: '/pgp.jpg',
-  },
-  {
-    id: 'biz-canteen',
-    name: 'Business Canteen (BIZ2)',
-    maxCapacity: 300,
-    imageUrl: '/lion.jpg',
-  },
-  {
-    id: 'terrace-fass',
-    name: 'Arts Canteen (FASS)',
-    maxCapacity: 400,
-    imageUrl: '/lion.jpg',
-  },
-  {
-    id: 'medicine-md6',
-    name: 'MD6 Canteen (Medicine)',
-    maxCapacity: 200,
-    imageUrl: '/lion.jpg',
-  },
-  {
-    id: 'yst-cafe',
-    name: 'YST Conservatory Café',
-    maxCapacity: 120,
-    imageUrl: '/lion.jpg',
-  },
-  {
-    id: 'utown-market',
-    name: 'UTown Market',
-    maxCapacity: 400,
-    imageUrl: '/lion.jpg',
-  },
-]
 
-const sortedCanteens = computed(() => [...canteens.value].sort((a, b) => a.pct - b.pct))
+  async created() {
+    this.imageMap = {
+      'PGP Aircon Canteen': this.baseUrl + 'Img/pgp.jpg',
+      'Frontier (Science Canteen)': this.baseUrl + 'Img/Frontier.jpg',
+      'Central Square @ YIH': this.baseUrl + 'Img/YIH.jpg',
+      'Fine Food @ UTown': this.baseUrl + 'Img/FineFood.jpg',
+      'The Deck': this.baseUrl + 'Img/deck.jpg',
+      'Flavours @ UTown': this.baseUrl + 'Img/Flavours.jpg',
+      TechnoEdge: this.baseUrl + 'Img/TechnoEdge.jpg',
+      'The Terrace @ COM3': this.baseUrl + 'Img/Terrace.jpg',
+      'Business Canteen (BIZ2)': this.baseUrl + 'Img/pgp.jpg',
+      'MD6 Canteen (Medicine)': this.baseUrl + 'Img/pgp.jpg',
+    }
+    await this.favStore.load()
+    this.fetchCanteens()
+  },
 
-function fetchCanteens() {
-  loading.value = true
-  error.value = null
+  beforeUnmount() {
+    if (this.unsubscribe) this.unsubscribe()
+  },
 
-  try {
-    const q = query(collection(db, 'canteens'), orderBy('name'))
-
-    unsub = onSnapshot(
-      q,
-      async (snap) => {
-        const existingIds = snap.docs.map((d) => d.id)
-
-        for (const c of NUS_CANTEENS) {
-          if (!existingIds.includes(c.id)) {
-            await setDoc(doc(db, 'canteens', c.id), {
-              name: c.name,
-              imageUrl: c.imageUrl,
-              maxCapacity: c.maxCapacity,
-              currentOccupancy: 0,
-              lastUpdated: Timestamp.now(),
-            })
-          }
-        }
-
-        canteens.value = snap.docs
-          .map((d) => {
+  methods: {
+    fetchCanteens() {
+      this.loading = true
+      this.error = null
+      this.unsubscribe = onSnapshot(
+        collection(db, 'canteens'),
+        (snap) => {
+          this.canteens = snap.docs.map((d) => {
             const data = d.data()
-            const current = data.currentOccupancy ?? 0
-            const max = data.maxCapacity ?? 1
-            const local = NUS_CANTEENS.find((c) => c.id === d.id)
-
+            const occupied = data.occupiedSeats ?? 0
+            const total = data.totalSeats ?? 1
             return {
               id: d.id,
-              name: data.name ?? local?.name ?? 'Unknown Canteen',
-              imageUrl: local?.imageUrl || data.imageUrl || fallbackImg,
-              current,
-              max,
-              pct: Math.min(100, Math.round((current / max) * 100)),
-              lastUpdated: data.lastUpdated?.toDate?.() ?? new Date(),
+              name: data.name ?? 'Unknown Canteen',
+              occupiedSeats: occupied,
+              totalSeats: total,
+              pct: Math.min(100, Math.round((occupied / total) * 100)),
+              lastUpdated: data.lastUpdated ?? null,
             }
           })
-          .filter((canteen) => canteen.imageUrl !== '/lion.jpg' && canteen.id !== 'pgp-canteen')
+          this.loading = false
+        },
+        (err) => {
+          console.error(err)
+          this.error = 'Live data unavailable — please try again.'
+          this.loading = false
+        },
+      )
+    },
 
-        loading.value = false
-      },
-      (err) => {
-        console.error('Firestore error:', err)
-        canteens.value = NUS_CANTEENS.map((c) => ({
-          ...c,
-          current: 0,
-          pct: 0,
-          lastUpdated: new Date(),
-        })).filter((canteen) => canteen.imageUrl !== '/lion.jpg' && canteen.id !== 'pgp-canteen')
+    getLocalImage(name) {
+      return this.imageMap[name] || this.baseUrl + 'Img/pgp.jpg'
+    },
 
-        error.value = 'Live data unavailable — showing offline list.'
-        loading.value = false
-      },
-    )
-  } catch (err) {
-    console.error(err)
-    error.value = 'Something went wrong.'
-    loading.value = false
-  }
+    crowdClass(pct) {
+      if (pct >= 70) return 'high'
+      if (pct >= 40) return 'mid'
+      return 'low'
+    },
+
+    crowdLabel(pct) {
+      if (pct >= 70) return 'High Crowd'
+      if (pct >= 40) return 'Medium Crowd'
+      return 'Low Crowd'
+    },
+
+    relativeTime(ts) {
+      if (!ts) return 'just now'
+      const date = ts.toDate ? ts.toDate() : new Date(ts)
+      const mins = Math.floor((Date.now() - date.getTime()) / 60000)
+      if (mins < 1) return 'just now'
+      if (mins < 60) return `${mins} min${mins > 1 ? 's' : ''} ago`
+      const hrs = Math.floor(mins / 60)
+      return `about ${hrs} hour${hrs > 1 ? 's' : ''} ago`
+    },
+
+    goToCanteen(canteen) {
+      this.$router.push({ name: 'CanteenDetail', params: { id: canteen.id } })
+    },
+
+    async logout() {
+      await signOut(auth)
+      this.$router.push({ name: 'Landing' })
+    },
+  },
 }
-
-function crowdClass(pct) {
-  if (pct <= 33) return 'low'
-  if (pct <= 66) return 'mid'
-  return 'high'
-}
-
-function crowdLabel(pct) {
-  if (pct <= 33) return 'Low Crowd'
-  if (pct <= 66) return 'Moderate Crowd'
-  return 'High Crowd'
-}
-
-function relativeTime(date) {
-  if (!date) return 'unknown'
-  const mins = Math.floor((Date.now() - date.getTime()) / 60000)
-  if (mins < 1) return 'just now'
-  if (mins < 60) return `${mins} min${mins > 1 ? 's' : ''} ago`
-  const hrs = Math.floor(mins / 60)
-  return `about ${hrs} hour${hrs > 1 ? 's' : ''} ago`
-}
-
-async function handleLogout() {
-  await signOut(auth)
-  router.push('/')
-}
-
-onMounted(fetchCanteens)
-onUnmounted(() => unsub?.())
 </script>
 
 <style scoped>
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.recommended-page {
+.page-wrapper {
   min-height: 100vh;
-  background: #f0f0f0;
-  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f0f2f8;
+  font-family: Arial, sans-serif;
 }
 
-.navbar {
-  background: #1a2035;
+header {
+  background-color: #0a1c3e;
+  padding: 12px 40px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 0 24px;
-  height: 50px;
-  gap: 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-.navbar-brand {
-  font-size: 1rem;
-  font-weight: 800;
-  margin-right: 18px;
-  flex-shrink: 0;
-}
-.brand-nus {
-  color: #f97316;
-}
-.brand-pulse {
-  color: #fff;
-}
-
-.navbar-links {
+.logo-section {
   display: flex;
   align-items: center;
   gap: 2px;
-  flex: 1;
+}
+.logo-nus {
+  color: #f37021;
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+.logo-text {
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: white;
 }
 
-.nav-link {
+.nav-links {
+  display: flex;
+  gap: 6px;
+}
+.nav-links a {
   color: rgba(255, 255, 255, 0.65);
   text-decoration: none;
-  font-size: 0.8rem;
-  padding: 5px 11px;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  transition:
-    background 0.14s,
-    color 0.14s;
-  white-space: nowrap;
+  font-size: 14px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  transition: 0.2s;
 }
-.nav-link:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
-}
-.nav-link.active {
-  background: #f97316;
-  color: #fff;
-  font-weight: 600;
-}
-.nav-link.icon-only {
-  padding: 5px 9px;
+.nav-links a:hover,
+.nav-links a.active {
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
 }
 
-.navbar-right {
+.user-controls {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-left: auto;
 }
-
 .logout-btn {
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 0.76rem;
-  padding: 4px 11px;
-  border-radius: 6px;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
   cursor: pointer;
-  transition: background 0.14s;
+  padding: 6px 14px;
+  border-radius: 6px;
+  transition: 0.2s;
 }
 .logout-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: #fff;
+  color: white;
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .hero-banner {
@@ -415,7 +313,6 @@ onUnmounted(() => unsub?.())
   min-height: 120px;
   overflow: hidden;
 }
-
 .hero-banner::before {
   content: '';
   position: absolute;
@@ -423,14 +320,12 @@ onUnmounted(() => unsub?.())
   background: radial-gradient(ellipse at 68% 40%, rgba(255, 255, 255, 0.1) 0%, transparent 55%);
   pointer-events: none;
 }
-
 .hero-center {
   text-align: center;
   flex: 1;
   position: relative;
   z-index: 1;
 }
-
 .hero-title {
   display: flex;
   align-items: center;
@@ -445,17 +340,12 @@ onUnmounted(() => unsub?.())
   font-size: 1.95rem;
   font-weight: 900;
   color: #fff;
-  margin: 0;
-  letter-spacing: -0.4px;
   text-shadow: 0 1px 5px rgba(0, 0, 0, 0.18);
 }
-
 .hero-sub {
   color: rgba(255, 255, 255, 0.88);
   font-size: 0.86rem;
-  margin: 0;
 }
-
 .ranking-note {
   position: absolute;
   right: 36px;
@@ -478,9 +368,8 @@ onUnmounted(() => unsub?.())
 .content-area {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 20px 20px 48px;
+  padding: 20px 24px 48px;
 }
-
 .section-row {
   display: flex;
   align-items: center;
@@ -501,7 +390,6 @@ onUnmounted(() => unsub?.())
   font-weight: 700;
   padding: 3px 9px;
   border-radius: 20px;
-  letter-spacing: 0.4px;
 }
 .label-bold {
   font-weight: 700;
@@ -525,6 +413,7 @@ onUnmounted(() => unsub?.())
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   overflow: hidden;
   position: relative;
+  cursor: pointer;
   transition:
     transform 0.17s,
     box-shadow 0.17s;
@@ -549,7 +438,6 @@ onUnmounted(() => unsub?.())
   border-radius: 6px;
   z-index: 2;
 }
-
 .img-wrap {
   position: relative;
   height: 148px;
@@ -570,7 +458,7 @@ onUnmounted(() => unsub?.())
   position: absolute;
   top: 8px;
   right: 8px;
-  background: rgba(255, 255, 255, 0.82);
+  background: rgba(255, 255, 255, 0.88);
   border: none;
   border-radius: 50%;
   width: 30px;
@@ -591,14 +479,12 @@ onUnmounted(() => unsub?.())
 .card-body {
   padding: 11px 13px 13px;
 }
-
 .canteen-name {
   font-size: 0.88rem;
   font-weight: 700;
   color: #111;
-  margin: 0 0 7px;
+  margin-bottom: 7px;
 }
-
 .crowd-row {
   display: flex;
   align-items: center;
@@ -612,15 +498,14 @@ onUnmounted(() => unsub?.())
   flex-shrink: 0;
 }
 .dot.low {
-  background: #22c55e;
+  background: #2ecc71;
 }
 .dot.mid {
-  background: #f59e0b;
+  background: #e67e22;
 }
 .dot.high {
-  background: #ef4444;
+  background: #e74c3c;
 }
-
 .crowd-lbl {
   font-size: 0.74rem;
   font-weight: 600;
@@ -634,13 +519,11 @@ onUnmounted(() => unsub?.())
 .crowd-lbl.high {
   color: #dc2626;
 }
-
 .capacity {
   margin-left: auto;
   font-size: 0.7rem;
   color: #bbb;
 }
-
 .bar-track {
   height: 5px;
   background: #e5e7eb;
@@ -654,19 +537,17 @@ onUnmounted(() => unsub?.())
   transition: width 0.5s ease;
 }
 .bar-fill.low {
-  background: #22c55e;
+  background: #2ecc71;
 }
 .bar-fill.mid {
-  background: #f59e0b;
+  background: #e67e22;
 }
 .bar-fill.high {
-  background: #ef4444;
+  background: #e74c3c;
 }
-
 .updated-time {
   font-size: 0.67rem;
   color: #ccc;
-  margin: 0;
   text-align: right;
 }
 
@@ -679,7 +560,6 @@ onUnmounted(() => unsub?.())
   color: #dc2626;
   margin-bottom: 10px;
 }
-
 .spinner {
   width: 32px;
   height: 32px;
@@ -694,7 +574,6 @@ onUnmounted(() => unsub?.())
     transform: rotate(360deg);
   }
 }
-
 .retry-btn {
   background: #e8601e;
   color: #fff;
@@ -703,7 +582,6 @@ onUnmounted(() => unsub?.())
   border-radius: 8px;
   font-weight: 600;
   cursor: pointer;
-  font-size: 0.84rem;
   margin-top: 8px;
 }
 
@@ -720,7 +598,7 @@ onUnmounted(() => unsub?.())
     font-size: 1.45rem;
   }
   .ranking-note,
-  .navbar-links {
+  .nav-links {
     display: none;
   }
 }
