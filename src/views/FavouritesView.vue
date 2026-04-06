@@ -227,6 +227,7 @@ header {
 .nav-links {
   display: flex;
   gap: 6px;
+  align-items: center;
 }
 .nav-links a {
   color: rgba(255, 255, 255, 0.65);
@@ -235,12 +236,15 @@ header {
   padding: 6px 14px;
   border-radius: 20px;
   transition: 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  line-height: 1;
 }
+.nav-links a span,
+.nav-links a { vertical-align: middle; }
 .nav-links a:hover,
-.nav-links a.active {
-  color: white;
-  background: rgba(255, 255, 255, 0.15);
-}
+.nav-links a.active { color: white; background: rgba(255,255,255,0.15); }
 
 .user-controls {
   display: flex;
