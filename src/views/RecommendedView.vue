@@ -269,20 +269,26 @@ header {
 .nav-links {
   display: flex;
   gap: 6px;
+  align-items: center;  /* ← ensures all links sit on the same baseline */
 }
 .nav-links a {
-  color: rgba(255, 255, 255, 0.65);
+  color: rgba(255,255,255,0.65);
   text-decoration: none;
   font-size: 14px;
   padding: 6px 14px;
   border-radius: 20px;
   transition: 0.2s;
+  display: flex;           /* ← makes each link a flex container */
+  align-items: center;     /* ← vertically centres emoji + text inside each link */
+  gap: 4px;
+  line-height: 1;          /* ← prevents line-height from inflating link height */
+}
+.nav-links a span,
+.nav-links a {
+  vertical-align: middle;  /* ← normalises emoji rendering across browsers */
 }
 .nav-links a:hover,
-.nav-links a.active {
-  color: white;
-  background: rgba(255, 255, 255, 0.15);
-}
+.nav-links a.active { color: white; background: rgba(255,255,255,0.15); }
 
 .user-controls {
   display: flex;
