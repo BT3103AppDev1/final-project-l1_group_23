@@ -226,7 +226,12 @@ header {
 .logo-section { display: flex; align-items: center; gap: 2px; }
 .logo-nus  { color: #F37021; font-weight: 800; font-size: 1.2rem; }
 .logo-text { font-weight: 700; font-size: 1.2rem; color: white; }
-.nav-links { display: flex; gap: 6px; }
+
+.nav-links {
+  display: flex;
+  gap: 6px;
+  align-items: center;  /* ← ensures all links sit on the same baseline */
+}
 .nav-links a {
   color: rgba(255,255,255,0.65);
   text-decoration: none;
@@ -234,9 +239,18 @@ header {
   padding: 6px 14px;
   border-radius: 20px;
   transition: 0.2s;
+  display: flex;           /* ← makes each link a flex container */
+  align-items: center;     /* ← vertically centres emoji + text inside each link */
+  gap: 4px;
+  line-height: 1;          /* ← prevents line-height from inflating link height */
+}
+.nav-links a span,
+.nav-links a {
+  vertical-align: middle;  /* ← normalises emoji rendering across browsers */
 }
 .nav-links a:hover,
 .nav-links a.active { color: white; background: rgba(255,255,255,0.15); }
+
 .user-controls { display: flex; align-items: center; }
 .logout-btn {
   background: none;
