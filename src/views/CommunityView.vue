@@ -1,5 +1,5 @@
 <template>
-  <div class="page-wrapper"> 
+  <div class="page-wrapper">
     <header>
       <div class="logo-section">
         <span class="logo-nus">NUS</span><span class="logo-text">CanteenPulse</span>
@@ -10,6 +10,7 @@
         <RouterLink to="/recommended" active-class="active">⭐ Recommended</RouterLink>
         <RouterLink to="/favourites" active-class="active">♡ Favourites</RouterLink>
         <RouterLink to="/rewards" active-class="active">🎁 Rewards</RouterLink>
+        <RouterLink to="/settings" active-class="active">⚙️ Settings</RouterLink>
       </nav>
       <div class="user-controls">
         <button class="logout-btn" @click="logout">↪ Logout</button>
