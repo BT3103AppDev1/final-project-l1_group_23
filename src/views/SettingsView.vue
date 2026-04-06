@@ -67,24 +67,34 @@ import { RouterLink } from 'vue-router'
 import { db, auth } from '@/firebase'
 import { collection, getDocs, updateDoc, doc, Timestamp } from 'firebase/firestore'
 import { signOut } from 'firebase/auth'
+import { useNotificationsStore } from '@/stores/notifications'
 
 export default {
   name: 'SettingsView',
   components: { RouterLink },
 
+  setup() {
+    const notifStore = useNotificationsStore()
+    return { notifStore }
+  },
+
+  computed: {
+    notificationsEnabled: {
+      get() {
+        return this.notifStore.enabled
+      },
+      set(value) {
+        this.notifStore.setEnabled(value)
+      },
+    },
+  },
+
   data() {
     return {
-      notificationsEnabled: JSON.parse(localStorage.getItem('notificationsEnabled') || 'false'),
       working: false,
       message: '',
       messageType: 'success',
     }
-  },
-
-  watch: {
-    notificationsEnabled(value) {
-      localStorage.setItem('notificationsEnabled', JSON.stringify(value))
-    },
   },
 
   methods: {
@@ -205,9 +215,14 @@ header {
   line-height: 1;
 }
 .nav-links a span,
-.nav-links a { vertical-align: middle; }
+.nav-links a {
+  vertical-align: middle;
+}
 .nav-links a:hover,
-.nav-links a.active { color: white; background: rgba(255,255,255,0.15); }
+.nav-links a.active {
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
+}
 
 .user-controls {
   display: flex;
