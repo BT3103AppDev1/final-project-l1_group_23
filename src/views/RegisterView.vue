@@ -28,6 +28,16 @@
 
       <button class="btn-primary" @click="register">Sign Up</button>
 
+      <div class="divider"><span>or</span></div>
+
+      <button class="btn-google" @click="registerWithGoogle">
+        <img
+          src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+          alt="Google"
+        />
+        Continue with Google
+      </button>
+
       <p class="login-link">
         Already have an account? <span @click="$router.push('/login')">Log in</span>
       </p>
@@ -37,8 +47,8 @@
 </template>
 
 <script>
-import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { doc, setDoc } from 'firebase/firestore'
+import { createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
+import { doc, getDoc, setDoc } from 'firebase/firestore'
 import { auth, db } from '@/firebase'
 
 export default {
@@ -87,6 +97,40 @@ export default {
           this.errorMessage = 'Email already exists'
         } else if (error.code === 'auth/weak-password') {
           this.errorMessage = 'Password should be at least 6 characters'
+        } else {
+          this.errorMessage = 'Something went wrong, please try again'
+        }
+      }
+    },
+
+    async registerWithGoogle() {
+      this.errorMessage = ''
+      const provider = new GoogleAuthProvider()
+      try {
+        const userCredential = await signInWithPopup(auth, provider)
+        const user = userCredential.user
+
+        // Check if user already exists — if so just redirect
+        const userDoc = await getDoc(doc(db, 'users', user.uid))
+        if (!userDoc.exists()) {
+          // New user — create their profile
+          const username = user.email.split('@')[0]
+          await setDoc(doc(db, 'users', user.uid), {
+            userId: user.uid,
+            email: user.email,
+            username: username,
+            currentCheckInCanteenId: null,
+            favouriteCanteenIds: [],
+            updateCount: 0,
+            tier: 'Bronze',
+            createdAt: new Date(),
+          })
+        }
+
+        this.$router.push('/community')
+      } catch (error) {
+        if (error.code === 'auth/popup-closed-by-user') {
+          // User closed popup — do nothing
         } else {
           this.errorMessage = 'Something went wrong, please try again'
         }
@@ -184,6 +228,51 @@ input:focus {
 
 .btn-primary:hover {
   background-color: #162d56;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: #ddd;
+}
+
+.divider span {
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.btn-google {
+  width: 100%;
+  background-color: white;
+  color: #333;
+  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-google:hover {
+  background-color: #f5f5f5;
+}
+
+.btn-google img {
+  width: 20px;
+  height: 20px;
 }
 
 .login-link {

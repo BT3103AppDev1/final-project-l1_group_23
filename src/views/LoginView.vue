@@ -10,16 +10,23 @@
       </div>
 
       <div class="form-group">
-        <label>
-          Password
-          <span class="forgot">Forgot password?</span>
-        </label>
+        <label>Password</label>
         <input type="password" v-model="password" />
       </div>
 
       <p class="error" v-if="errorMessage">{{ errorMessage }}</p>
 
       <button class="btn-primary" @click="login">Log in</button>
+
+      <div class="divider"><span>or</span></div>
+
+      <button class="btn-google" @click="loginWithGoogle">
+        <img
+          src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+          alt="Google"
+        />
+        Continue with Google
+      </button>
 
       <p class="register-link">
         Don't have an account? <span @click="$router.push('/register')">Sign up</span>
@@ -30,8 +37,9 @@
 </template>
 
 <script>
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { auth } from '@/firebase'
+import { signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
+import { doc, getDoc, setDoc } from 'firebase/firestore'
+import { auth, db } from '@/firebase'
 
 export default {
   name: 'LoginView',
@@ -45,12 +53,10 @@ export default {
   methods: {
     async login() {
       this.errorMessage = ''
-
       if (!this.email || !this.password) {
         this.errorMessage = 'Please fill in all fields'
         return
       }
-
       try {
         await signInWithEmailAndPassword(auth, this.email, this.password)
         this.$router.push({ name: 'Community' })
@@ -61,6 +67,40 @@ export default {
           error.code === 'auth/invalid-credential'
         ) {
           this.errorMessage = 'Wrong password / email, try again'
+        } else {
+          this.errorMessage = 'Something went wrong, please try again'
+        }
+      }
+    },
+
+    async loginWithGoogle() {
+      this.errorMessage = ''
+      const provider = new GoogleAuthProvider()
+      try {
+        const userCredential = await signInWithPopup(auth, provider)
+        const user = userCredential.user
+
+        // Check if this Google user already has a Firestore document
+        const userDoc = await getDoc(doc(db, 'users', user.uid))
+        if (!userDoc.exists()) {
+          // First time Google login — create their profile
+          const username = user.email.split('@')[0]
+          await setDoc(doc(db, 'users', user.uid), {
+            userId: user.uid,
+            email: user.email,
+            username: username,
+            currentCheckInCanteenId: null,
+            favouriteCanteenIds: [],
+            updateCount: 0,
+            tier: 'Bronze',
+            createdAt: new Date(),
+          })
+        }
+
+        this.$router.push({ name: 'Community' })
+      } catch (error) {
+        if (error.code === 'auth/popup-closed-by-user') {
+          // User closed popup — do nothing
         } else {
           this.errorMessage = 'Something went wrong, please try again'
         }
@@ -116,18 +156,11 @@ h2 {
 }
 
 label {
-  display: flex;
-  justify-content: space-between;
+  display: block;
   font-size: 0.95rem;
   font-weight: 600;
   margin-bottom: 6px;
   color: #333;
-}
-
-.forgot {
-  color: #e87722;
-  cursor: pointer;
-  font-weight: normal;
 }
 
 input {
@@ -165,6 +198,51 @@ input:focus {
 
 .btn-primary:hover {
   background-color: #d4681a;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background-color: #ddd;
+}
+
+.divider span {
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.btn-google {
+  width: 100%;
+  background-color: white;
+  color: #333;
+  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-google:hover {
+  background-color: #f5f5f5;
+}
+
+.btn-google img {
+  width: 20px;
+  height: 20px;
 }
 
 .register-link {
